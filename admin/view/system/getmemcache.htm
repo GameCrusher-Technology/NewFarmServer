@@ -1,0 +1,120 @@
+<!--{template header}-->
+<!--{if !empty($error_msg)}-->
+<b style="color: red">
+	{$error_msg}
+</b>
+<!--{/if}-->
+
+<form method="post" action="admincp.php?mod=system&act=getmemcache" id="form1" name="form1">
+<table>
+	<caption>
+	<h1>Memcached管理工具</h1>
+	</caption>
+	<tr>
+		<td width="120" align="right">用户uid:</td>
+		<td>
+			<input type="text" id="uid" name="uid" value="{$uid}"/>
+		</td>
+	</tr>
+	<tr>
+		<td width="120" align="right">gameuid:</td>
+		<td>
+			<input type="text" id="gameuid" name="gameuid" value="{$gameuid}"/>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">数据库表:</td>
+		<td>
+			<select name="table_name"  onblur="on_table_change(this)">
+				<!--{loop $table_names $table_name_tmp}-->
+				<!--{if $table_name_tmp == $table_name}-->
+				<option value="{$table_name_tmp}" selected="selected">{$table_name_tmp}</option>
+				<!--{else}-->
+				<option value="{$table_name_tmp}">{$table_name_tmp}</option>
+				<!--{/if}-->
+				<!--{/loop}-->
+			</select>
+		</td>
+	</tr>
+	<tr id="everyday_action_count_extra_info" style="display:none;">
+		<td align="right">动作类型:</td>
+		<td>
+			<select name="action_id">
+				<!--{loop $action_defs $action_id $action_def}-->
+				<option value="{$action_id}">{$action_def['action_description']}</option>
+				<!--{/loop}-->
+			</select>
+		</td>
+	</tr>
+	<tr id="other_flag_extra_info" style="display:none;">
+		<td align="right">缓存键值:</td>
+		<td>
+			<input type="text" id="mem_key" name="mem_key" value="{$mem_key}"/>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input type="submit" value="获取缓存数据" name="get"/> 
+		</td>
+	</tr>
+</table>
+</form>
+<!--{if !empty($table_name)}-->
+<table border="1">
+<!--{if !empty($extra_info)}-->
+<tr><td colspan="{$column_count}">{$extra_info}</td></tr>
+<!--{/if}-->
+<tr>
+	<!--{loop $header $idx $column_name}-->
+	<td>{$column_name}</td>
+	<!--{/loop}-->
+</tr>
+<!--{if $print_type == 0}-->
+	<!--{if is_array($rows) && count($rows) > 0}-->
+	<!--{loop $rows $row}-->
+	<tr>
+		<!--{loop $row $column_value}-->
+			<!--{if !is_array($column_value)}-->
+				<td>{$column_value}</td>
+			<!--{elseif !is_array(current($column_value))}-->
+			<td><!--{loop $column_value $str}-->
+				{$str},
+				<!--{/loop}-->
+			</td>
+			<!--{else}-->
+			<td><!--{loop $column_value $arr}-->
+				<!--{loop $arr $key $value}-->
+				{$key}:{$value},
+				<!--{/loop}-->
+				<!--{/loop}-->
+			</td>
+			<!--{/if}-->
+		<!--{/loop}-->
+	</tr>
+	<!--{/loop}-->
+	<!--{else}-->
+	<tr><td colspan="{$column_count}">该用户在表{$table_name}中没有数据</td></tr>
+	<!--{/if}-->
+<!--{else}-->
+<pre>
+{php print_r ( $rows );}
+</pre>
+<!--{/if}-->
+</table>
+<!--{/if}-->
+<script language="javascript">
+function on_table_change(table_name_selector) {
+	for(var i=0; i<table_name_selector.options.length; i++)
+	{
+		var obj = document.getElementById(table_name_selector.options[i].value+'_extra_info');
+		if (!obj) continue;
+		if (table_name_selector.options[i].selected) {
+			obj.style.display = '';
+		} else {
+			obj.style.display = 'none';
+		}
+	}
+}
+</script>
+<!--{template footer}-->

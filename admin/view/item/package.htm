@@ -1,0 +1,174 @@
+<!--{template header}-->
+<!--{if isset($error_msg)}-->
+	<!--{$error_msg}-->
+<!--{/if}-->
+<!--{if isset($op_msg)}-->
+	<!--{$op_msg}-->
+<!--{/if}-->
+<script type="text/javascript">
+function checkPackage(){
+	if(!$("#package_name").val()){
+		alert('礼包的资源名不能为空');
+		$("#package_name").focus();
+		return false;
+	}
+	if(!$("#package_cname").val()){
+		alert('礼包名不能为空');
+		$("#package_cname").focus();
+		return false;
+	}
+	return true;
+}
+
+function clearPackage(){
+	$("#package_name").val("");
+	$("#package_cname").val("");
+	$("#package_desc").val("");
+	$("#package_price").val("0");
+	$("#package_price2").val("0");
+	$("#package_clevel").val("0");
+	$("#package_items").val("");
+	$("#package_experience").val("0");
+}
+</script>
+<form action="admincp.php?mod=item&act=package" method="post">
+<table cellspacing="0" cellpadding="0" width="80%">
+<caption><h1>礼包管理</h1></caption>
+	<tr>
+		<td width="140" align="right">礼包id:</td>
+		<td><input name='package_id' type="text" value='{$package_id}' />
+		<input type="submit" value="查看礼包" name="getPackages"/> 
+		(如果要查看礼包内容，请输入礼包id)</td>
+	</tr>
+	<tr>
+		<td align="right">类型:</td>
+		<td>
+		<select name='package[package_type]'>
+		<option value="0" <!--{if $package[package_type] == 0}-->selected<!--{/if}-->>种子包</option>
+		<option value="1" <!--{if $package[package_type] == 1}-->selected<!--{/if}-->>装饰包</option>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">资源名称:</td>
+		<td><input id="package_name" name='package[name]' type="text" value="{$package[name]}"/>（flash加载的资源名称）
+		</td>
+	</tr>
+	<tr>
+		<td align="right">中文名称:</td>
+		<td><input id="package_cname" name='package[cname]' type="text" value="{$package[cname]}"/>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">描述:</td>
+		<td><textarea id="package_desc" name='package[description]' rows="5" cols="50">{$package[description]}</textarea>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">金币价格:</td>
+		<td><input id="package_price" name='package[price]' type="text"value="{$package[price]}"/>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">农民币价格:</td>
+		<td><input id="package_price2" name='package[price2]' type="text"value="{$package[price2]}"/>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">购买可得经验值:</td>
+		<td><input id="package_experience" name='package[exp]' type="text" value="{$package[exp]}"/>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">购买级别要求:</td>
+		<td><input id="package_clevel" name='package[clevel]' type="text" value="{$package[clevel]}"/>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">可以购买的用户:</td>
+		<td>
+		<select name='package[limit_condition]' >
+			<option value="0" <!--{if $package[limit_condition] == 0}-->selected<!--{/if}-->>所有用户</option>
+			<option value="1" <!--{if $package[limit_condition] == 1}-->selected<!--{/if}-->>仅限会员</option>
+			<option value="2" <!--{if $package[limit_condition] == 2}-->selected<!--{/if}-->>仅限紫豆会员</option>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">包含的item:</td>
+		<td valign="middle"><textarea id="package_items" name='package[package_items]'  rows="3" cols="50">{$package[package_items]}</textarea>
+		<span style="display:none">礼包包含的item的列表，格式是item_id:item_count,item_id:item_count,如果item_count为1，则可以只写item_id</span>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">包含的item描述:</td>
+		<td><br />{$package_item_desc}
+		<br /><br /></td>
+	</tr>
+	<tr>
+		<td align="right">折扣:</td>
+		<td><input name='package[discount]' type="text" value="1" maxlength="1"/>0-1之间的值
+		</td>
+	</tr>
+	<tr>
+		<td align="right">每日最大销售数量:</td>
+		<td><input name='package[buy_total_limit]' type="text" value="0"/>(0代表无限制)
+		</td>
+	</tr>
+	<tr>
+		<td align="right">每日个人最大购买量:</td>
+		<td><input name='package[buy_limit]' type="text" value="0"/>(0代表无限制)
+		</td>
+	</tr>
+	<tr>
+		<td align="right">是否包含会员资格:</td>
+		<td><input name='package[member_type]' type="checkbox" value="1"/>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">会员资格期限:</td>
+		<td><input size="3" maxlength="2" name='package[member_time]' type="text" value="1"/>个月
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+		<input type="submit" value="更新礼包" name="editPackage" onclick="return checkPackage()"/>
+		<input type="submit" value="添加礼包" name="addPackage" onclick="return checkPackage()"/>
+		<input type="button" value="清空礼包内容" onclick="clearPackage()"/>
+		</td>
+	</tr>
+</table>
+<table cellspacing="0" cellpadding="0" width="80%" id="tblAddItem">
+<caption><h3>添加礼包item</h3></caption>
+	<tr>
+		<td width="120" align="right">item id:</td>
+		<td>
+		<select name="item_id">
+		<!--{loop $itemlist $item}-->
+			<!--{if $item['item_id'] < 1 || $item['item_id'] > 1000}-->
+				{php continue;}
+			<!--{/if}-->
+			<option value="{$item[item_id]}" <!--{if $item_id == $item['item_id']}-->selected<!--{/if}--> >
+				{$item[item_id]} {$item[cname]}
+			</option>
+		<!--{/loop}-->
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td width="120" align="right">数量:</td>
+		<td><input name='item_count' type="text" value='1' />
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+		<input type="submit" value="提交" name="addPackageItem"/>
+		<input type="reset" value="重置"/>
+		</td>
+	</tr>
+</table>
+</form>
+
+<!--{template footer}-->

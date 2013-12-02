@@ -1,0 +1,70 @@
+<!--{template header}-->
+<form action="admincp.php?mod=activity&act=add" method="post">
+<table width="100%" cellpadding="4" cellspacing="1" bgcolor="#CCCCCC">
+  <tr>
+    <td colspan="2" align="center">添加活动</td>
+  </tr>
+  <tr>
+    <td width="12%" align="right" bgcolor="#FFFFFF">title:</td>
+    <td width="88%" bgcolor="#FFFFFF"><input name="title" type="text" id="title" value="$result['title']"></td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#FFFFFF">description:</td>
+    <td bgcolor="#FFFFFF"><textarea name="description" cols="70" rows="10" id="description">$result['description']</textarea></td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#FFFFFF">success_message:</td>
+    <td bgcolor="#FFFFFF"><textarea name="success_message" cols="70" rows="2" id="success_message">$result['success_message']</textarea>
+    [成功之后写入小助手里面的内容]</td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#FFFFFF">start_time:</td>
+    <td bgcolor="#FFFFFF"><input name="start_time" type="text" id="start_time" value="$result['start_time']"></td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#FFFFFF">stop_time:</td>
+    <td bgcolor="#FFFFFF"><input name="stop_time" type="text" id="stop_time" value="$result['stop_time']"></td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#FFFFFF">is_public:</td>
+    <td bgcolor="#FFFFFF">
+	<input type="radio" name="is_public" value="1">开启
+	<input name="is_public" type="radio" value="0" checked>关闭
+	</td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#FFFFFF">exp:</td>
+    <td bgcolor="#FFFFFF">
+    	<input type="radio" name="exp" value="1">开启
+		<input name="exp" type="radio" value="0" checked>关闭
+      [是否按照等级进行奖励,1:是,0:否]</td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#FFFFFF">coin:</td>
+    <td bgcolor="#FFFFFF"><input name="coin" type="text" id="coin" value="$result['coin']"></td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#FFFFFF">money:</td>
+    <td bgcolor="#FFFFFF"><input name="money" type="text" id="money" value="$result['money']"></td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#FFFFFF">items:</td>
+    <td bgcolor="#FFFFFF"><input name="items" type="text" id="items" value="$result['items']">
+      [奖励的item,格式1:21:1,0:23:1     类别0,1:item_id:item_count]</td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#FFFFFF">member:</td>
+    <td bgcolor="#FFFFFF"><input name="member" type="text" id="member" value="$result['member']">
+      [奖励的会员时间，单位天，0:不奖励]</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center" bgcolor="#FFFFFF">
+    <input type="hidden" name="activity_id" value="$result['activity_id']" >
+    <input type="submit" name="Submit" value="提交"></td>
+  </tr>
+</table>
+</form>
+<!--{template footer}-->

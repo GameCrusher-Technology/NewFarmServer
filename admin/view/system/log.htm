@@ -1,0 +1,101 @@
+<!--{template header}-->
+<!--{template error_msg}-->
+<form action="admincp.php?mod=system&act=log" method="post">
+<table cellspacing="2" cellpadding="0">
+	<tr>
+		<td>用户gameuid</td>
+		<td><input name="gameuid" type="text" value='{$gameuid}'/></td>
+	</tr>
+	<tr>
+		<td>日期</td>
+		<td>
+		<input name="date" type="text" value='{$date}'/>(格式 年-月-日:xxxx-xx-xx)
+		</td>
+	</tr>
+	<tr>
+		<td>日志类型</td>
+		<td>
+			<select name="log_level">
+				<option value="">ALL</option>
+				<!--{loop $log_levels $log_level}-->
+				<!--{if $log_level == $current_log_level}-->
+				<option value="{$log_level}" selected="selected">{$log_level}</option>
+				<!--{else}-->
+				<option value="{$log_level}">{$log_level}</option>
+				<!--{/if}-->
+				<!--{/loop}-->
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>所属模块</td>
+		<td>
+			<select name="log_module">
+				<option value="">ALL</option>
+				<!--{loop $log_modules $log_module}-->
+				<!--{if $log_module == LogFactory::LOG_MODULE_ADMIN && $limitvalue !== 1 }-->
+				<!--{php continue;}-->
+				<!--{/if}-->
+				<!--{if $log_module == $current_log_module}-->
+				<option value="{$log_module}" selected="selected">{$log_module}</option>
+				<!--{else}-->
+				<option value="{$log_module}">{$log_module}</option>
+				<!--{/if}-->
+				<!--{/loop}-->
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>offset</td>
+		<td><input name="offset" value="{$offset}"/></td>
+	</tr>
+	<tr>
+		<td>limit</td>
+		<td><input name="limit" value="{$limit}"/></td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="submit" value="提交" name="get" />
+			<input type="submit" value="下载日志" name="download" />
+			<input type="submit" value="清空日志" name="truncate" onclick="return confirm_truncate();"/>
+		</td>
+	</tr>
+</table>
+</form>
+<!--{if !empty($logs)}-->
+<table border="1" cellspacing="0" cellpadding="0" style="border:1px;padding:2px;float:left;">
+	<caption>系统日志</caption>
+	<tr>
+		<td>序号</td>
+		<td>日志级别</td>
+		<td>所属模块</td>
+		<td>gameuid</td>
+		<td>信息</td>
+		<td>创建时间</td>
+	</tr>
+	<!--{php $i=$offset;}-->
+	<!--{loop $logs $log}-->
+	<tr>
+		<td><!--{php echo ++$i;}--></td>
+		<td><!--{$log[level]}--></td>
+		<td><!--{$log[module]}--></td>
+		<td><!--{$log[gameuid]}--></td>
+		<td><!--{$log[msg]}--></td>
+		<td><!--{php echo date('Y-m-d H:i:s',$log[create_time])}--></td>
+	</tr>
+	<!--{/loop}-->
+</table>
+<!--{elseif isset($monitor_logs)}-->
+没有日志记录
+<!--{/if}-->
+<br />
+<script language="javascript">
+function confirm_truncate() {
+	if(confirm('你确认要清空日志记录么？')){
+		return true;
+	} else {
+		return false;
+	}
+}
+</script>
+<!--{template footer}-->

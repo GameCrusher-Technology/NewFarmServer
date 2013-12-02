@@ -1,0 +1,31 @@
+<!--{template header}-->
+<!--{template error_msg}-->
+<form action="admincp.php?mod=xml&act=modify" method="post">
+<table>
+	<tr><h1>更改xml的信息</h1></tr>
+	<tr>
+		<h4>请检查xml是否是最新的xml文件</h4>
+		<td align="center">xml文件名:</td>
+		<td>
+			<select id="xml_name" name="xml_name"">
+				<option value="">请选择xml文件名</option>
+				<!--{loop $xml_names $xml_name_tmp}-->
+				<!--{if $xml_name_tmp == $xml_name}-->
+				<option value="{$xml_name_tmp}" selected="selected">{$xml_name_tmp}</option>
+				<!--{else}-->
+				<option value="{$xml_name_tmp}">{$xml_name_tmp}</option>
+				<!--{/if}-->
+				<!--{/loop}-->
+			</select>
+		</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<td colspan="2">
+			<input type="submit" value="修改xml" name="modify"/>
+		</td>
+	</tr>
+</table>
+</form>
+<!--{template footer}-->

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<messages>
+		<message>
+			<id>1</id>
+			<title>Gift Recieved</title>
+			<title_link></title_link>
+			<body>{0} has sent you a gift. Visit {3} to get it!</body>
+		</message>
+	</messages>
+	<feeds>
+		<feed>
+			<id>1</id>
+			<name>Level Up on Tropical Island</name>
+			<name_link></name_link>
+			<description>{0}has reached level {1} on Tropical Island. Be the first to celebrate together with your friend? {2}</description>
+			<img></img>
+			<img_link></img_link>
+		</feed>
+		
+		<feed>
+			<id>2</id>
+			<name>Lost {0}</name>
+			<name_link></name_link>
+			<description>My {0} is lost! Could any body help me find it back? By helping me finding my {0} back, you will also be rewarded a small bonus!</description>
+			<img></img>
+			<img_link></img_link>
+		</feed>
+		
+		<feed>
+			<id>3</id>
+			<name>Adopt {0}</name>
+			<name_link></name_link>
+			<description>A {0} has turned up on {1}'s island. Be the first to adopt this lovely creature!</description>
+			<img></img>
+			<img_link></img_link>
+		</feed>
+		
+		<feed>
+			<id>4</id>
+			<name>Unlock {0}</name>
+			<name_link></name_link>
+			<description>{1} has found the rare {0} growing on their island. Be the first to visit and you will learn how to grow it yourself!</description>
+			<img></img>
+			<img_link></img_link>
+		</feed>
+	</feeds>
+
+	<adsense>		
+		<adContent>
+			<type>window</type>
+			<url>http://platform.elex-tech.com/site/static/ads/adsense.swf?v=1</url>	
+		</adContent>
+			<adContent>
+			<type>banner</type>
+			<url>http://platform.elex-tech.com/site/static/ads/adsense.swf?v=1</url>	
+		</adContent>
+	</adsense>
+	<game>
+		<!-- 游戏自定义的配置部分 -->
+		<web_base>http://mz.farm3.de.337.com/happyranch/</web_base>
+		<host>http://de.img.337.com/farm3/meivz/swf/</host>
+		<database>http://de.img.337.com/farm3/meivz/swf/</database>
+		<sns_call_type>back_end</sns_call_type>
+		<mod>facebook</mod>
+		<menu>false</menu>
+		<wmode>window</wmode>
+		<allowFullScreen>true</allowFullScreen>
+		<allowScriptAccess>always</allowScriptAccess>
+		<scale>noscale</scale>
+        <config_version>101122</config_version>
+	</game>
+</config>	

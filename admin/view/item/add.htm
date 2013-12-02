@@ -1,0 +1,149 @@
+<!--{template main}-->
+<script type="text/javascript">
+	function change(){
+		var myform = document.getElementById("myform");
+		var type_sale = document.getElementById("type_sale");
+		var type_output = document.getElementById("type_output");
+		var type_sub_type = document.getElementById("type_sub_type");
+		var type_sub_hour = document.getElementById("type_sub_hour");
+		var type_sub_day = document.getElementById("type_sub_day");
+		if(myform.itemType.value==0){
+			type_sale.style.display = "";
+			type_output.style.display = "";
+			type_sub_type.style.display ="";
+		}
+		else{
+				type_sub_day.style.display="";
+				type_sub_hour.style.display="none"
+			
+			type_sale.style.display = "none";
+			type_output.style.display = "none";
+			type_sub_type.style.display = "none";
+		}
+	}
+	function changelife(){
+		var myform = document.getElementById("myform");
+		var type_sale = document.getElementById("type_sale");
+		var type_output = document.getElementById("type_output");
+		var type_relife_cycle = document.getElementById("type_relife_cycle");
+		if(myform.sub_type.value==1){
+			type_sale.style.display = "none";
+			type_output.style.display = "none";
+			type_relife_cycle.style.display = "none";
+		}else{
+			type_sale.style.display = "";
+			type_output.style.display = "";
+			type_relife_cycle.style.display ="";
+		}
+	}
+</script>
+<div class = "body_right_centent">
+<form id="myform" name="myform" method="post" action="">
+	<table>
+		<tr>
+			<td>物品ID</td>
+			<td><input type="text" name="item_id"></td>
+			<!--  
+			<td style="display: none;" id="type_item_id">
+				
+			</td>
+			-->
+		</tr>
+		<tr>
+			<td><span>物品名称</span></td>
+			<td><input type="text" name="cname"></td>
+		</tr>
+		<tr>
+			<td>英文名称</td>
+			<td><input type="text" name="name"></td>
+		</tr>
+		<tr>
+			<td>物品简介</td>
+			<td>
+				<textarea style="width: 150px; height: 50px; margin-top: 2px;" name="description" id="description" rows="5" cols="20" required="true"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>物品类型</td>
+			<td>
+				<select id="itemType" name="item_type" onchange="change()">
+					<option value="-1" selected>选择</option>
+					<option value="0">种子</option>
+					<option value="1">装饰</option>
+					<option value="2">道具</option>
+				</select>
+			</td>
+		</tr>
+		<tr style="display: none;" id="type_sub_type">
+			<td>几季作物</td>
+			<td>
+				<select id="sub_type" name="sub_type" onchange="changelife()">
+					<option value="1" selected>1季</option>
+					<option value="2">2季</option>
+					<option value="3">3季</option>
+					<option value="4">4季</option>
+				</select>
+			</td>
+		</tr>
+		<tr style="display:  ;" id="type_sub_hour">
+			<td>生命周期</td>
+			<td><input type="text" name="life_cycle_hour">小时</td>
+		</tr>
+		<tr style="display: none;" id="type_sub_day">
+			<td>使用期</td>
+			<td><input type="text" name="life_cycle_day">天</td>
+		</tr>
+		<tr style="display: none;" id="type_relife_cycle">
+			<td>二次周期</td>
+			<td><input type="text" name="relife_cycle">小时</td>
+		</tr>
+		<tr style="display: none;" id="type_output">
+			<td>预计产量</td>
+			<td><input type="text" name="output"></td>
+		</tr>
+		<tr style="display: none;" id="type_sale">
+			<td>卖出单价</td>
+			<td><input type="text" name="sale"></td>
+		</tr>
+		
+		<tr>
+			<td>购买单价</td>
+			<td><input type="text" name="price"></td>
+			
+			<td>
+				<select id="buyMethod" name="buy_method">
+					<option value="coin">金币</option>
+					<option value="money">人民币</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>购买级别</td>
+			<td>
+				<select id="clevel" name="clevel">
+					<option value="0">0级</option>
+					<option value="1">1级</option>
+					<option value="2">2级</option>
+					<option value="3">3级</option>
+					<option value="4">4级</option>
+					<option value="5">5级</option>
+					<option value="6">6级</option>
+					<option value="7">7级</option>
+					<option value="8">8级</option>
+					<option value="9">9级</option>
+					<option value="10">10级</option>
+				</select>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="3" align="center">
+				<input type="hidden" name="subflag" value="1">
+				<input type="submit" name="add" value="增加">
+			</td>
+		</tr>
+	</table>
+</form>
+</div>
+<!--{template foot}-->
+

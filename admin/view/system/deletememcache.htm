@@ -1,0 +1,71 @@
+<!--{template header}-->
+<b style="color: red">
+	<!--{if isset($error_msg)}-->
+		<!--{$error_msg}-->
+	<!--{/if}-->
+</b>
+<form method="post" action="admincp.php?mod=system&act=deletememcache" id="form1" name="form1">
+<table width="600">
+	<caption>
+	<h1>缓存键值删除工具</h1>
+	</caption>
+	<tr>
+		<td align="right">用户uid:</td>
+		<td>
+			<input type="text" id="uid" name="uid" value="{$uid}" />
+		</td>
+	</tr>
+	<tr>
+		<td align="right">gameuid:</td>
+		<td>
+			<input type="text" id="gameuid" name="gameuid" value="{$gameuid}" />
+		</td>
+	</tr>
+	<tr>
+		<td align="right">数据库表:</td>
+		<td>
+			<select name="table_name" onchange="on_table_change(this)">
+				<!--{loop $table_names $table_name_tmp}-->
+				<!--{if $table_name_tmp == $table_name}-->
+				<option value="{$table_name_tmp}" selected="selected">{$table_name_tmp}</option>
+				<!--{else}-->
+				<option value="{$table_name_tmp}">{$table_name_tmp}</option>
+				<!--{/if}-->
+				<!--{/loop}-->
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">指定key:</td>
+		<td>
+			<input type="text" id="cache_key" name="cache_key" value="{php echo $cache_key;}" />
+			<b style="color: red">具体的key值，可以通过模块<a href="{BASE_URL}admin/admincp.php?mod=system&act=getmemcache">用户缓存数据</a>来获取</b>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input type="button" name="delete_data" value="删除" onclick="javascript:confirm_delete();" />
+		</td>
+	</tr>
+</table>
+</form>
+<!--{if !empty($cache_key)}-->
+<div>成功删除缓存{$cache_key}</div>
+<!--{/if}-->
+<script type="text/javascript">
+function confirm_delete(){
+	if(confirm('你确认要删除这些键值吗？')){
+		document.forms['form1'].submit();
+	}
+}
+function on_table_change(table_name_selector) {
+	for(var i=0; i<table_name_selector.options.length; i++)
+	{
+		if (table_name_selector.options[i].selected) {
+			document.getElementById("cache_key").value=table_name_selector.options[i].value+'_';
+		}
+	}
+}
+</script>
+<!--{template footer}-->

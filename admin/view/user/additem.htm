@@ -1,0 +1,41 @@
+<!--{template header}-->
+<!--{template error_msg}-->
+<form action="admincp.php?mod=user&act=additem" method="post">
+<table cellspacing="2" cellpadding="0" width="400">
+<caption><h1>派发种子、果实和道具</h1></caption>
+	<tr>
+		<td align="right">用户uid:</td>
+		<td><input name='uid' type="text" value='{$uid}' />
+		</td>
+	</tr>
+	<tr>
+		<td align="right">用户gameuid:</td>
+		<td><input maxlength="11" name="gameuid" type="text" value='{$gameuid}'/></td>
+	</tr>
+	<tr><td align="right">item:</td>
+	<td><select name="item_id">
+	<!--{loop $itemlist $item}-->
+		<option value="{$item[item_id]}" <!--{if $item_id == $item[item_id]}-->selected<!--{/if}-->>
+			{$item[item_id]} {$item[cname]}
+		</option>
+	<!--{/loop}-->
+	</select></td> </tr>
+	<tr><td align="right"> 数量:</td>
+ 	<td><input type="text" id="item_count" name="item_count" value="{$item_count}"/>
+ 	</td> </tr>
+ 	<tr>
+		<td></td>
+		<td><input type="submit" value="提交" name="addItems"/>
+		</td>
+	</tr>
+</table>
+</form>
+<!--{if !empty($user_owned_items)}-->
+<table border="1"><tr><td colspan="2">用户拥有的物品：</td></tr>
+<tr><td>物品名称</td><td>物品数量</td></tr>
+<!--{loop $user_owned_items $user_owned_item}-->
+<tr><td>{$user_owned_item[item_name]}</td><td>$user_owned_item[count]</td></tr>
+<!--{/loop}-->
+</table>
+<!--{/if}-->
+<!--{template footer}-->

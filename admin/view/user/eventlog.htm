@@ -1,0 +1,65 @@
+<!--{template header}-->
+<form action="admincp.php?mod=user&act=eventlog" method="post">
+<table cellspacing="3" cellpadding="0">
+	<caption>
+		<h3>获取用户的事件日志</h3>
+	</caption>
+	<tr>
+		<td>用户uid</td>
+		<td><input name="uid" value="{$uid}" /></td>
+	</tr>
+	<tr>
+		<td>用户gameuid</td>
+		<td><input name="gameuid" value="{$gameuid}" /></td>
+	</tr>
+	<tr>
+		<td>limit</td>
+		<td><input name="limit" value="{$limit}"/></td>
+	</tr>
+	<tr>
+		<td>起始日期</td>
+		<td><input name="start_date" type="text" value='{$start_date}'/>(格式 年-月-日:xxxx-xx-xx)</td>
+	</tr>
+	<tr>
+		<td>终止日期</td>
+		<td><input name="end_date" type="text" value='{$end_date}'/>(格式 年-月-日:xxxx-xx-xx)</td>
+	</tr>
+	<tr>
+		<td>特殊标识</td>
+		<td><input name="special_content" type="text" value='{$special_content}'/>(eg:9000)</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><input type="submit" value="查询" name="getEventLog" /></td>
+	</tr>
+</table>
+</form>
+<pre>
+<!--{if isset ( $error_msg )}-->
+{$error_msg}<br />
+<!--{/if}-->
+</pre>
+<!--{if !empty($event_logs)}-->
+<table border="1" cellspacing="0" cellpadding="2"
+	style="border:1px padding:2px;width:800px">
+	<caption>事件日志</caption>
+	<tr>
+		<td>序号</td>
+		<td width="560">事件内容</td>
+		<td>动作类型</td>
+		<td>时间</td>
+	</tr>
+	{php $i=0;}
+	<!--{loop $event_logs $log}-->
+	<tr>
+		<td>{php echo ++$i;}</td>
+		<td><!--{$log[content]}--></td>
+		<td><!--{$log[action]}--></td>
+		<td><!--{php echo date('Y-m-d H:i:s',$log[create_time])}--></td>
+	</tr>
+	<!--{/loop}-->
+</table>
+<!--{elseif isset($event_logs)}-->
+没有事件日志。<br />
+<!--{/if}-->
+<!--{template footer}-->

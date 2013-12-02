@@ -1,0 +1,85 @@
+<!--{template header}-->
+<form method="post">
+<table cellspacing="3" cellpadding="0">
+	<caption>
+	<h3>用户交易记录查询</h3>
+	</caption>
+	<tr>
+		<td>用户gameuid</td>
+		<td><input name="gameuid" value="{$gameuid}" /></td>
+	</tr>
+	<tr>
+		<td>选项</td>
+		<td><label for="success"> <input name="success" type="checkbox" id="success" value="1" <!--{if !isset($success) || $_POST['success'] == 1 }-->checked="true"<!--{/if}-->  />只列出成功的交易 </label></td>
+	</tr>
+	<tr>
+		<td>offset</td>
+		<td><input name="offset" value="<!--{if isset($offset)}-->{$offset}<!--{else}-->0<!--{/if}-->"/></td>
+	</tr>
+	<tr>
+		<td>limit</td>
+		<td><input name="limit" value="<!--{if isset($limit)}-->{$limit}<!--{else}-->100<!--{/if}-->"/></td>
+	</tr>
+	<tr>
+		<td>日期</td>
+		<td>
+		<input name="date" type="text" value='{$date}'/>(格式 年-月-日:xxxx-xx-xx)
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><input type="submit" value="查询" name="getUserLog" /></td>
+		<td><input type="submit" value="查询总值" name="getTotal" /></td>
+	</tr>
+</table>
+</form>
+<pre>
+<!--{if isset ( $error_msg )}-->
+{$error_msg}<br />
+<!--{/if}-->
+</pre>
+<!--{if !empty($results) && is_array($results)}-->
+<div style="width:800px;height:500px;overflow:auto">
+<table cellpadding="2" cellspacing="0" border="1" style="border: 1px;">
+	<caption>
+	<h3>查询结果</h3>
+	</caption>
+	<thead>
+		<tr>
+			<td>No.</td>
+			{php $fields = array_keys(current($results));}
+			<!--{loop $fields $field}-->
+				<td>{$field}</td>
+			<!--{/loop}-->				
+		</tr>
+	</thead>
+	<!--{php  $i = 0;}-->
+	<!--{loop $results $data}-->
+		<tr><td>{php echo ++$i}</td>
+		<!--{loop $data $key $value}-->
+			<td>
+			<!--{if $key == 'status'}-->
+				<!--{if $value == 1}-->	
+					成功
+				<!--{else}-->
+					未成交
+				<!--{/if}-->
+			<!--{elseif $key == 'create_time' || $key == 'update_time'}-->
+				<!--{if $value > 0}-->
+					{php echo date('Y-m-d H:i:s',$value);}
+				<!--{else}-->
+					{$value}
+				<!--{/if}-->
+			<!--{else}-->
+					{php echo !is_null($value) ? $value : '&nbsp;';}
+			<!--{/if}-->
+			</td>
+		<!--{/loop}-->
+		</tr>
+		<!--{/loop}-->
+</table>
+</div>
+<!--{elseif isset($results)}-->
+	没有交易记录。
+<!--{/if}-->
+<!--{template footer}-->

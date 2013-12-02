@@ -1,0 +1,22 @@
+<!--{template header}-->
+<!--{template error_msg}-->
+<form action="admincp.php?mod=gametest&act=delete" method="post">
+<table>
+	<tr><h1>删除测试用户权限</h1></tr>
+	<tr><h4>删除时如果是多个，请用','分割</h4></tr>
+	<tr>
+		<td width="120" align="center">要删除的用户的平台uid:</td>
+		<td>
+			<input type="text" id="uid" name="uid" value="{$uid}"/>
+		</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<td colspan="2">
+			<input type="submit" value="删除测试用户权限" name="delete"/>
+		</td>
+	</tr>
+</table>
+</form>
+<!--{template footer}-->

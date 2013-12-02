@@ -1,0 +1,133 @@
+<!--{template main}-->
+<script type="text/javascript">
+	function change(){
+		var myform = document.getElementById("myform");
+		var type_sale = document.getElementById("type_sale");
+		var type_output = document.getElementById("type_output");
+		var type_sub_type = document.getElementById("type_sub_type");
+		if(myform.itemType.value==0){
+			type_sale.style.display = "";
+			type_output.style.display = "";
+			type_sub_type.style.display ="";
+		}else{
+			type_sale.style.display = "none";
+			type_output.style.display = "none";
+			type_sub_type.style.display = "none";
+			myform.output.value="0";
+			myform.sale.value="0";
+		}
+	}
+	function changelife(){
+		var myform = document.getElementById("myform");
+		var type_sale = document.getElementById("type_sale");
+		var type_output = document.getElementById("type_output");
+		var type_relife_cycle = document.getElementById("type_relife_cycle");
+		if(myform.sub_type.value==1){
+			type_sale.style.display = "none";
+			type_output.style.display = "none";
+			type_relife_cycle.style.display = "none";
+			myform.relife_cycle.value="0";
+		}else{
+			type_sale.style.display = "";
+			type_output.style.display = "";
+			type_relife_cycle.style.display ="";
+		}
+	}
+</script>
+<div class = "body_right_centent">
+<form id="myform" name="myform" method="post" action="">
+	<table>
+		<tr>
+			<td><span>物品名称</span></td>
+			<td><input type="text" name="cname" value="{$updinfo[cname]}"></td>
+		</tr>
+		<tr>
+			<td>英文名称</td>
+			<td><input type="text" name="name" value="{$updinfo[name]}"></td>
+		</tr>
+		<tr>
+			<td>物品简介</td>
+			<td>
+				<textarea style="width: 150px; height: 50px; margin-top: 2px;" name="description" id="description" rows="5" cols="20">{$updinfo[description]}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>物品类型</td>
+			<td>
+				<select id="itemType" name="item_type" onchange="change()">
+					<option value="0" <!--{if $updinfo[item_type]=='0'}-->selected<!--{/if}-->>种子</option>
+					<option value="1" <!--{if $updinfo[item_type]=='1'}-->selected<!--{/if}-->>装饰</option>
+					<option value="2" <!--{if $updinfo[item_type]=='2'}-->selected<!--{/if}-->>道具</option>
+				</select>
+			</td>
+		</tr>
+		<tr <!--{if $updinfo[item_type]=='0'}--><!--{else}-->style="display: none;"<!--{/if}--> id="type_sub_type">
+			<td>几季作物</td>
+			<td>
+				<select id="sub_type" name="sub_type" onchange="changelife()">
+					<option value="1" <!--{if $updinfo[sub_type]=='1'}-->selected<!--{/if}-->>1季</option>
+					<option value="2" <!--{if $updinfo[sub_type]=='2'}-->selected<!--{/if}-->>2季</option>
+					<option value="3" <!--{if $updinfo[sub_type]=='3'}-->selected<!--{/if}-->>3季</option>
+					<option value="4" <!--{if $updinfo[sub_type]=='4'}-->selected<!--{/if}-->>4季</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>生命周期</td>
+			{php $life_cycle={$updinfo[life_cycle]}/3600}
+			<td><input type="text" name="life_cycle" value="{$life_cycle}">小时</td>
+		</tr>
+		<tr <!--{if $updinfo[sub_type]=='1'}-->style="display: none;"<!--{else}--><!--{/if}--> id="type_relife_cycle">
+			<td>二次周期</td>
+			{php $relife_cycle={$updinfo[relife_cycle]}/3600}
+			<td><input type="text" id="relife_cycle" name="relife_cycle" value="{$relife_cycle}">小时</td>
+		</tr>
+		<tr <!--{if $updinfo[item_type]=='0'}--><!--{else}-->style="display: none;"<!--{/if}--> id="type_output">
+			<td>预计产量</td>
+			<td><input type="text" id="output" name="output" value="{$updinfo[output]}"></td>
+		</tr>
+		<tr <!--{if $updinfo[item_type]=='0'}--><!--{else}-->style="display: none;"<!--{/if}--> id="type_sale">
+			<td>卖出单价</td>
+			<td><input type="text" id="sale" name="sale" value="{$updinfo[sale]}"></td>
+		</tr>
+		<tr>
+			<td>购买单价</td>
+			<td><input type="text" name="price" value="{$updinfo[price]}"></td>
+			<td>
+				<select id="buy_method" name="buy_method">
+					<option value="coin" <!--{if $updinfo[buy_method]=='coin'}-->selected<!--{/if}-->>金币</option>
+					<option value="money" <!--{if $updinfo[buy_method]=='money'}-->selected<!--{/if}-->>人民币</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>购买级别</td>
+			<td>
+				<select id="clevel" name="clevel">
+					<option value="0" <!--{if $updinfo[clevel]=='0'}-->selected<!--{/if}-->>0级</option>
+					<option value="1" <!--{if $updinfo[clevel]=='1'}-->selected<!--{/if}-->>1级</option>
+					<option value="2" <!--{if $updinfo[clevel]=='2'}-->selected<!--{/if}-->>2级</option>
+					<option value="3" <!--{if $updinfo[clevel]=='3'}-->selected<!--{/if}-->>3级</option>
+					<option value="4" <!--{if $updinfo[clevel]=='4'}-->selected<!--{/if}-->>4级</option>
+					<option value="5" <!--{if $updinfo[clevel]=='5'}-->selected<!--{/if}-->>5级</option>
+					<option value="6" <!--{if $updinfo[clevel]=='6'}-->selected<!--{/if}-->>6级</option>
+					<option value="7" <!--{if $updinfo[clevel]=='7'}-->selected<!--{/if}-->>7级</option>
+					<option value="8" <!--{if $updinfo[clevel]=='8'}-->selected<!--{/if}-->>8级</option>
+					<option value="9" <!--{if $updinfo[clevel]=='9'}-->selected<!--{/if}-->>9级</option>
+					<option value="10" <!--{if $updinfo[clevel]=='10'}-->selected<!--{/if}-->>10级</option>
+					<option value="15" <!--{if $updinfo[clevel]=='15'}-->selected<!--{/if}-->>15级</option>
+				</select>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="3" align="center">
+				<input type="hidden" value="$updinfo[item_id]" name="item_id">
+				<input type="hidden" name="subflag" value="1">
+				<input type="submit" name="upd" value="update">
+			</td>
+		</tr>
+	</table>
+</form>
+</div>
+<!--{template foot}-->

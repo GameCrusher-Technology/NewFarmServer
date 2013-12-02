@@ -1,0 +1,50 @@
+<!--{template main}-->
+<div class = "body_right_centent">
+<form id="myform" name="myform" method="post" action="">
+	<table width="100%" align="center">
+		<tr>
+			<td colspan="12" style="color:red" align="center">请点击修改和删除对指定道具进行操作</td>
+		</tr>
+		<tr>
+			<td align="center">道具ID</td>
+			<td align="center">物品类型</td>
+			<td align="center">道具名称</td>
+			<td align="center">生命周期</td>
+			<td align="center">几季作物</td>
+			<td align="center">预计产量</td>
+			<td align="center">单价</td>
+			<td align="center">买入单价</td>
+			<td align="center">需要级别</td>
+			<td align="center">购买方式</td>
+			<td colspan="2" align="center">操作方式</td>
+		</tr>
+		<!--{loop $itemlist $count $value}-->
+		<tr>
+			<td align="center">{$value[item_id]}</td>
+			<td align="center"><!--{if $value[item_type]=='0'}-->种子<!--{elseif $value[item_type]=='1'}-->装饰物<!--{else}-->道具<!--{/if}--></td>
+			<td align="center">{$value[cname]}</td>
+			<td align="center">{$value[life_cycle]}</td>
+			<td align="center">{$value[sub_type]}</td>
+			<td align="center">{$value[output]}</td>
+			<td align="center">{$value[sale]}</td>
+			<td align="center">{$value[price]}</td>
+			<td align="center">{$value[clevel]}</td>
+			<td align="center"><!--{if $value[buy_method]=='coin'}-->金币<!--{else}-->人民币<!--{/if}--></td>
+			
+			<td>
+			<a href="{BASEURI}admincp.php?mod=item&act=update&itemid={$value[item_id]}">修改</a>
+			</td>
+			<td>
+			<a href="{BASEURI}admincp.php?mod=item&act=delete&itemid={$value[item_id]}">
+				删除
+			</a>
+			</td>
+		</tr>
+		<!--{/loop}-->
+	</table>
+</form>
+</div>
+<div align="right">
+	 <!--{php print_r($pager)}-->
+</div>
+<!--{template foot}-->

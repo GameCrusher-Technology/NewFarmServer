@@ -1,0 +1,118 @@
+<!--{template header}-->
+<!--{template error_msg}-->
+<form method="post" action="admincp.php?mod=user&act=viewland" id="form1" name="form1">
+<table>
+	<caption>
+	<h1>查看用户牧场</h1>
+	</caption>
+	<tr>
+		<td width="120" align="center">用户uid:</td>
+		<td>
+			<input type="text" id="uid" name="uid" value="{$uid}"/>
+		</td>
+	</tr>
+	<tr>
+		<td width="120" align="center">gameuid:</td>
+		<td>
+			<input type="text" id="gameuid" name="gameuid" value="{$gameuid}"/>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="submit" value="查看牧场" name="view_land"/>
+		</td>
+	</tr>
+</table>
+</form>
+<!--{if intval($gameuid) > 0}-->
+<body>
+<div id="game"><center>Loading....</center></div>
+<script language="javascript" type="text/javascript" src="testApp/js/swfobject.js"></script>
+<script language="javascript" type="text/javascript" src="testApp/js/jquery-1.2.6.min.js"></script>
+<script type="text/javascript">
+	var uid = "{$uid}";
+	var userInfo = new Object();	
+	userInfo['id'] = uid;
+	userInfo['name'] = uid;
+	userInfo['sex'] = "1";
+	userInfo['birthDate'] = "";
+	userInfo['city'] = "";
+	userInfo['url'] = "";
+	userInfo['photoSmall'] = "";
+	userInfo['photoMedium'] = "";
+	userInfo['photoBig'] = "";
+	
+	var friendInfo = new Array();
+	
+	var flashvars = {
+		v: "1",
+		sig_user: "testuid1",
+		plateform_sig_api_key: "xxxxxx",
+		sig_time: "123123213",
+		flash_vars:"&xxxx",
+		sig_locale:"en",
+		sig_app_id:"xxxxx",
+		sig_api_key:"xxxx",
+		sig_api_secret:"xxxxx",
+		game_config: "{$flash_config}",
+		sig_server_status:"0",
+		sig_auth_key: "xxxxxxx",
+		sig_game_client: "{$game_client}",
+		sig_analytics:"UA-11729502-31",
+		sig_producer:"elex",
+		mouse:"1"
+	};
+	var params = {
+		menu: "false",
+		allowFullScreen: "true",
+		scale: "noscale",
+		wmode:"opaque",
+		allowScriptAccess:"always"
+	};
+	var attributes = {
+		id: "game",
+		name: "game"
+	};
+	var page_width = $(window).width();
+	swfobject.embedSWF("testApp/container/CommonContainer_201005071659.swf", "game", "760", "600", "9.0.115", null, flashvars, params, attributes);
+	
+	function reLoadGame(){
+		top.location.reload();
+		
+	}
+	function thisMovie(movieName) {
+		 if (navigator.appName.indexOf("Microsoft") != -1) {
+			 return window[movieName];
+		 } else {
+			 return document[movieName];
+		 }
+	}
+	function getUserProfile(){
+		var result = new Array(userInfo);
+		thisMovie("game").sendUserProfile(result);
+	}
+	function getFriendsInfo(){
+		thisMovie("game").sendFriendsInfo(friendInfo);
+	}
+	function postFeed(obj){
+		var a = "";
+		for(i in obj){
+			a += i + ":" + obj[i] + "\n";
+		}
+		alert(a);
+	}
+	
+	function showInviteFriends(obj){
+		var a = "";
+		for(i in obj){
+			a += i + ":" + obj[i] + "\n";
+		}
+		alert(a);
+	}
+	function showPayments(uid){
+		alert("call showPayments is OK");
+	}
+</script>
+</body>
+<!--{/if}-->
+<!--{template footer}-->

@@ -1,0 +1,89 @@
+<!--{template header}-->
+<script type="text/javascript">
+function confirmDel(){
+	return confirm('你确定删除选中的礼包吗？');
+}
+</script>
+<form method="POST" action="" >
+<div class="list" id="package_list" style="width: 780px; height: 560px; overflow: auto;">
+<table style="width:500px;">
+	<caption><h3>礼包列表</h3></caption>
+<tr>
+<td width="50">
+<input type="submit" name="delete_package" value="删除礼包" onclick="return confirmDel()"/></td>
+<td style="width:100px;padding-left:10px;"><a href="admincp.php?mod=item&act=package" >添加礼包</a></td>
+<td >&nbsp;</td>
+</tr>
+</table>
+<br />
+<!--{if !empty($packages)}-->
+<table cellpadding="2" cellspacing="0" border="1" style="width:2000px">
+	<thead>
+		<tr>
+			<td width="30" height="45">选择</td>
+			<td width="30">id</td>
+			<td width="50">类型</td>
+			<td width="80">资源名称</td>
+			<td width="150">中文名称</td>
+			<td width="200">描述</td>
+			<td width="150">包含的item</td>
+			<td width="80">购买条件</td>
+			<td width="60">金币价格</td>
+			<td width="60">农民币价格</td>
+			<td width="60">会员资格</td>
+			<td width="60">会员期限</td>
+			<td width="60">购买类型</td>
+			<td width="60">个人限制</td>
+			<td width="80">销售总数限制</td>
+			<td width="60">级别要求</td>
+			<td width="60">经验值</td>
+			<td width="60">是否可见</td>
+			<td width="60">折扣</td>
+			<td width="120">折扣过期时间</td>
+			<td width="120">创建时间</td>
+			<td width="40">icon</td>
+			<td width="40">resource</td>
+		</tr>
+	</thead>
+	<!--{loop $packages $data}-->
+	<tr>
+		<td><input type="checkbox" {$checked} name="del_keys[]"
+			value="{$data[package_id]}" /></td>
+			<td><a href="admincp.php?mod=item&act=package&package_id={$data[package_id]}"
+			 title="点击编辑该礼包" >{$data[package_id]}</a></td>
+			<td>{$data[package_type]}</td>
+			<td>{$data[name]}</td>
+			<td>{$data[cname]}</td>
+			<td>{$data[description]}</td>
+			<td>{$data[package_items]}</td>
+			<td><!--{if $data[limit_condition] == 1}-->
+			仅限会员
+			<!--{elseif  $data[limit_condition] == 2}-->
+			仅限紫豆会员
+			<!--{else}-->
+			所有人
+			<!--{/if}-->
+			</td>
+			<td>{$data[price]}</td>
+			<td>{$data[price2]}</td>
+			<td>{$data[member_type]}</td>
+			<td>{$data[member_time]}</td>
+			<td>{$data[buy_method]}</td>
+			<td>{$data[buy_limit]}</td>
+			<td>{$data[buy_total_limit]}</td>
+			<td>{$data[clevel]}</td>
+			<td>{$data[experience]}</td>
+			<td>{$data[visible]}</td>
+			<td>{$data[discount]}</td>
+			<td>{$data[discount_expire]}</td>
+			<td>{php echo date('Y-m-d H:i:s',$data[create_time]);}</td>
+			<td>{$data[icon]}</td>
+			<td>{$data[resource]}</td>
+	</tr>
+	<!--{/loop}-->
+</table>
+<!--{/if}-->
+</div>
+</form>
+
+<!--{template footer}-->

@@ -1,0 +1,48 @@
+<!--{template header}--> 
+<script type="text/javascript">
+function checkPassword(){
+	var pass = $("#password").val();
+	var pass_rep = $("#password_rep").val();
+	var old_pass = $("#oldpass").val();
+	if(old_pass.length < 4 || pass.length < 4){
+		alert("密码长度不能小于4个字符！");
+		return;
+	}
+	if(pass != pass_rep){
+		alert('两次输入的密码不同。');
+		return;
+	}
+	$("#changepass").submit();
+}
+</script>
+<!--{template error_msg}-->
+<form id="changepass" name="changepass" action="admincp.php?mod=admin&act=changepasswd" method="post">
+<table >
+	<tr>
+		<td align="left">
+			<table border="0px" cellspacing="0" cellpadding="5">
+				<tr>
+					<td>用户名：</td>
+					<td>{$username}</td>
+				</tr>
+				<tr>
+					<td>旧密码：</td>
+					<td><input id="oldpass" name="oldpass" type="password" value=""/></td>
+				</tr>
+				<tr>
+					<td>新密码：</td>
+					<td><input id="password" name="password" type="password" value=""/></td>
+				</tr>
+				<tr>
+					<td>重复密码：</td>
+					<td><input id="password_rep" name="password_rep" type="password" value=""/></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td align="left"><input type="button" value="修改密码" onclick="checkPassword()"/></td>
+	</tr>
+</table>
+</form>
+<!--{template footer}-->

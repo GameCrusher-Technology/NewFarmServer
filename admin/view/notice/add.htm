@@ -1,0 +1,82 @@
+<!--{template header}-->
+<script language="JavaScript">
+function checkSub(){
+	var name_reg = /^[a-zA-Z0-9.\-_]{1,50}$/i;
+	var time_reg = /^[\d]{4,4}\-[\d]{2,2}\-[\d]{2,2} [\d]{2,2}:[\d]{2,2}:[\d]{2,2}$/;
+	var reward_reg = /^[\d]+:[\d]+:[\d]+(\|[\d]+:[\d]+:[\d]+)*$/;
+	if (document.getElementById('name').value == "") {
+        alert(" Name 不能为空");
+        document.getElementById('name').focus();
+        return false;
+	}
+	if (!name_reg.test(document.getElementById('name').value)) {
+        alert(" Name 格式错误");
+        document.getElementById('name').focus();
+        return false;
+	}
+	if (document.getElementById('start_time').value == "") {
+        alert(" Start_time 不能为空");
+        document.getElementById('start_time').focus();
+        return false;
+	}
+	if (!time_reg.test(document.getElementById('start_time').value)) {
+        alert(" Start_time 格式错误");
+        document.getElementById('start_time').focus();
+        return false;
+	}
+	if (document.getElementById('end_time').value == "") {
+        alert(" End_time 不能为空");
+        document.getElementById('end_time').focus();
+        return false;
+	}
+	if (!time_reg.test(document.getElementById('end_time').value)) {
+        alert(" End_time 格式错误");
+        document.getElementById('end_time').focus();
+        return false;
+	}
+	if (!reward_reg.test(document.getElementById('reward').value)) {
+        alert(" Reward 格式错误");
+        document.getElementById('reward').focus();
+        return false;
+	}
+	
+	document.form1.submit();
+	return true;
+}
+</script>
+
+<form name="form1" id="form1" action="admincp.php?mod=notice&act=list" method="post">
+<table width="100%" cellpadding="4" cellspacing="1" bgcolor="#CCCCCC">
+  <tr>
+    <td colspan="2" align="center">添加公告</td>
+  </tr>
+  <tr>
+    <td width="12%" align="right" bgcolor="#FFFFFF">Name:</td>
+    <td width="88%" bgcolor="#FFFFFF"><input name="name" type="text" id="name" value=""></td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#FFFFFF">Start_time:</td>
+    <td bgcolor="#FFFFFF"><input name="start_time" type="text" id="start_time" value="2010-10-10 00:00:00">
+    [格式 YYYY-MM-DD HH:mm:ss	例如 2010-10-10 00:00:00]</td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#FFFFFF">End_time:</td>
+    <td bgcolor="#FFFFFF"><input name="end_time" type="text" id="end_time" value="2010-10-10 00:00:00">
+    [格式 YYYY-MM-DD HH:mm:ss	例如 2010-10-10 00:00:00]</td>
+  </tr>
+  <tr>
+    <td align="right" bgcolor="#FFFFFF">Reward:</td>
+    <td bgcolor="#FFFFFF"><input name="reward" type="text" id="reward" value="">
+      [奖励的物品,格式10001:2:1|10002:5:2	item_id:item_count:type]</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center" bgcolor="#FFFFFF">
+    <input type="hidden" name="op" value="add" >
+    <input type="button" name="submit_btn" value="提交" onclick="return checkSub();"></td>
+  </tr>
+</table>
+</form>
+<!--{template footer}-->

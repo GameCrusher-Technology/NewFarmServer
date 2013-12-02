@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database>
+	<Group id="Crop">
+		<Crop item_id="10000" name="rice"      growtime="0.15:0.15:0.15:0.15:0.15" 	exp="2" level="1"  coinPrice="100" gemPrice="1"/>
+		<Crop item_id="10001" name="rice"      growtime="0.15:0.15:0.15:0.15:0.15"	exp="2" level="1"  coinPrice="100" gemPrice="1"/>
+		<Crop item_id="10002" name="sunflower" growtime="0.15:0.15:0.15:0.15"		exp="2" level="1"  coinPrice="100" gemPrice="1"/>
+		<Crop item_id="10003" name="clover"    growtime="0.15:0.15:0.15:0.15:0.15" 	exp="2" level="1"  coinPrice="100" gemPrice="1"/>
+		<Crop item_id="10004" name="rice"      growtime="0.15:0.15:0.15:0.15:0.15"	exp="2" level="1"  coinPrice="100" gemPrice="1"/>
+		<Crop item_id="10005" name="sunflower" growtime="0.15:0.15:0.15:0.15"		exp="2" level="1"  coinPrice="100" gemPrice="1"/>
+		<Crop item_id="10006" name="clover"    growtime="0.15:0.15:0.15:0.15:0.15"	exp="2" level="10" coinPrice="100" gemPrice="1"/>
+		<Crop item_id="10007" name="rice"      growtime="0.15:0.15:0.15:0.15:0.15"	exp="2" level="10" coinPrice="100" gemPrice="1"/>
+		<Crop item_id="10008" name="sunflower" growtime="0.15:0.15:0.15:0.15"		exp="2" level="10" coinPrice="100" gemPrice="1"/>
+		<Crop item_id="10009" name="clover"    growtime="0.15:0.15:0.15:0.15:0.15"	exp="2" level="10" coinPrice="100" gemPrice="1"/>
+	</Group>
+	<Group id="Item">
+		<Item item_id="20001" name="fertilize"  gemPrice="1"/>
+	</Group>
+	<Group id="AchieveItem">
+		<AchieveItem item_id="30001" name="riceAch" levels = "100|200|300|400|500"/>
+		<AchieveItem item_id="30002" name="sunflower" levels = "100|200|300|400|500"/>
+		<AchieveItem item_id="30003" name="PP" levels = "100|200|300|400|500"/>
+		<AchieveItem item_id="30004" name="PP" levels = "100|200|300|400|500"/>
+		<AchieveItem item_id="30005" name="PP" levels = "100|200|300|400|500"/>
+		<AchieveItem item_id="30006" name="PP" levels = "100|200|300|400|500"/>
+		<AchieveItem item_id="30007" name="PP" levels = "100|200|300|400|500"/>
+		<AchieveItem item_id="30008" name="PP" levels = "100|200|300|400|500"/>
+		<AchieveItem item_id="30009" name="PP" levels = "100|200|300|400|500"/>
+		
+	</Group>
+</database>

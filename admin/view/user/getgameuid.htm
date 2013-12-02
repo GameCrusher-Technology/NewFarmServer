@@ -1,0 +1,26 @@
+<!--{template header}-->
+<form action="admincp.php?mod=user&act=getgameuid" method="post">
+<table cellspacing="3" cellpadding="0">
+	<caption>
+		<h3>获取用户gameuid</h3>
+	</caption>
+	<tr>
+		<td>用户uid</td>
+		<td><input name="uid" value="{$uid}" /></td>
+	</tr>
+	<tr>
+		<td>用户gameuid</td>
+		<td><input name="gameuid" value="{$gameuid}" /></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><input type="submit" value="查询" name="getGameuid" /></td>
+	</tr>
+</table>
+</form>
+<pre>
+<!--{if isset ( $error_msg )}-->
+{$error_msg}<br />
+<!--{/if}-->
+</pre>
+<!--{template footer}-->

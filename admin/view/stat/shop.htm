@@ -1,0 +1,318 @@
+<!--{template header}-->
+<link rel="stylesheet" type="text/css" href="include/jqplot/jquery.jqplot.css" />
+
+<!--[if IE]><script language="javascript" type="text/javascript" src="include/jqplot/excanvas.js"></script><![endif]-->
+
+<script language="javascript" type="text/javascript" src="include/jqplot/jquery-1.3.2.min.js"></script>
+<script language="javascript" type="text/javascript" src="include/jqplot/jquery.jqplot.js"></script>
+<!--{if isset($pie_credits)}-->
+<script language="javascript" type="text/javascript" src="include/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+<!--{/if}--> 
+<!--{if isset($lines)}-->
+<script language="javascript" type="text/javascript" src="include/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script language="javascript" type="text/javascript" src="include/jqplot/plugins/jqplot.cursor.min.js"></script>
+<script language="javascript" type="text/javascript" src="include/jqplot/plugins/jqplot.highlighter.min.js"></script>
+<script language="javascript" type="text/javascript" src="include/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+<script language="javascript" type="text/javascript" src="include/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script language="javascript" type="text/javascript" src="include/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+ 
+<!--{/if}-->  
+<script>
+function searchDaily(){
+	$("#op").val("search_daily");
+	$("#form1").submit();
+}
+function searchItem(){
+	$("#op").val("search_item");
+	$("#form1").submit();
+}
+function searchToday(){
+	$("#op").val("search_today");
+	$("#form1").submit();
+}
+function searchbyLevel(){
+	$("#op").val("search_bylevel");
+	$("#form1").submit();
+}
+function clearsearchbyLevel(){
+	$("#op").val("clear_search_bylevel");
+	$("#form1").submit();
+}
+
+</script>
+
+<!--{template error_msg}-->
+<!--{if 0 && empty($dates)}-->
+ <p>没有记录</p>
+<!--{else}-->
+<form method="post" action="admincp.php?mod=stat&act=shop" id="form1" name="form1">
+<table align="left">
+	<tr>
+		<td colspan="6">
+		<b>查询物品每日销售情况</b>
+		</td>
+	</tr>
+	<tr>
+		<td style="padding-left:10px;">开 始 日 期:</td>
+		<td>
+			<select name="search_date">
+			<!--{loop $dates $d}-->
+			<option value="{$d[stat_date]}" {if $search_date == $d[stat_date]}selected="true"{/if}>{$d[stat_date]}</option>
+			<!--{/loop}-->
+			</select>
+		</td>
+		<td style="padding-left:10px;">结 束 日 期:</td>
+		<td>
+			<select name="search_date_end">
+			<!--{loop $dates $d}-->
+			<option value="{$d[stat_date]}" {if $search_date_end == $d[stat_date]}selected="true"{/if}>{$d[stat_date]}</option>
+			<!--{/loop}-->
+			</select>
+		</td>
+		<td style="padding-left:10px;">排序方式:</td>
+		<td>
+			<select name="sort_field">
+				<option value="1" {if $_POST[sort_field] == 1}selected{/if}>销售量</option>
+				<option value="2" {if $_POST[sort_field] == 2}selected{/if}>购买方式</option>
+			</select>
+		</td>
+
+		<td style="padding-left:10px;">数据选项：</td>
+		<td>
+			<label for="sort_order">
+				<input type="checkbox" {if $_POST[sort_order] == '1'} checked {/if} name="sort_order" id="sort_order" value="1" />升序
+			</label>
+<!-- 			
+			<label for="pie_chart">
+				<input type="checkbox" {if $_POST[stat_pay] == '1'} checked {/if} name="stat_pay" id="stat_pay" value="1" />支付用户
+			</label>
+ -->			
+		</td>
+	</tr>
+	<tr>
+		<td colspan="6">
+		<input type="button" value="查询" name="search1" onclick="searchDaily();" />
+		<input type="button" value="查询当日统计" name="search3" onclick="searchToday();" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan="6" height=20>
+		&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td colspan="8">
+		<b>查询物品整体销售情况</b>
+		</td>
+	</tr>
+	<tr>
+		<td style="padding-left:10px;">起始日期:</td>
+		<td>
+			<select name="start_date">
+			<!--{loop $dates $d}-->
+			<option value="{$d[stat_date]}" {if $start_date == $d[stat_date]}selected="true"{/if}>{$d[stat_date]}</option>
+			<!--{/loop}-->
+			</select>
+		</td>
+		<td style="padding-left:10px;">结束日期:</td>
+		<td>
+			<select name="end_date">
+			<!--{loop $dates $d}-->
+			<option value="{$d[stat_date]}" {if $end_date == $d[stat_date]}selected="true"{/if}>{$d[stat_date]}</option>
+			<!--{/loop}-->
+			</select>
+		</td>
+		
+		<td style="padding-left:10px;">物品名称:</td>
+		<td>
+			<select name="item_id" style="width:180px;">
+			<option value="all">统计全部</option>
+			<!--{loop $item_list $it}-->
+			<option value="{$it[item_id]}" <!--{if $item_id == $it[item_id]}-->selected<!--{/if}--> >{$it[item_id]} {$it[name]}</option>
+			<!--{/loop}-->
+			</select>
+		</td>
+		<td style="padding-left:10px;">数据选项：</td>
+		<td>	
+			<label for="line_chart">
+				<input type="checkbox" {if $_POST[line_chart] == '1'} checked {/if} name="line_chart" id="line_chart" value="1" />显示统计图
+			</label>
+			
+		</td>
+	</tr>
+	<tr>
+		<td colspan="8">
+			<input type="hidden" name="op" id="op" value="" />
+			<input type="button" value="查询" name="search2" onclick="searchItem();" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan="6" height=20>
+		&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td colspan="8">
+		<b>临时统计</b>
+		</td>
+	</tr>
+	<tr>
+		<td style="padding-left:10px;">type:</td>
+		<td colspan="7">
+			<input type="text" name="level_type" value="{$_POST['level_type']}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan="8">
+			<input type="button" value="查 询" name="search5" onclick="searchbyLevel();" />
+			<input type="button" value="clear" name="search6" onclick="clearsearchbyLevel();" />
+		</td>
+	</tr>
+</table>
+<br />
+<br />
+<div style="width:650px;clear:both;">
+
+<!--{if !empty($search_data)}-->
+<!--{if $item_id != "all"  && $_POST[pie_chart] != '1'  && $_POST[line_chart] != '1'}-->
+<table align="center" cellpadding="2" cellspacing="0" border="1" style="border: 1px">
+	<caption>
+	<h3>统计数据</h3>
+	</caption>
+	<thead>
+		<tr>
+			<td width="50">序号</td>
+			<td width="100">日期</td>
+			<td width="50">item id</td>
+			<td width="150">物品名称</td>
+			<td width="50">购买方式</td>
+			<td width="50">是否礼包</td>
+			<td width="70">数量</td>
+			<td width="70">amount</td>
+			<td width="70">比例</td>
+		</tr>
+	</thead>
+		<!--{loop $search_data $idx $sd}-->
+			<tr>
+			<td>{php echo $idx + 1;}</td>
+			<td>{$sd[stat_date]}</td>
+			<td>{$sd[item_id]}</td>
+			<td>{$sd[name]}</td>
+			<td>{$sd[buy_method]}</td>
+			<td>{if $sd[is_packs]}是{else}否{/if}</td>
+			<td>{$sd[count]}</td>
+			<td>{$sd[amount]}</td>
+			<td>{php printf('%0.2f',$sd['amount']*100/$amount_sum)}</td>
+			</tr>
+		<!--{/loop}-->
+</table>
+<!--{/if}-->
+<!--{if isset($pie_credits) && $_POST[pie_chart] == '1'}-->
+<script type="text/javascript" language="javascript">
+  
+$(document).ready(function($){
+	line1 = {$pie_credits};
+	line2 = {$pie_cash};
+	
+	plot1 = $.jqplot('chart1', [line1], {
+	  title: "{$MALANG['stat_shop_stat_by_credits']}",
+	  seriesDefaults:{renderer:$.jqplot.PieRenderer, rendererOptions:{sliceMargin:8}}, 
+	  legend:{show:true, yoffset: 5, xoffset: -150}
+	});
+	
+	plot2 = $.jqplot('chart2', [line2], {
+	  title: "{$MALANG['stat_shop_stat_by_chips']}",
+	  seriesDefaults:{renderer:$.jqplot.PieRenderer, rendererOptions:{sliceMargin:8}}, 
+	  legend:{show:true, yoffset: 5, xoffset: 0, location: 'nw'}
+	});
+
+});
+</script>
+<div id="chart1" style="margin-top:20px; margin-left:20px; width:400px; height:300px;"></div>
+<div id="chart2" style="margin-top:20px; margin-left:20px; width:400px; height:300px;"></div>
+<!--{/if}-->
+
+
+<!--{if isset($lines) && ($_POST[line_chart] == '1' || $item_id == "all") }-->
+<script type="text/javascript" language="javascript">
+
+$(document).ready(function($){
+	{$js_lines}
+	
+	 plot1 = $.jqplot('chart1',[{$js_parm}],{
+       title: "统计图",
+        series: [{$js_label}], 
+        axesDefaults: {
+	       labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+           labelOptions: {
+         	  enableFontSupport: true,
+              fontFamily: 'Georgia',
+              fontSize: '12pt'
+           }
+	    },
+        
+        axes: {
+           xaxis: {
+           	   label:"日 期",
+           	   
+               renderer:$.jqplot.DateAxisRenderer,
+               rendererOptions:{tickRenderer:$.jqplot.CanvasAxisTickRenderer},
+               tickOptions: {
+               	   min:'{$start_date}', 
+               	   max:'{$end_date}',
+                   formatString:'%Y-%#m-%#d',
+                   fontSize:'10pt', 
+                   fontFamily:'Tahoma', 
+                   angle:-30   
+               }
+               //numberTicks: 4
+           },
+           yaxis: {
+           	   min:0,
+           	   label:"数 量",
+           	   labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+           	   labelOptions: {
+         		  enableFontSupport: true,
+                  fontFamily: 'Georgia',
+                  fontSize: '12pt'
+               },
+               tickOptions: {
+               	   fontSize:'10pt', 
+                   fontFamily:'Tahoma', 
+                   formatString: '%d'
+               }
+           }
+       },
+       highlighter: {
+           sizeAdjust: 10
+           //tooltipLocation: 'n',
+           //tooltipAxes: 'y',
+           //tooltipFormatString: '%d',
+           //useAxesFormatters: false
+       },
+       cursor: {
+       	  show:false,
+	      //showVerticalLine: true,
+	      //showHorizontalLine: true,
+	      //showCursorLegend: true,
+	      //showTooltip: false,
+	      zoom: true,
+	      dblClickReset: true
+	      //intersectionThreshold: 6
+	    },
+	    legend:{show:true, yoffset: 5, xoffset: -150}
+   });
+});
+
+</script>
+<div id="chart1" style="margin-top:20px; margin-left:20px; width:600px; height:400px;"></div>
+<br />
+<br />
+<!--{/if}-->
+<!--{elseif isset($_POST[search])}-->
+没有记录
+<!--{/if}-->
+</div>
+</form>
+<!--{/if}-->
+<!--{template footer}-->

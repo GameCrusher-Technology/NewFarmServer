@@ -1,0 +1,47 @@
+<!--{template header}-->
+<!--{template error_msg}-->
+<form method="post" action="admincp.php?mod=system&act=getsql" id="form1" name="form1">
+<table>
+	<caption>
+	<h1>获取查询SQL模块</h1>
+	</caption>
+	<tr>
+		<td width="120" align="center">用户uid:</td>
+		<td>
+			<input type="text" id="uid" name="uid" value="{$uid}"/>
+		</td>
+	</tr>
+	<tr>
+		<td width="120" align="center">gameuid:</td>
+		<td>
+			<input type="text" id="gameuid" name="gameuid" value="{$gameuid}"/>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">数据库表:</td>
+		<td>
+			<select id="table_name" name="table_name"">
+				<option value="">请选择数据库表</option>
+				<!--{loop $table_names $table_name_tmp}-->
+				<!--{if $table_name_tmp == $table_name}-->
+				<option value="{$table_name_tmp}" selected="selected">{$table_name_tmp}</option>
+				<!--{else}-->
+				<option value="{$table_name_tmp}">{$table_name_tmp}</option>
+				<!--{/if}-->
+				<!--{/loop}-->
+			</select>
+		</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<td colspan="2">
+			<input type="submit" value="获取SQL" name="get"/>
+		</td>
+	</tr>
+</table>
+</form>
+<div>
+{$select_sql}
+</div>
+<!--{template footer}-->

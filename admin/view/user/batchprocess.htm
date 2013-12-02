@@ -1,0 +1,52 @@
+<!--{template header}-->
+<form action="admincp.php?mod=user&act=batchprocess" method="post" target="_blank">
+<table cellspacing="2" cellpadding="0">
+<caption><h3>批量更新用户数据</h3></caption>
+	<tr>
+		<td width="120">更新操作对象</td>
+		<td><select name="opObject">
+		<option value = "0" <!--{if $opObject == 0}-->selected<!--{/if}--> >所有用户</option>
+		<option value = "1" <!--{if $opObject == 1}-->selected<!--{/if}--> >指定范围</option>
+		<option value = "2" <!--{if $opObject == 2}-->selected<!--{/if}--> >使用数据库</option>
+		</select></td>
+	</tr>
+	<tr>
+		<td width="120">开始farmuid</td>
+		<td><input name='start_farmuid' type="text" value='{$start_farmuid}'/></td>
+	</tr>
+	<tr>
+		<td>结束farmuid</td>
+		<td><input name="end_farmuid" type="text" value='{$end_farmuid}'/></td>
+	</tr>
+	<tr>
+		<td>经验值</td>
+		<td><input maxlength="7" name="exp" type="text" /></td>
+	</tr>
+	<tr>
+		<td>游戏币</td>
+		<td><input maxlength="10" name="coin" type="text" /></td>
+	</tr>
+	<tr>
+		<td>农民币</td>
+		<td><input maxlength="7" name="money" type="text" /></td>
+	</tr>
+	<tr>
+		<td>选项</td>
+		<td><label for="all_user"> <input id="all_user" name="all_user" type="checkbox" value="1"/>所有的用户，包括不活跃用户</label></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><input type="submit" value="开始" name="batch_update" /></td>
+	</tr>
+</table>
+</form>
+<!--{if isset ( $error_msg )}-->
+{$error_msg}
+<br />
+<!--{/if}-->
+<!--{if isset ( $op_msg )}-->
+{$op_msg}
+<br />
+<!--{/if}-->
+
+<!--{template footer}-->

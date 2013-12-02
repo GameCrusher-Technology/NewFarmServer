@@ -1,0 +1,82 @@
+<!--{template header}-->
+<!--{template error_msg}-->
+<!--{if empty($dates)}-->
+ <p>没有销售的统计数据</p>
+<!--{else}-->
+<form method="post" action="admincp.php?mod=sysstat&act=shop" id="form1" name="form1">
+<table width="400" align="center">
+	<caption>
+	<h1>查询物品每日销售情况</h1>
+	</caption>
+	<tr>
+		<td align="right">日期:</td>
+		<td>
+			<select name="search_date">
+			<!--{loop $dates $d}-->
+			<option value="{$d[stat_date]}" {if $search_date == $d[stat_date]}selected="true"{/if}>{$d[stat_date]}</option>
+			<!--{/loop}-->
+			</select>
+		</td>
+		<td align="right">排序方式:</td>
+		<td>
+			<select name="sort_field">
+				<option value="1" {if $_POST[sort_field] == 1}selected{/if}>销售量</option>
+				<option value="2" {if $_POST[sort_field] == 2}selected{/if}>购买方式</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td width="120" align="right">选项：</td>
+		<td>
+			<label for="sort_order">
+				<input type="checkbox" {if $_POST[sort_order] == '1'} checked {/if} name="sort_order" id="sort_order" value="1" />升序
+			</label>
+			<label for="package_only">
+				<input type="checkbox" {if $_POST[package_only] == '1'} checked {/if} name="package_only" id="package_only" value="1" />只看礼包
+			</label>
+			
+		<td></td>
+		<td>
+			<input type="submit" value="查询" name="search"/>
+		</td>
+	</tr>
+</table>
+<div style="width:800px;height:400px;overflow-x:auto;">
+
+<!--{if !empty($search_data)}-->
+<table align="center" cellpadding="2" cellspacing="0" border="1" style="border: 1px">
+	<caption>
+	<h3>统计数据</h3>
+	</caption>
+	<thead>
+		<tr>
+			<td width="50">No.</td>
+			<td width="100">日期</td>
+			<td width="50">item id</td>
+			<td width="150">物品名称</td>
+			<td width="50">卖出方式</td>
+			<td width="50">是否礼包</td>
+			<td width="70">数量</td>
+			<td width="70">单日卖出量</td>
+		</tr>
+	</thead>
+		<!--{loop $search_data $idx $sd}-->
+			<tr>
+			<td>{php echo $idx + 1;}</td>
+			<td>{$sd[stat_date]}</td>
+			<td>{$sd[item_id]}</td>
+			<td>{$sd[name]}</td>
+			<td>{$sd[buy_method]}</td>
+			<td>{if $sd[is_package]}是{else}否{/if}</td>
+			<td>{$sd[sell_count]}</td>
+			<td>{$sd[daily_count]}</td>
+			</tr>
+		<!--{/loop}-->
+</table>
+<!--{elseif isset($_POST[search])}-->
+没有统计数据。
+<!--{/if}-->
+</div>
+</form>
+<!--{/if}-->
+<!--{template footer}-->

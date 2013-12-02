@@ -1,0 +1,50 @@
+<!--{template header}-->
+<!--{template error_msg}-->
+<form action="admincp.php?mod=xml&act=get" method="post">
+<table>
+	<tr><h1>获取xml中的信息</h1></tr>
+	<tr>
+		<td align="center">xml文件名:</td>
+		<td>
+			<select id="xml_name" name="xml_name"">
+				<option value="">请选择xml文件名</option>
+				<!--{loop $xml_names $xml_name_tmp}-->
+				<!--{if $xml_name_tmp == $xml_name}-->
+				<option value="{$xml_name_tmp}" selected="selected">{$xml_name_tmp}</option>
+				<!--{else}-->
+				<option value="{$xml_name_tmp}">{$xml_name_tmp}</option>
+				<!--{/if}-->
+				<!--{/loop}-->
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td width="120" align="center">记录定义的id:</td>
+		<td>
+			<input type="text" id="id" name="id" value="{$id}"/>
+		</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<td colspan="2">
+			<input type="submit" value="获取数据" name="get"/>
+		</td>
+	</tr>
+</table>
+</form>
+<!--{if !empty($result)}-->
+	{php $keys = array_keys($result);}
+	<table border="1">
+		<!--{loop $keys $key}-->
+			<tr>
+				<td align="left">$key</td>
+				<!--{if is_array($result[$key])}-->
+					{php $result[$key]=implode($result[$key]);}
+				<!--{/if}-->
+				<td align="right">$result[$key]</td>
+			</tr>
+		<!--{/loop}-->
+	</table>
+<!--{/if}-->	
+<!--{template footer}-->

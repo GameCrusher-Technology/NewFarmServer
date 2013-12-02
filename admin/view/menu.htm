@@ -1,0 +1,24 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="5">
+  <tr>
+    <td><a href="admincp.php?mod=admin&act=index">[管理首页]</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="admincp.php?mod=admin&act=quit">[安全退出]</a></td>
+  </tr>
+  <!--{loop $menu $mkey $menu_item}-->
+  
+  <tr>
+    <td><table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#000000">
+      <tr>
+        <td class="title" onClick="return changemenu('{$mkey}');">{$menu_item['name']}</td>
+      </tr>
+    </table>
+      <span id="{$mkey}" >
+	  <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC">
+      <!--{loop $menu_item['sub_menu'] $sub_menu}-->
+      <tr>
+        <td bgcolor="#FFFFFF"><a href="{$sub_menu['href']}" {if isset($sub_menu[target])}target="{$sub_menu[target]}"{/if}>{$sub_menu['name']}</a></td>
+      </tr>
+	  <!--{/loop}-->
+    </table>
+	</span>	</td>
+  </tr>  
+  <!--{/loop}-->
+</table>

@@ -1,0 +1,86 @@
+<!--{template header}-->
+<!--{template error_msg}-->
+<form method="post">
+<table cellspacing="0" cellpadding="0">
+<caption><h1>缓存数据编辑器</h1></caption>
+	<tr>
+		<td align="right">用户uid:</td>
+		<td>
+			<input type="text" id="uid" name="uid" value="{$uid}" />
+		</td>
+	</tr>
+	<tr>
+		<td align="right">gameuid:</td>
+		<td>
+			<input type="text" id="gameuid" name="gameuid" value="{$gameuid}" />
+		</td>
+	</tr>
+	<tr>
+		<td align="right">数据库表:</td>
+		<td>
+			<select name="table_name" onchange="on_table_change(this)">
+				<!--{loop $table_names $table_name_tmp}-->
+				<!--{if $table_name_tmp == $table_name}-->
+				<option value="{$table_name_tmp}" selected="selected">{$table_name_tmp}</option>
+				<!--{else}-->
+				<option value="{$table_name_tmp}">{$table_name_tmp}</option>
+				<!--{/if}-->
+				<!--{/loop}-->
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">缓存key:</td>
+		<td>
+		<input type="text" id="cache_key" name="cache_key" value="{$cache_key}"/>
+		<b style="color: red">具体的key值，可以通过模块<a href="{BASE_URL}admin/admincp.php?mod=system&act=getmemcache">用户缓存数据</a>来获取</b>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">缓存过期时间:</td>
+		<td><input type="text"  name="expire_time" value="{$expire_time}"/>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input type="submit" id="getItem" value="编辑" name="getItem"/>
+			<input type="submit" value="更新" name="editItem"/>
+			<input type="reset" value="取消" name="cancel"/>
+		</td>
+	</tr>
+	<!--{if is_array($editItem)}-->
+		<!--{loop $editItem $field $value}-->
+			<tr>
+				<td align="right">{$field}:</td>
+				<td>
+				<!--{if $field == 'data_id' || $field == 'gameuid'}-->
+				<input type="text"  name="modifyItem[{$field}]" value="{$value}" readonly="readonly"/>
+			    <!--{else}-->
+				<input type="text"  name="modifyItem[{$field}]" value="{$value}" />
+				<!--{/if}-->
+		 		</td>
+			</tr>
+	 	<!--{/loop}-->
+ 	<!--{elseif isset($editItem)}-->
+ 	<tr>
+		<td align="right"><br />value:</td>
+		<td align="right">
+		<br />
+		<input type="hidden" name="editscalar" value="1" />
+		<input type="text"  name="modifyItem" value="{$editItem}"/></td>
+	</tr>
+ 	<!--{/if}-->
+</table>
+</form>
+<script type="text/javascript">
+function on_table_change(table_name_selector) {
+	for(var i=0; i<table_name_selector.options.length; i++)
+	{
+		if (table_name_selector.options[i].selected) {
+			document.getElementById("cache_key").value=table_name_selector.options[i].value+'_';
+		}
+	}
+}
+</script>
+<!--{template footer}-->

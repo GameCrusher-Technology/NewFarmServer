@@ -1,0 +1,49 @@
+<!--{template header}--> 
+<form method="post" action="admincp.php?mod=admin&act=close_log&do=delete" id="form1" name="form1">
+ 查询的uid: <input type="text" name=uid /> <input type=submit onclick="retunok()">
+  <table  class="list" width="100%" border="0" cellspacing="0" cellpadding="5">
+				<tr>
+					<td>UID:</td>
+					<td>gameuid:</td>
+					<td>开始时间:</td>
+					<td>是否结束</td>
+					<td>删除</td>
+				</tr>
+				<!--{loop $changelist $admin}-->
+				<tr>
+					<td>{$admin['uid']}</td>
+					<td>{$admin[gameuid]}</td>
+					<td>{php echo date("Y-m-d H:i:s",$admin[start_time])}</td>
+					<td>没有解封</td>
+					<td><input type="radio" value="{$admin[gameuid]}" id="'{$admin[gameuid]}" name="{$admin[gameuid]}" onclick="user_close', '{$admin[gameuid]}')"/></td>
+					<!--{/loop}-->
+					</tr>
+			</table>
+			<input type="submit" value='确认解封' onclick="return ensure_modify_form();"/>
+			</form>
+<script language="javascript">
+function confirm_delete(table_name, id) {
+	if(!confirm('你确认要删除数据'+table_name+'_'+id+'吗？')){
+		document.getElementById(table_name+'_'+id).checked = false;
+		has_modify[table_name+'_'+id] = false;
+	} else {
+		has_modify[table_name+'_'+id] = true;
+	}
+	var td_list = document.getElementsByTagName("td");
+	var pattern = new RegExp(table_name+"_"+id+"_"+'\\w+'+"_modify");
+	for (var idx in td_list) {
+		var modify_column = td_list[idx];
+		if (!modify_column.id) continue;
+		if (modify_column.id.match(pattern)) {
+			var column = document.getElementById(modify_column.id.substring(0, modify_column.id.indexOf('_modify')));
+			column.style.display="";
+			modify_column.style.display="none";
+		}
+	}
+}
+  function retunok(){
+  	var uid=document.getElementById("uid").value;
+  	alert(uid);
+  }
+</script>
+<!--{template footer}-->

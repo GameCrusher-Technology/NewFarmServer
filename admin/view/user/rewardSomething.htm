@@ -1,0 +1,90 @@
+<!--{template header}-->
+<b style="color: red">
+	<!--{if isset($error_msg)}-->
+		<!--{$error_msg}-->
+	<!--{/if}-->
+</b>
+<style>
+textarea {
+width:300px;
+height:200px;
+overflow-y:auto;
+}
+</style>
+<form method="post" action="admincp.php?mod=user&act=rewardSomething" id="form1" name="form1">
+<table width="360">
+	<caption>
+	<h1>用户奖励</h1>
+	</caption>
+	<tr>
+		<td align="right">password:</td>
+		<td>
+			<input type="text" id="password" name="password" value="{$password}" />
+		</td>
+	</tr>
+	<tr>
+		<td align="right">奖励的Item_id:</td>
+		<td>
+			<input type="text" id="reward_item_id" name="reward_item_id" value="{$reward_item_id}" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)" onblur="this.v();" />
+		</td>
+	</tr>
+	<tr>
+		<td align="right">奖励数量:</td>	
+		<td>
+			<input type="text" id="reward_count" name="reward_count" value="{$reward_count}" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)" onblur="this.v();" />
+		</td>
+		<td>
+			<input type="button" name="add_item" value="添加" onclick="javascript:add_to_textarea();" />
+		</td>
+	</tr>
+</table>
+<table width="600">
+	<tr>
+		<td></td>
+		<td>
+			<textarea id="item_with_count_list" name="item_with_count_list" value="{$item_with_count_list}"></textarea>
+		</td>
+	</tr>
+</table>
+<table width="600">
+	<tr>
+		<td></td>
+		<td>在下方输入uid，每行一个uid</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<textarea id="reward_uid_from_page" name="reward_uid_from_page" value="{$reward_uid_from_page}"></textarea>
+		</td>
+	</tr>
+</table>
+<table width="360">
+	<tr>
+		<td align="right">或者输入奖励名单（uid）文件:</td>
+		<td>
+			<input type="text" id="reward_uid_from_file" name="reward_uid_from_file" value="{$reward_uid_from_file}" />
+		</td>
+		<td align="left">.dat</td>
+	</tr>
+	<tr>
+		<td align="right">操作人：</td>
+		<td>
+			<input type="text" id="operator" name="operator" value="{$operator}" />
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input type="submit" name="confirm_reward" value="确定" />
+		</td>
+	</tr>
+</table>
+</form>
+<script type="text/javascript">
+	function add_to_textarea(){
+		if(document.form1.reward_item_id.value!=''&&document.form1.reward_count.value!=''){
+			document.form1.item_with_count_list.value += document.form1.reward_item_id.value +":"+ document.form1.reward_count.value + "\r\n" ;
+		}
+	}
+</script>
+<!--{template footer}-->

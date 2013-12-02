@@ -1,0 +1,34 @@
+<!--{template header}-->
+<!--{if !empty($result)}-->
+<table width="100%" cellpadding="3" cellspacing="1" bgcolor="#CCCCCC">
+  <tr>
+    <td width="12%"><span class="STYLE2">ID</span></td>
+    <td width="15%"><span class="STYLE2">Name</span></td>
+    <td width="32%"><span class="STYLE2">Reward</span></td>
+    <td width="12%"><span class="STYLE2">Start_time</span></td>
+    <td width="14%"><span class="STYLE2">End_time</span></td>
+    <td width="15%"><span class="STYLE2">Edit</span></td>
+  </tr>
+  <!--{loop $result $items}-->
+  <tr>
+    <td bgcolor="#FFFFFF">$items['id']</td>
+    <td bgcolor="#FFFFFF">$items['name']</td>
+    <td bgcolor="#FFFFFF">$items['reward']</td>
+    <td bgcolor="#FFFFFF"><!--{php echo date("Y-m-d H:i:s",$items['start_time'])}--></td>
+    <td bgcolor="#FFFFFF"><!--{php echo date("Y-m-d H:i:s",$items['end_time'])}--></td>
+    <td bgcolor="#FFFFFF"><a onClick="return del('$items['id']')" href="#">删除</a> | <a href="admincp.php?mod=notice&act=edit&id=$items['id']">修改</a> </td>
+  </tr>
+  <!--{/loop}-->
+</table>
+<!--{else}-->
+<center>暂时没有公告!</center>
+<!--{/if}-->
+<script>
+function del(id){
+	if(confirm("您确定要删除["+id+"]活动吗？")){
+		document.location.href = "admincp.php?mod=notice&act=list&op=delete&id="+id;
+		return false;
+	}
+}
+</script>
+<!--{template footer}-->

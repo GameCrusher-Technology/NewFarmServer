@@ -1,0 +1,52 @@
+<!--{template header}--> 
+<script type="text/javascript">
+function checkPassword(){
+	if(!confirm("确定重置该用户的密码吗？")){
+		return false;
+	}
+	var pass = $("#password").val();
+	var pass_rep = $("#password_rep").val();
+	if( pass.length < 4){
+		alert("密码长度不能小于4个字符！");
+		return false;
+	}
+	if(pass != pass_rep){
+		alert('两次输入的密码不同。');
+		return false;
+	}
+	return true;
+}
+</script>
+<!--{template error_msg}-->
+<form id="changepass" name="changepass" action="admincp.php?mod=admin&act=resetpasswd" method="post">
+<table >
+	<tr>
+		<td align="left">
+			<table border="0px" cellspacing="0" cellpadding="5">
+				<tr>
+					<td>用户名：</td>
+					<td>
+					<!--{if empty($username) || !empty($error_msg)}-->
+					<input id="username" name="username" type="text" value="{$username}"/>
+					<!--{else}-->
+					{$username}
+					<!--{/if}-->
+					<input type="hidden" name="adminuid" value="{$uid}"/></td>
+				</tr>
+				<tr>
+					<td>新密码：</td>
+					<td><input id="password" name="password" type="password" value=""/></td>
+				</tr>
+				<tr>
+					<td>重复密码：</td>
+					<td><input id="password_rep" name="password_rep" type="password" value=""/></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td align="left"><input type="submit" value="重置密码" onclick="return checkPassword()"/></td>
+	</tr>
+</table>
+</form>
+<!--{template footer}-->

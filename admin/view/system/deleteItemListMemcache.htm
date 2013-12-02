@@ -1,0 +1,33 @@
+<!--{template header}-->
+<b style="color: red">
+	<!--{if isset($error_msg)}-->
+		<!--{$error_msg}-->
+	<!--{/if}-->
+</b>
+<form method="post" action="admincp.php?mod=system&act=deleteItemListMemcache" id="form1" name="form1">
+<table width="600">
+	<caption>
+	<h1>ItemList缓存键值删除工具</h1>
+	</caption>
+	<tr>
+		<td align="right">password:</td>
+		<td>
+			<input type="text" id="password" name="password" value="{$password}" />
+		</td>
+	</tr>
+	<tr>
+		<td align="right">gameuid:</td>
+		<td>
+			<input type="text" id="gameuid" name="gameuid" value="{$gameuid}" />
+		</td>
+	</tr>
+
+	<tr>
+		<td></td>
+		<td>
+			<input type="submit" name="delete_Item_data" value="删除" />
+		</td>
+	</tr>
+</table>
+</form>
+<!--{template footer}-->

@@ -1,0 +1,450 @@
+<!--{template header}-->
+
+<link rel="stylesheet" type="text/css" href="include/jqplot/jquery.jqplot.css" />
+
+<!--[if IE]><script language="javascript" type="text/javascript" src="include/jqplot/excanvas.js"></script><![endif]-->
+
+<script language="javascript" type="text/javascript" src="include/jqplot/jquery-1.3.2.min.js"></script>
+<script language="javascript" type="text/javascript" src="include/jqplot/jquery.jqplot.js"></script>
+
+<!--{if $op == "stat_month" || $op == "stat_all"}-->
+<script language="javascript" type="text/javascript" src="include/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script language="javascript" type="text/javascript" src="include/jqplot/plugins/jqplot.cursor.min.js"></script>
+<script language="javascript" type="text/javascript" src="include/jqplot/plugins/jqplot.highlighter.min.js"></script>
+<script language="javascript" type="text/javascript" src="include/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+<script language="javascript" type="text/javascript" src="include/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script language="javascript" type="text/javascript" src="include/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+ 
+<!--{/if}-->  
+
+
+<!--{template error_msg}-->
+<script>
+function statMonth(){
+	$("#op").val("stat_month");
+	$("#form1").submit();
+}
+function statAll(){
+	$("#op").val("stat_all");
+	$("#form1").submit();
+}
+function statToday(){
+	$("#op").val("stat_today");
+	$("#form1").submit();
+}
+function statDist(){
+	$("#op").val("stat_dist");
+	$("#form1").submit();
+}
+function statRetetion(){
+	$("#op").val("retention_detail");
+	$("#form1").submit();
+}
+</script>
+
+<!--{if 0 && empty($monthes)}-->
+ <p>没有记录</p>
+<!--{else}-->
+<form method="post" action="admincp.php?mod=stat&act=system" id="form1" name="form1">
+<table width="600">
+	<caption>
+	<h3>查询系统用户情况</h3>
+	</caption>
+	<tr>
+		<td align="right" width="100">月 份:</td>
+		<td>
+			<select name="search_month">
+			<!--{loop $monthes $d}-->
+			<option value="{$d[month]}" {if $search_month == $d[month]}selected="true"{/if}>{$d[month]}</option>
+			<!--{/loop}-->
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height=10>
+		&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td align="right">数据选项:</td>
+		<td>
+			<!--{loop $columns $tmp}-->
+			<label for="{$tmp}">
+				<input type="checkbox" {if $_POST[$tmp] == '1'} checked {/if} name="{$tmp}" id="{$tmp}" value="1" />{$tmp}
+			</label>
+			&nbsp;&nbsp;
+			<!--{/loop}-->
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height=10>
+		&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<input type="hidden" value="" name="op" id="op" />
+		</td>
+		<td>
+		<input type="button" value="查询月统计" name="stat_monty" onclick="statMonth();" />&nbsp;
+		<input type="button" value="查询整体统计" name="stat_all" onclick="statAll();" /><br />
+		<input type="button" value="查询当日统计" name="stat_today" onclick="statToday();" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height=10>
+		&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<b>retention detail</b>
+		</td>
+	</tr>
+	<tr>
+	<tr>
+		<td style="padding-left:10px;">日 期:</td>
+		<td>
+			<select name="search_date">
+			<!--{loop $dates $d}-->
+			<option value="{$d[stat_date]}" {if $search_date == $d[stat_date]}selected="true"{/if}>{$d[stat_date]}</option>
+			<!--{/loop}-->
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		&nbsp;
+		</td>
+		<td>
+		<input type="button" value="查询" name="retention_detail" onclick="statRetetion();" />&nbsp;
+		</td>
+	</tr>
+</table>
+<br />
+<br />
+
+<div style="overflow-x:auto;">
+<!--{if !empty($search_data)}-->
+<!--{if $op=="stat_today"}-->
+<table align="left" cellpadding="2" cellspacing="0" border="1" style="border: 1px">
+	<caption>
+	<h3>统计数据</h3>
+	</caption>
+	<thead>
+		<tr>
+			<td width="50">数据项</td>
+			<td width="100">用户数</td>
+		</tr>
+	</thead>
+		<!--{loop $search_data $c $count}-->
+			<tr>
+			<td>{$c}</td>
+			<td>{$count}</td>
+			</tr>
+		<!--{/loop}-->
+</table>
+<!--{/if}-->
+
+<!--{if $op=="retention_detail"}-->
+
+<table align="left" cellpadding="2" cellspacing="0" border="1" style="border: 1px">
+	<caption>
+	<h3>today 统计数据</h3>
+	</caption>
+	<thead>
+		<tr>
+			<td width="50">level</td>
+			<td width="100">用户数</td>
+		</tr>
+	</thead>
+		<!--{loop $search_data[today] $tmp}-->
+			<tr>
+			<td>{$tmp[level]}</td>
+			<td>{$tmp[count]}</td>
+			</tr>
+		<!--{/loop}-->
+</table>
+
+<table align="left" cellpadding="2" cellspacing="0" border="1" style="border: 1px;margin-left:20px;">
+	<caption>
+	<h3>return 统计数据</h3>
+	</caption>
+	<thead>
+		<tr>
+			<td width="50">level</td>
+			<td width="100">用户数</td>
+		</tr>
+	</thead>
+		<!--{loop $search_data[yestoday] $tmp}-->
+			<tr>
+			<td>{$tmp[level]}</td>
+			<td>{$tmp[count]}</td>
+			</tr>
+		<!--{/loop}-->
+</table>
+
+<!--{/if}-->
+
+<br />
+<!--{if $op=="stat_month"}-->
+本段时间安装用户总数:{$sum_user}
+
+<script type="text/javascript" language="javascript">
+
+$(document).ready(function($){
+	{$js_lines}
+	
+	 plot1 = $.jqplot('chart1',[{$js_parm}],{
+       title: "{$_POST['search_month']} "+"月"+"统计图",
+       series: [{$js_label}], 
+        axesDefaults: {
+	       labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+           labelOptions: {
+         	  enableFontSupport: true,
+              fontFamily: 'Georgia',
+              fontSize: '12pt'
+           }
+	    },
+        
+        axes: {
+           xaxis: {
+           	   label:"统计日期",
+           	   
+               renderer:$.jqplot.DateAxisRenderer,
+               rendererOptions:{tickRenderer:$.jqplot.CanvasAxisTickRenderer},
+               tickOptions: {
+                   formatString:'%Y-%#m-%#d',
+                   fontSize:'10pt', 
+                   fontFamily:'Tahoma', 
+                   angle:-30   
+               }
+               //numberTicks: 4
+           },
+           yaxis: {
+           	   min:0,
+           	   label:"用户数量",
+           	   labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+           	   labelOptions: {
+         		  enableFontSupport: true,
+                  fontFamily: 'Georgia',
+                  fontSize: '12pt'
+               },
+               tickOptions: {
+               	   fontSize:'10pt', 
+                   fontFamily:'Tahoma', 
+                   formatString: '%d'
+               }
+           },
+           y2axis: {
+           	   min:0,
+           	   tickOptions: {
+               	   fontSize:'10pt', 
+                   fontFamily:'Tahoma', 
+                   formatString: '%d'
+               }
+           },
+           y3axis: {
+           	   min:0,
+           	   tickOptions: {
+               	   fontSize:'10pt', 
+                   fontFamily:'Tahoma', 
+                   formatString: '%.2f'
+               }
+           }
+       },
+       cursor: {
+       	  show:true,
+       	  showVerticalLine:true,
+       	  showTooltip: true,
+          followMouse: true,
+          tooltipFormatString: '%s(%s): %s',
+          showTooltipDataPosition:true
+	    },
+       highlighter: {
+           sizeAdjust: 10
+           //tooltipLocation: 'n',
+           //tooltipAxes: 'y',
+           //tooltipFormatString: '%d',
+           //useAxesFormatters: false
+       },
+       legend:{show:true, yoffset: 5, xoffset: -150}
+   });
+});
+
+</script>
+<div id="chart1" style="margin-top:20px; margin-left:20px; width:600px; height:400px;"></div>
+<br />
+<br />
+<!--{/if}-->
+
+<!--{if $op=="stat_all"}-->
+<script type="text/javascript" language="javascript">
+
+$(document).ready(function($){
+	{$js_lines}
+	
+	 plot1 = $.jqplot('chart1',[{$js_parm}],{
+        title: "整体统计图",
+        series: [{$js_label}], 
+        axesDefaults: {
+	       labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+           labelOptions: {
+         	  enableFontSupport: true,
+              fontFamily: 'Georgia',
+              fontSize: '12pt'
+           }
+	    },
+        
+        axes: {
+           xaxis: {
+           	   //label:"{$MALANG['stat_shop_col_date']}",
+           	   
+               renderer:$.jqplot.DateAxisRenderer,
+               rendererOptions:{tickRenderer:$.jqplot.CanvasAxisTickRenderer},
+               tickOptions: {
+                   formatString:'%Y-%#m-%#d',
+                   fontSize:'10pt', 
+                   fontFamily:'Tahoma', 
+                   angle:-30   
+               }
+               //numberTicks: 4
+           },
+           yaxis: {
+           	   min:0,
+           	   label:"用户数量",
+           	   renderer: $.jqplot.LogAxisRenderer, 
+           	   labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+           	   labelOptions: {
+         		  enableFontSupport: true,
+                  fontFamily: 'Georgia',
+                  fontSize: '12pt'
+               },
+               tickOptions: {
+               	   fontSize:'10pt', 
+                   fontFamily:'Tahoma', 
+                   formatString: '%d'
+               }
+           },
+           y2axis: {
+           	   min:0,
+           	   tickOptions: {
+               	   fontSize:'10pt', 
+                   fontFamily:'Tahoma', 
+                   formatString: '%d'
+               }
+           },
+           y3axis: {
+           	   min:0,
+           	   tickOptions: {
+               	   fontSize:'10pt', 
+                   fontFamily:'Tahoma', 
+                   formatString: '%.2f'
+               }
+           }
+       },
+	    cursor: {
+       	  show:true,
+       	  zoom: true,
+       	  showVerticalLine:true,
+       	  showTooltip: true,
+          followMouse: true,
+          tooltipFormatString: '%s(%s): %s',
+          showTooltipDataPosition:true
+	    },
+
+       highlighter: {
+           sizeAdjust: 10
+           //tooltipLocation: 'n',
+           //tooltipAxes: 'y',
+           //tooltipFormatString: '%d',
+           //useAxesFormatters: false
+       },
+       legend:{show:true, yoffset: 5, xoffset: -150}
+   });
+   
+   plot2 = $.jqplot('chart2', [{$js_parm}], {
+  	  seriesDefaults:{neighborThreshold:0, showMarker: false},
+  	  axesDefaults: {
+	       labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+           labelOptions: {
+         	  enableFontSupport: true,
+              fontFamily: 'Georgia',
+              fontSize: '12pt'
+           }
+	  },
+	  cursor:{
+	    zoom: true,
+	    showTooltip: false,
+	    constrainZoomTo:'x'
+	  },
+	  axes:{
+	    xaxis: { 
+	      label:"统计日期",
+	      renderer:$.jqplot.DateAxisRenderer,
+	      tickOptions:{
+	      	  fontSize:'10pt', 
+              fontFamily:'Tahoma',
+	      	  formatString:'%Y-%#m-%#d'
+	      }
+	    }, 
+	    yaxis: { 
+	      label:" ",
+	      min:0,
+	      renderer: $.jqplot.LogAxisRenderer, 
+	      tickOptions:{
+	          fontSize:'10pt', 
+              fontFamily:'Tahoma',
+	      	  formatString:'%.2f'
+	      } 
+	    }
+	  }
+	});
+
+	$.jqplot.Cursor.zoomProxy(plot1, plot2);
+});
+
+</script>
+<div id="chart1" style="margin-top:20px; margin-left:20px; width:600px; height:400px;"></div>
+<div id="chart2" style="margin-top:20px; margin-left:20px; width:600px; height:100px;"></div>
+<br />
+<br />
+<!--{/if}-->
+<!--{if !empty($search_data)}-->
+<table align="center" cellpadding="2" cellspacing="0" border="1" style="border: 1px">
+	<caption>
+	<h3>统计数据</h3>
+	</caption>
+	<thead>
+		<tr>
+			<td width="100">日期</td>
+			<td width="50">activity</td>
+			<td width="150">firstload</td>
+			<td width="50">install</td>
+			<td width="50">login_times</td>
+			<td width="70">retention</td>
+			<td width="70">selCharacter</td>
+			<td width="70">visit_friend</td>
+		</tr>
+	</thead>
+		<!--{loop $search_data $idx $sd}-->
+			<tr>
+			<td>{$sd[stat_date]}</td>
+			<td><!--{php echo intval($sd[activity]);}--></td>
+			<td><!--{php echo intval($sd[firstload]);}--></td>
+			<td><!--{php echo intval($sd[install]);}--></td>
+			<td><!--{php echo intval($sd[login_times]);}--></td>
+			<td><!--{php echo intval($sd[retention]);}--></td>
+			<td><!--{php echo intval($sd[selCharacter]);}--></td>
+			<td><!--{php echo intval($sd[visit_friend]);}--></td>
+			</tr>
+		<!--{/loop}-->
+</table>
+<!--{/if}-->
+<!--{elseif isset($_POST[search])}-->
+<p>没有统计信息</p>
+<!--{/if}-->
+</div>
+</form>
+<!--{/if}-->
+<!--{template footer}-->

@@ -1,0 +1,55 @@
+<!--{template header}-->
+<script type="text/javascript">
+function changeSelectedItem(){
+	var objButton = document.getElementById('getItem');
+	objButton.click();
+}
+</script>
+
+<pre>
+<!--{if isset ( $error_msg )}-->
+{$error_msg}<br />
+<!--{/if}-->
+</pre>
+
+<form action="" method="post">
+<table cellspacing="0" cellpadding="0">
+<caption><h1>道具编辑器</h1></caption>
+	<tr>
+		<td align="right">种子或者道具:</td>
+		<td>
+			<select name="item_id" onchange="changeSelectedItem()">
+			<!--{loop $itemlist $item}-->
+				<!--{if $item[item_id] > 1000}-->
+					{php continue;}
+				<!--{/if}-->
+				<option value="{$item[item_id]}" {if $item_id == $item[item_id]}selected{/if} >
+					{$item[item_id]} {$item[cname]}
+				</option>
+			<!--{/loop}-->
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input type="submit" id="getItem" value="编辑" name="getItem"/>
+			<input type="submit" value="更新" name="editItem"/>
+			<input type="reset" value="取消" name="cancel"/>
+		</td>
+	</tr>
+	<!--{loop $editItem $field $value}-->
+		<tr>
+			<td align="right">{$field}:</td>
+	 		<td>
+				<!--{if $field == 'item_id'}-->
+					{$value}
+				<!--{else}-->
+					<input type="text"  name="modifyItem[{$field}]" value="{$value}"/>
+				<!--{/if}-->
+			</td>
+		</tr>
+ 	<!--{/loop}-->
+</table>
+</form>
+<!--{template footer}-->

@@ -1,0 +1,37 @@
+<!--{template header}-->
+<!--{template error_msg}-->
+<form method="post">
+<table cellspacing="3" cellpadding="0" width="600">
+	<tr>
+		<td width="120">用户uid</td>
+		<td><input name='uid' type="text" value='{$uid}' /></td>
+	</tr>
+	<tr>
+		<td>用户gameuid</td>
+		<td><input maxlength="10" name="gameuid" type="text" value='{$gameuid}' /></td>
+	</tr>
+	<tr>
+		<td>删除原因</td>
+		<td><select name="deleteType" >
+			<option value="1">使用外挂</option>
+			<option value="2">使用作弊器</option>
+			<option value="3">其他</option>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td>原因详细</td>
+		<td><textarea rows="3" cols="40" name="reasonDetail"></textarea></td>
+	</tr>
+	<tr>
+		<td><br />
+		<input type="submit" value="取得账户信息" name="getUserAccount"/>
+		</td>
+		<td><br /><input type="submit" value="删除用户档案" name="deleteUserAccount" onclick="return confirm('用户档案删除以后不能再恢复，\n确定删除该用户的所有信息吗？')"/></td>
+	</tr>
+</table>
+</form>
+<pre>
+{php print_r ( $userAccount );}
+</pre>
+<!--{template footer}-->

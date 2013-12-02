@@ -1,0 +1,39 @@
+<!--{template header}-->
+<!--{if !empty($result)}-->
+<table width="100%" cellpadding="3" cellspacing="1" bgcolor="#CCCCCC">
+  <tr>
+    <td width="12%"><span class="STYLE2">ID</span></td>
+    <td width="38%"><span class="STYLE2">Title</span></td>
+    <td width="9%"><span class="STYLE2">is_public</span></td>
+    <td width="12%"><span class="STYLE2">start_time</span></td>
+    <td width="14%"><span class="STYLE2">stop_time</span></td>
+    <td width="15%"><span class="STYLE2">Edit</span></td>
+  </tr>
+  <!--{loop $result $items}-->
+  <tr>
+    <td bgcolor="#FFFFFF">$items['activity_id']</td>
+    <td bgcolor="#FFFFFF">$items['title']</td>
+    <td bgcolor="#FFFFFF"><!--{if $items['is_public'] == 1}-->
+      开启
+      <!--{else}-->
+        <font color="#ff0000">关闭</font>
+        <!--{/if}-->
+    </td>
+    <td bgcolor="#FFFFFF">$items['start_time']</td>
+    <td bgcolor="#FFFFFF">$items['stop_time']</td>
+    <td bgcolor="#FFFFFF"><a href="admincp.php?mod=activity&act=control&m=updatecache&activity_id=$items['activity_id']">更新缓存</a> | <a onClick="return del('$items['activity_id']')" href="#">删除</a> | <a href="admincp.php?mod=activity&act=edit&activity_id=$items['activity_id']">修改</a> </td>
+  </tr>
+  <!--{/loop}-->
+</table>
+<!--{else}-->
+<center>暂时没有活动!</center>
+<!--{/if}-->
+<script>
+function del(activity_id){
+	if(confirm("您确定要删除["+activity_id+"]活动吗？")){
+		document.location.href = "admincp.php?mod=activity&act=control&m=del&activity_id="+activity_id;
+		return false;
+	}
+}
+</script>
+<!--{template footer}-->

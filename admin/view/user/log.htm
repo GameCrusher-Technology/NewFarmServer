@@ -1,0 +1,165 @@
+<!--{template header}-->
+<form action="admincp.php?mod=user&act=log" method="post">
+<table cellspacing="2" cellpadding="0">
+	<tr>
+		<td width="120">用户uid</td>
+		<td><input name='uid' type="text" value='{$uid}'/></td>
+	</tr>
+	<tr>
+		<td>用户gameuid</td>
+		<td><input  name="gameuid" type="text" value='{$gameuid}'/></td>
+	</tr>
+	<!--{if $limitvalue}-->
+	<tr>
+		<td>经验值</td>
+		<td><input maxlength="7" name="exp" type="text" /></td>
+	</tr>
+	<tr>
+		<td>游戏币</td>
+		<td><input maxlength="10" name="coin" type="text" /></td>
+	</tr>
+	<tr>
+		<td>农民币</td>
+		<td><input maxlength="7" name="money" type="text" /></td>
+	</tr>
+	<tr>
+		<td>魅力值</td>
+		<td><input maxlength="7" name="charm" type="text" /></td>
+	</tr>
+	<!--{/if}-->
+	<tr>
+		<td>offset</td>
+		<td><input name="offset" value="{$offset}"/></td>
+	</tr>
+	<tr>
+		<td>limit</td>
+		<td><input name="limit" value="{$limit}"/></td>
+	</tr>
+	<tr>
+		<td>动作日志</td>
+		<td>
+			第<select name="action_log_week">
+			<!--{loop $week_list $week}-->
+			<option value="{php echo sprintf('%02d',$week);}" <!--{if $week == $selected_week}-->selected="selected"<!--{/if}--> >{$week}</option>
+			<!--{/loop}-->
+			</select>周  类型
+			<select name="log_action_type">
+				<option value="">ALL</option>
+				<!--{loop $all_action $action_key $action_value}-->
+				<option value="{$action_key}" <!--{if strval($action_key) == strval($log_action_type)}-->selected="selected"<!--{/if}--> >{$action_value}</option>
+				<!--{/loop}-->
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><input type="submit" value="提交" name="getUserLog" /></td>
+	</tr>
+</table>
+</form>
+<!--{if isset ( $error_msg )}-->
+{$error_msg}
+<br />
+<!--{/if}-->
+<!--{if !empty($userAccount)}-->
+<table border="1" cellspacing="0" cellpadding="2"
+	style="border:1px padding:2px;width:800px">
+	<caption>用户账户信息</caption>
+	<tr>
+		<td>用户uid</td>
+		<td>gameuid</td>
+		<td>金币</td>
+		<td>经验值</td>
+		<td>级别</td>
+		<td>农民币</td>
+		<td>魅力值</td>
+		<td>星级用户</td>
+		<td>会员</td>
+		<td>会员到期时间</td>
+		<td>紫豆用户</td>
+	</tr>
+	<tr>
+		<td>{$uid}</td>
+		<td><!--{$userAccount[gameuid]}--></td>
+		<td><!--{$userAccount[coin]}--></td>
+		<td><!--{$userAccount[experience]}--></td>
+		<td><!--{$user_level}--></td>
+		<td><!--{$userAccount[money]}--></td>
+		<td><!--{$userAccount[charm]}--></td>
+		<td><!--{$userAccount[star_member]}--></td>
+		<td><!--{if $userAccount[member_type] > 0}-->
+		是<!--{if $userAccount[expire_time] < time()}--><span style="color:red">(已过期)</span>
+		<!--{/if}-->
+		<!--{else}-->否<!--{/if}--></td>
+		<td><!--{php echo date('Y-m-d H:i:s',$userAccount[expire_time])}--></td>
+		<td><!--{if $userAccount[mulberry_member] > 0}-->是<!--{else}-->否<!--{/if}--></td>
+	</tr>
+</table>
+<!--{elseif isset($gameuid)}-->用户不存在
+<!--{/if}-->
+<br />
+<!--{if !empty($action_logs)}-->
+<table border="1" cellspacing="0" cellpadding="0"
+	style="border: 1px padding :   2px">
+	<caption>动作日志</caption>
+	<tr>
+		<td>序号</td>
+		<td>动作类型</td>
+		<td>金币</td>
+		<td>农民币</td>
+		<td>点券</td>
+		<td>经验值</td>
+		<td>时间</td>
+		<td>详细信息</td>
+	</tr>
+	{php $i=$offset;}
+	<!--{loop $action_logs $log}-->
+	<tr>
+		<td>{php echo ++$i;}</td>
+		<td><!--{$log[action_type]}--></td>
+		<td><!--{$log[coin]}--></td>
+		<td><!--{$log[money]}--></td>
+		<td><!--{$log[coupon]}--></td>
+		<td><!--{$log[experience]}--></td>
+		<td><!--{php echo date('Y-m-d H:i:s',$log[create_time])}--></td>
+		<td><!--{$log[content]}--></td>
+	</tr>
+	<!--{/loop}-->
+</table>
+<!--{elseif isset($action_logs)}-->
+没有动作日志。<br />
+<!--{/if}-->
+<br />
+<!--{if !empty($monitor_logs)}-->
+<table border="1" cellspacing="0" cellpadding="0"
+	style="border: 1px padding : 2px float :   left">
+	<caption>用户监察日志</caption>
+	<tr>
+		<td>序号</td>
+		<td>金币</td>
+		<td>农民币</td>
+		<td>经验值</td>
+		<td>金币变化</td>
+		<td>农民币变化</td>
+		<td>经验值变化</td>
+		<td>时间</td>
+	</tr>
+	{php $i=$offset;}
+	<!--{loop $monitor_logs $log}-->
+	<tr>
+		<td><!--{php echo ++$i;}--></td>
+		<td><!--{$log[coin]}--></td>
+		<td><!--{$log[money]}--></td>
+		<td><!--{$log[experience]}--></td>
+		<td><!--{$log[coin_change]}--></td>
+		<td><!--{$log[money_change]}--></td>
+		<td><!--{$log[experience_change]}--></td>
+		<td><!--{$log[date_time]}--></td>
+	</tr>
+	<!--{/loop}-->
+</table>
+<!--{elseif isset($monitor_logs)}-->
+没有监察日志。
+<!--{/if}-->
+<br />
+<!--{template footer}-->
