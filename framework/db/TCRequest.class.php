@@ -688,9 +688,9 @@ abstract class TCRequest {
 	}
 	
 	protected function getTableMemkey($val){
-		if(count($val) > 1){
-			ksort($val);
-		}
+//		if(count($val) > 1){
+//			ksort($val);
+//		}
 		return $this->table . '_' . join('_',$val);
 	}
 	

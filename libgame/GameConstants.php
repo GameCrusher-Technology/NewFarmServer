@@ -375,17 +375,9 @@ class JobConst {
 }
 
 class XmlDbType {
-	const XMLDB_TARGET_ITEM='collection';
 	const XMLDB_ITEM = 'item';
 	const XMLDB_TASK = 'task';
-	const XMLDB_ACTION = 'action';
-	const XMLDB_ACTION_DEF = 'action_def';
-	const XMLDB_CONFIGURATON = 'configuration'; 
-	const XMLDB_GIFTBOX='box';
-	const XMLDB_FEED='feed';
-	const XMLDB_LOGIN_REWARD='reward';
-	const XMLDB_COMPOSITION='composition';
-	const XMLDB_GIFTITEM='gift';
+	const XMLDB_ACHIEVE = 'achieve';
 }
 
 class KeyInLevel{

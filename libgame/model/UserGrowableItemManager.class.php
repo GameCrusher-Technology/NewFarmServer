@@ -77,6 +77,11 @@ class UserGrowableItemManager extends UserAssocListDataManager {
 			$this->throwException("crop[$data_id] not immatual.", GameStatusCode::IMMATUAL_CROP);
 		}
 		
+		//增加 收获成就统计次数
+		include_once GAMELIB.'/model/UserActionCountManager.class.php';
+		$action_mgr = new UserActionCountManager();
+		$action_mgr->updateActionCount($gameuid,$item_id+20000,1);
+		
 		$modify = array('item_id' => 0, 'plant_time' => $plant_time);
 		$this->update($gameuid, $data_id, $modify,false);
 		

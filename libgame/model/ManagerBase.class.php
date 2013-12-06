@@ -161,7 +161,7 @@ abstract class ManagerBase {
 		foreach ($key_values as $key=>$value) {
 			$req->addKeyValue($key,$value);
 		}
-		return $req->execute();
+		$req->execute();
 		return true;
     }
     

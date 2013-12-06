@@ -3,6 +3,9 @@ require_once GAMELIB.'/model/UidGameuidMapManager.class.php';
 require_once GAMELIB.'/model/UserFieldDataManager.class.php';
 include_once GAMELIB.'/model/UserGameItemManager.class.php';
 include_once GAMELIB.'/model/TaskManager.class.php';
+include_once GAMELIB.'/model/UserActionCountManager.class.php';
+include_once GAMELIB.'/model/UserFriendManager.php';
+include_once GAMELIB.'/model/UserMessageManager.class.php';
 
 class UserLoginCommand extends GameActionBase{
 	protected function _exec()
@@ -41,6 +44,19 @@ class UserLoginCommand extends GameActionBase{
 		$task_mgr = new TaskManager();
 		$taskinfo = $task_mgr->getTask($gameuid);
 		$user_account['user_task'] = $taskinfo;
+		
+		//获取 actioncount
+		$action_mgr = new UserActionCountManager();
+		$user_account['user_actions'] = $action_mgr->getEntryList($gameuid);
+		
+		//获取 好友
+		$friend_mgr = new UserFriendManager();
+		$friend_obj = $friend_mgr->getFriends($gameuid);
+		$user_account['user_friend'] = $friend_obj['friends'];
+		
+		//获取 message
+		$mes_mgr = new UserMessageManager();
+		$user_account['user_message'] = $mes_mgr->getMessages($gameuid);
 		
 		
 		$result["user_account"]= $user_account;

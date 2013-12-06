@@ -25,7 +25,11 @@ class CreatTask extends GameActionBase{
 			$change['my_order'] = MethodType::TASK_NONPC.";".$requestStr.";".$rewardStr.";".time();
 		}else{
 			if(!empty($taskinfo) && !empty($taskinfo['npc_order'])){
-				$this->throwException('already has npc_order'.$gameuid,GameStatusCode::TASK_HAS_ACCEPTED);
+				$orderArr = explode(";",$taskinfo['npc_order']);
+				$task_time = $orderArr[3];
+				if(($task_time + GameModelConfig::TASK_EXPIRE_TIME)>time()){
+					$this->throwException('already has npc_order'.$gameuid,GameStatusCode::TASK_HAS_ACCEPTED);
+				}
 			}
 			$rewardStr = $task_mgr->getTaskRewards($requestStr,$npc);
 			$change['npc_order'] = $npc.";".$requestStr.";".$rewardStr.";".time();

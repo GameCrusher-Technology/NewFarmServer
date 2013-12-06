@@ -363,6 +363,12 @@ class UserAccountManager extends ManagerBase {
 		return GameConstCode::FIELD_BASE_COUNT + 2*$add_field;
 	}
 	
+	//初始成就信息
+	public function creatAchieveInfo(){
+		return  "00000000000000000000000000000000000000000000000000";
+	}
+	
+	
 	protected function getTableName(){
     	return  "farm_account";
     } 

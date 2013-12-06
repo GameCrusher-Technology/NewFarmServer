@@ -22,10 +22,14 @@ class BuyNpcTask extends GameActionBase{
 		}
 		$rewardStr = $task_mgr->getTaskRewards($requestStr,$npc);
 		$change = array();
+		$cost['gem'] = -pow(2,$taskinfo['buy_count']);
+		
 		$change['npc_order'] = $npc.";".$requestStr.";".$rewardStr.";".time();
 		$change['buy_count'] = 1+$taskinfo['buy_count'];
 		
 		$task_mgr->updateUserTask($gameuid,$change);
+		//扣去 农币
+		$this->user_account_mgr->updateUserStatus($gameuid,$cost);
 		
 		return array('task_result'=>TRUE,"new_task"=>$change);
 	}
