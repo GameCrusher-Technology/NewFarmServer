@@ -14,10 +14,25 @@ require_once GAMELIB.'/model/UidGameuidMapManager.class.php';
 require_once GAMELIB.'/model/XmlManager.class.php';
 include_once FRAMEWORK.'/database/IDSequence.class.php';
 try {
-	$appConfigInstance = get_app_config();
-	$cache = $appConfigInstance->getTableServer("user_message")->getCacheInstance();
-//	$cache->delete("user_message_list_26003");
-	print_r ($cache->get("user_message_list_4"));
+//	$appConfigInstance = get_app_config();
+//	$cache = $appConfigInstance->getTableServer("user_message")->getCacheInstance();
+////	$cache->delete("user_message_list_26003");
+//	print_r ($cache->get("user_message_list_4"));
+
+	
+	
+	function my_sort($a, $b)
+  {
+  if ($a == $b) return 0;
+  return ($a > $b) ? -1 : 1;
+  }
+
+$arr = array("1", "2","3","4","7", "6");
+
+usort($arr, my_sort);
+
+print_r($arr);
+
 
 //	$sequence_handler = new IDSequence("farm_account", "gameuid");
 //    	$cur_gameuid = $sequence_handler->getCurrentId();

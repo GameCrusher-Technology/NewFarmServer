@@ -1013,6 +1013,12 @@ class MethodType {
 	const TASK_REWARD_COIN = 1;
 	const TASK_REWARD_EXP = 2;
 	const TASK_REWARD_LOVE = 3;
+	
+	//MESSAGE类型
+	const MESSTYPE_MES = 0;
+	const MESSTYPE_INVITE = 1;
+	const MESSTYPE_HELP = 2;
+	const MESSTYPE_ORDER = 3;
 }
 
 class StaticFunction{
