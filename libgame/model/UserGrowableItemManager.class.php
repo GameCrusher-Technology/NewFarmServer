@@ -19,7 +19,7 @@ class UserGrowableItemManager extends UserAssocListDataManager {
 		return true;
 	}
 	public function fertilize($gameuid,$crop_data){
-		$data_id=$crop_data['data_id'];
+		$data_id = $crop_data['data_id'];
 		$cache_crop = $this->get($gameuid,$data_id);
 		if (empty($cache_crop)){
 			$this->throwException("no field,[".$data_id."] gameuid:".$gameuid,
@@ -58,14 +58,12 @@ class UserGrowableItemManager extends UserAssocListDataManager {
 			$this->throwException("no field,[".$data_id."] gameuid:".$gameuid,
 				GameStatusCode::NOT_OWN_FIELD);
 		}
-		
 		$item_id = $cache_crop['item_id'];
 		$plant_time = $cache_crop['plant_time'];
 		if (!isset($item_id)){
 			$this->throwException("no field item,[".$data_id."] gameuid:".$gameuid,
 				GameStatusCode::HAS_HARVESTED);
 		}
-		
 		$crop_itemspec = get_xml_def($item_id, XmlDbType::XMLDB_ITEM);
 		$growtimeArr = explode(":",$crop_itemspec['growtime']);
 		$growtime = 0;
@@ -73,7 +71,7 @@ class UserGrowableItemManager extends UserAssocListDataManager {
 			$growtime += $t;
 		}
 		// 判断植物有没有成熟
-		if (time() - $plant_time  <  $growtime*60) {
+		if ((time() - $plant_time)  <  $growtime*60) {
 			$this->throwException("crop[$data_id] not immatual.", GameStatusCode::IMMATUAL_CROP);
 		}
 		
@@ -81,13 +79,20 @@ class UserGrowableItemManager extends UserAssocListDataManager {
 		include_once GAMELIB.'/model/UserActionCountManager.class.php';
 		$action_mgr = new UserActionCountManager();
 		$action_mgr->updateActionCount($gameuid,$item_id+20000,1);
-		
-		$modify = array('item_id' => 0, 'plant_time' => $plant_time);
+		//判断树 不会死掉
+		$addItem = array();
+		if($crop_itemspec['type'] =="Tree"){
+			$modify = array('plant_time' => time());
+			$addItem = array((intval($item_id)+10000)=>10);
+		}else{
+			$modify = array('item_id' => 0, 'plant_time' => 0);
+			$addItem = array($item_id=>2);
+		}
 		$this->update($gameuid, $data_id, $modify,false);
 		
 		$result = array();
 		$result['exp']=$crop_itemspec['exp'];
-		$result['addItem'] = array($item_id=>$this->getOutput($gameuid,$cache_crop));
+		$result['addItem'] = $addItem;
 		return $result;
 	}
 	public function plant($gameuid,$crop){

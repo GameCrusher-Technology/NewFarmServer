@@ -9,6 +9,8 @@ class FinishMyOrder extends GameActionBase{
 		$gameuid = $this->getParam("gameuid",'string');
 		$f_gameuid = $this->getParam("f_gameuid",'string');
 		$isNpc = $this->getParam("isNpc",'int');
+		$mes_id = $this->getParam("mes_id",'int');
+		
 		$task_mgr = new TaskManager();
 		$taskinfo = $task_mgr->getTask($f_gameuid);
 		if (empty($taskinfo) || empty($taskinfo['my_order'])){
@@ -37,7 +39,7 @@ class FinishMyOrder extends GameActionBase{
 		$mes_info = array();
 		if ($isNpc == 1){
 			//true
-			$mes_info['f_gameuid']="4";
+			$mes_info['f_gameuid']="1";
 			
 		}else{
 			$mes_info['f_gameuid']=$gameuid;
@@ -79,6 +81,7 @@ class FinishMyOrder extends GameActionBase{
 		$mes_info['gameuid'] = $f_gameuid;
 		$mes_info['type'] =  MethodType::MESSTYPE_ORDER;
 		$mes_info['updatetime'] = time();
+		$mes_info['data_id'] = $mes_id;
 		$mes_mgr->addMessage($f_gameuid,$mes_info);
 		
 		return TRUE;

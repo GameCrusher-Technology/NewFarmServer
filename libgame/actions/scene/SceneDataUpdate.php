@@ -1,6 +1,7 @@
 <?php
 include_once GAMELIB.'/model/UserGameItemManager.class.php';
 include_once GAMELIB.'/model/UserFieldDataManager.class.php';
+include_once GAMELIB.'/model/FarmDecorationManager.class.php';
 class SceneDataUpdate extends GameActionBase{
 	
 	protected function _exec()
@@ -60,7 +61,16 @@ class SceneDataUpdate extends GameActionBase{
 	
 	private function sellEntities($list,$gameuid){
 		$filed_mgr = new UserFieldDataManager();
-		return $filed_mgr->deleteFields($gameuid,$list);
+		$deco_mgr = new FarmDecorationManager();
+		foreach ($list as $entity){
+			if($entity['type'] == "Crop"){
+				$filed_mgr->delete($gameuid,$entity['data_id']);
+			}elseif ($entity['type'] == "Entity"){
+				$deco_mgr->removeDeco($gameuid,$entity['data_id']);
+			}
+		}
+		return TRUE;
+		
 	}
 	
 	private function plantCrop($gameuid,$cropList){
@@ -94,10 +104,12 @@ class SceneDataUpdate extends GameActionBase{
 	}
 	private function moveEntity($gameuid,$dataList){
 		$filed_mgr = new UserFieldDataManager();
-		
+		$deco_mgr = new FarmDecorationManager();
 		foreach ($dataList as $entity){
 			if($entity['type'] == "Crop"){
 				$filed_mgr->move($gameuid,$entity);
+			}elseif ($entity['type'] == "Entity"){
+				$deco_mgr->move($gameuid,$entity);
 			}
 		}
 		return TRUE;

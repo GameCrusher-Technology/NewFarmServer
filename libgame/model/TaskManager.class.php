@@ -55,16 +55,26 @@ class TaskManager extends ManagerBase {
 		}
 		return TRUE;
 	}
-	public function getTaskRewards($requestStr,$npc){
+	public function getTaskRewards($requestStr,$npc,$account){
 		//npc 任务奖励 核算
 		$xmlRewards = $this->getXmlRewards($requestStr);
 		$rand = rand(GameModelConfig::TASK_NPC_RANDMIN,GameModelConfig::TASK_NPC_RANDMAX);
-		
 		if($npc == MethodType::TASK_MALENPC){
-			return MethodType::TASK_REWARD_COIN.":".($xmlRewards['coin']*$rand)."|".MethodType::TASK_REWARD_EXP.":".($xmlRewards['exp']*$rand);
+			$level = StaticFunction::expToGrade($account['exp']);
+			$need_exp = floor((StaticFunction::gradeToExp($level+1) -StaticFunction::gradeToExp($level))/4);
+			return MethodType::TASK_REWARD_COIN.":".($xmlRewards['coin']*$rand)."|".MethodType::TASK_REWARD_EXP.":".$need_exp;
 //			return array('coin'=>$xmlRewards['coin']*$rand,'exp'=>$xmlRewards['exp']*$rand);
 		}else {
-			return MethodType::TASK_REWARD_COIN.":".($xmlRewards['coin']*$rand)."|".MethodType::TASK_REWARD_LOVE.":".floor($xmlRewards['exp']*$rand/2);
+			$skill = $account['skill'];
+			if (empty($skill) ||$skill ==""){
+				$level = 0;
+			}else {
+				$skillarr = explode("|",$skill);
+				$level = $skillarr[0]+$skillarr[1] - 7;
+			}
+			
+			$need_love = floor(StaticFunction::gradeToLove($level)/4);
+			return MethodType::TASK_REWARD_COIN.":".($xmlRewards['coin']*$rand)."|".MethodType::TASK_REWARD_LOVE.":".floor($need_love);
 //			return array('coin'=>$xmlRewards['coin']*$rand,'love'=>floor($xmlRewards['exp']*$rand/2));
 		}
 	}

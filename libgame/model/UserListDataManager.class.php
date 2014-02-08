@@ -1,10 +1,10 @@
 <?php
 require_once GAMELIB.'/model/ManagerBase.class.php';
-/**
- * 这个类主要是针对有data_id来构成主键的数据，每个玩家可能会有多条数据
- * 有user_data、user_data_animal、user_pet等数据
- * 如果要保证data_id在整个游戏中必须每个人的都不一样，请使用这种方式
- */
+///**
+// * 这个类主要是针对有data_id来构成主键的数据，每个玩家可能会有多条数据
+// * 有user_data、user_data_animal、user_pet等数据
+// * 如果要保证data_id在整个游戏中必须每个人的都不一样，请使用这种方式
+// */
 abstract class UserListDataManager extends ManagerBase {
 	public function getList($gameuid) {
 		if (empty($gameuid) || intval($gameuid) <= 0) return false;
@@ -62,7 +62,7 @@ abstract class UserAssocListDataManager extends ManagerBase {
 	public function delete($gameuid,$data_id){
 		return $this->deleteFromDb($gameuid,array('gameuid'=>$gameuid,"data_id"=>$data_id));
 	}
-	public function update($gameuid, $data_id, $modify, $no_db=true) {
+	public function update($gameuid, $data_id, $modify, $no_db=false) {
 		$this->updateDB($gameuid, $modify, array('gameuid'=>$gameuid,"data_id"=>$data_id), $no_db);
 	}
 	public function insert($gameuid, $data) {
@@ -77,12 +77,6 @@ abstract class UserAssocListDataManager extends ManagerBase {
 		$this->insertDBBatch($data,TCRequest::CACHE_KEY_LIST);
 	}
 	////调用方法addKeyValue("pk1,pk2", array(array(v1,v2),array(v3,v4),array(v5,v6)));
-	public function deleteFields($gameuid, $list) {
-		foreach ($list as $key=>$value) {
-			$this->delete($gameuid,$value['data_id']);
-		}
-//		return $this->deleteFromDb($gameuid,array($fields=>$values));
-	}
 	
 	protected function getSequenceId($gameuid){
 		$mem_key=sprintf("ranch_id_sequence_%s_%d",$this->getTableName(),$gameuid);

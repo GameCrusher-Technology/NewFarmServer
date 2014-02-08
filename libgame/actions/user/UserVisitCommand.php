@@ -1,14 +1,13 @@
 <?php
-require_once GAMELIB.'/model/UidGameuidMapManager.class.php';
 require_once GAMELIB.'/model/UserFieldDataManager.class.php';
-include_once GAMELIB.'/model/UserGameItemManager.class.php';
 include_once GAMELIB.'/model/TaskManager.class.php';
 include_once GAMELIB.'/model/UserMessageManager.class.php';
+include_once GAMELIB.'/model/UserFriendManager.php';
+include_once GAMELIB.'/model/FarmDecorationManager.class.php';
 class UserVisitCommand extends GameActionBase{
 	protected function _exec()
 	{
 		$gameuid = $this->getParam('gameuid','string');
-		
 		$friend_gameuid = $this->getParam('friend_gameuid','string');
 		$friend_account = $this->user_account_mgr->getUserAccount($friend_gameuid);
 		
@@ -22,10 +21,17 @@ class UserVisitCommand extends GameActionBase{
 		$taskinfo = $task_mgr->getTask($friend_gameuid);
 		$friend_account['user_task'] = $taskinfo;
 		
+		//获取装饰
+		$deco_mgr = new FarmDecorationManager();
+		$friend_account['user_deco'] = $deco_mgr->getDecorations($friend_gameuid);
+		
 		//获取 message
 		$mes_mgr = new UserMessageManager();
 		$friend_account['user_message'] = $mes_mgr->getMessages($friend_gameuid);
 		
+		$fri_mgr = new UserFriendManager();
+		$last_help_time = $fri_mgr->getHelpFriendTag($gameuid,$friend_gameuid);
+		$result["lastHelp"] = $last_help_time;
 		$result["friend_account"]= $friend_account;
 		return $result;
 	}

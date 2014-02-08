@@ -74,7 +74,8 @@ class GameConfig extends AppConfig{
 	}
 	
 	private static function getConfigFile($gameuid=null) {
-		if (!isset($gameuid) || intval($gameuid) <= 0) return 'default';
+		return 'default';
+		if (!isset($gameuid) || intval($gameuid) < 0) return 'default';
 		$config_file = APP_ROOT . '/etc_all/'.self::getPlatForm().'/user_partitions.ini';
 //		self::checkConfigPath($config_file);
 		$partition_config = self::getConfigFromCache($config_file);

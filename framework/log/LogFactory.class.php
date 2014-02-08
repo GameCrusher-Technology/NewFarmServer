@@ -15,6 +15,7 @@ class LogFactory {
 	const LOG_MODULE_ADMIN = 'admin';
 	const LOG_MODULE_DATABASE = 'database';
 	const LOG_MODULE_CACHE = 'cache';
+	const LOG_MODULE_PAYMENT = 'payment';
 	const LOG_MODULE_PLATFORM = 'platform';
 	const LOG_MODULE_OTHER = 'other';
 	/**

@@ -16,23 +16,22 @@ class LeaveMessage extends GameActionBase{
 			$data_id = $mesInfo["data_id"];
 			
 			$merge = array();
-			$merge['gameuid'] = $f_gameuid;
-			$merge['f_gameuid']=$gameuid;
+			$merge['gameuid'] = $gameuid;
+			$merge['f_gameuid']=$f_gameuid;
 			$merge['message'] = $message;
 			$merge['type'] = $type;
 			$merge['data_id'] = $data_id;
 			$merge['updatetime'] = time();
 			
-			return $mes_mgr->addMessage($f_gameuid,$merge);
+			$mes_mgr->addMessage($gameuid,$merge);
 		}
-		
 		foreach ($delMes as $delMesInfo){
-			$f_gameuid = $delMesInfo["f_gameuid"];
+			$gameuid = $delMesInfo["gameuid"];
 			$data_id = $delMesInfo["data_id"];
-			$mes_mgr->delMessage($f_gameuid,$data_id);
+			$mes_mgr->delMessage($gameuid,$data_id);
 		}
 		
-		
+		return TRUE;
 	}
 }
 ?>

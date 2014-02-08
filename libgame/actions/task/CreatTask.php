@@ -23,6 +23,12 @@ class CreatTask extends GameActionBase{
 				return array('task_result'=>FALSE);
 			}
 			$change['my_order'] = MethodType::TASK_NONPC.";".$requestStr.";".$rewardStr.";".time();
+			
+			$rewardArr = explode(":",$rewardStr);
+			$id = $rewardArr[0];
+			$count = abs($rewardArr[1]);
+			$this->user_account_mgr->updateUserCoin($gameuid,-$count);
+			
 		}else{
 			if(!empty($taskinfo) && !empty($taskinfo['npc_order'])){
 				$orderArr = explode(";",$taskinfo['npc_order']);
@@ -31,7 +37,8 @@ class CreatTask extends GameActionBase{
 					$this->throwException('already has npc_order'.$gameuid,GameStatusCode::TASK_HAS_ACCEPTED);
 				}
 			}
-			$rewardStr = $task_mgr->getTaskRewards($requestStr,$npc);
+			$account = $this->user_account_mgr->getUserAccount($gameuid);
+			$rewardStr = $task_mgr->getTaskRewards($requestStr,$npc,$account);
 			$change['npc_order'] = $npc.";".$requestStr.";".$rewardStr.";".time();
 			//8小时 cd
 			$change['npc_time'] = time();

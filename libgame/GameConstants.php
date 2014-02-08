@@ -871,7 +871,7 @@ class ItemType{
 class GameConstCode{
 	
 	//浇水持续的时间
-	const WATER_TIME=30;
+	const WATER_TIME=1800;
 	//雇佣结束时的基本经验
 	const BASE_EXP=1000;
 	//雇佣结束时的基本金币
@@ -946,45 +946,60 @@ class GameConstCode{
 	
 }
 class InitUser{
-	public static $account_arr = array('coin'=>5000,
-										'exp' => 0,
-										'gem' => 200,
+	public static $account_arr = array(	'exp' => 0,
+										'gem' => 50,
 										'coin' => 10000,
 										'love' => 0,
 										'extend' => 0,
+										'crop_extend' => 0,
 										'sex' => 0,
-										'title' => ""
+										'title' => "",
+	'skill' => "2|5"
+	
 										);
 	public static $own_arr = array(
-		array('item_id'=>10001,'count'=>3),
-		array('item_id'=>10002,'count'=>1),
-		array('item_id'=>10003,'count'=>5)
+		array('item_id'=>10001,'count'=>5),
+		array('item_id'=>10002,'count'=>5),
+		array('item_id'=>10003,'count'=>5),
+		array('item_id'=>14000,'count'=>1),
+		array('item_id'=>20001,'count'=>10)
 		);
 	
 	public static $new_field = array(
-		array('data_id'=>"1001",'positionx'=>0,'positiony'=>0,"item_id"=>10000,"output"=>2,"plant_time"=>0,"status"=>0),
-		array('data_id'=>"1002",'positionx'=>2,'positiony'=>2,"item_id"=>10001,"output"=>2,"plant_time"=>0,"status"=>0),
-		array('data_id'=>"1003",'positionx'=>0,'positiony'=>2,"item_id"=>10002,"output"=>2,"plant_time"=>0,"status"=>0),
-		array('data_id'=>"1004",'positionx'=>2,'positiony'=>0,"item_id"=>10002,"output"=>2,"plant_time"=>0,"status"=>0),
-		array('data_id'=>"1005",'positionx'=>4,'positiony'=>4,"item_id"=>10002,"output"=>2,"plant_time"=>0,"status"=>0),
-		array('data_id'=>"1006",'positionx'=>4,'positiony'=>2,"item_id"=>10002,"output"=>2,"plant_time"=>0,"status"=>0),
-		array('data_id'=>"1007",'positionx'=>2,'positiony'=>4,"item_id"=>10002,"output"=>2,"plant_time"=>0,"status"=>0),
+		array('data_id'=>"1001",'positiony'=>8,'positionx'=>6,"item_id"=>10000,"output"=>2,"plant_time"=>0,"status"=>0),
+		array('data_id'=>"1002",'positiony'=>8,'positionx'=>8,"item_id"=>10000,"output"=>2,"plant_time"=>0,"status"=>0),
+		array('data_id'=>"1003",'positiony'=>8,'positionx'=>10,"item_id"=>0,"output"=>0,"plant_time"=>0,"status"=>0),
+		array('data_id'=>"1004",'positiony'=>10,'positionx'=>6,"item_id"=>10000,"output"=>2,"plant_time"=>0,"status"=>0),
+		array('data_id'=>"1005",'positiony'=>10,'positionx'=>8,"item_id"=>10000,"output"=>2,"plant_time"=>0,"status"=>0),
+		array('data_id'=>"1006",'positiony'=>10,'positionx'=>10,"item_id"=>0,"output"=>0,"plant_time"=>0,"status"=>0)
 				
+	);
+	public static $new_deco = array(
+		array('data_id'=>"1001",'positiony'=>2,'positionx'=>6,"item_id"=>50001),
+		array('data_id'=>"1002",'positiony'=>7,'positionx'=>8,"item_id"=>50009),
+		array('data_id'=>"1003",'positiony'=>6,'positionx'=>8,"item_id"=>50009),
+		array('data_id'=>"1004",'positiony'=>6,'positionx'=>1,"item_id"=>50010),
+		array('data_id'=>"1005",'positiony'=>4,'positionx'=>2,"item_id"=>50013),
+		array('data_id'=>"1006",'positiony'=>12,'positionx'=>4,"item_id"=>50016),
+		array('data_id'=>"1007",'positiony'=>0,'positionx'=>12,"item_id"=>50014),
+		array('data_id'=>"1008",'positiony'=>1,'positionx'=>1,"item_id"=>50015)
 	);
 	
 }
 class GameModelConfig{
-	const CHANGENAME_COST = 10;
-	const CHANGENAME_SEX = 10;
+	const CHANGENAME_COST = 2;
+	const CHANGENAME_SEX = 2;
 	
 	const TASK_MAX_COIN = 1;
 	const TASK_MIN_COIN = 1;
 	const TASK_MAX_EXP = 1;
 	const TASK_MIN_EXP = 1;
-	const TASK_NPC_RANDMAX = 3;
+	const TASK_NPC_RANDMAX = 2;
 	const TASK_NPC_RANDMIN = 1;
 	const TASK_EXPIRE_TIME = 43200;
 	const TASK_CD_TIME = 28800;
+	
+	const SKILL_CD  = 28800;
 }
 class MethodType {
 	//表示物品的变化方式
@@ -1023,13 +1038,40 @@ class MethodType {
 
 class StaticFunction{
 	public static function expToGrade($exp){
-        return intval ((3+sqrt(9+16*$exp))/8);
+        return intval (sqrt($exp/10));
     }
     public static function gradeToExp($grade){
-        return intval(pow($grade,2)*4) - 3*$grade;
+        return intval(pow($grade,2)*10);
+    }
+	public static function gradeToLove($grade){
+        return intval(pow($grade+1,2)*10 - pow($grade,2)*10);
     }
     public static function getStrengthLimit($level=0,$increace=0){
     	return intval($level/2)+$increace + 15;
+    }
+    public static $wildRewardRate =  array(
+    					array(70,30),
+				    	array(60,30,10),
+				    	array(40,40,20),
+				    	array(30,30,20,10,10),
+				    	array(10,20,30,20,20)
+				    	);
+	 public static $wildRewards =  array( 
+	 					array('coin'=>1200,'coin'=>800,'exp'=>150,'14000'=>1,'20001'=>1,'50009'=>1,'50010'=>1),
+				    	array('coin'=>2500,'coin'=>1500,'exp'=>100,'14000'=>1,'14001'=>1,'20001'=>2,'50010'=>1,'50011'=>1),
+				    	array('coin'=>3000,'coin'=>6000,'14000'=>1,'14001'=>1,'14002'=>1,'20001'=>3,'50010'=>1,'50011'=>1,'50012'=>1),
+				    	array('14000'=>1,'14001'=>1,'14002'=>1,'14003'=>1,'14004'=>1,'20001'=>8,'50011'=>1,'50012'=>1),
+				    	array('14006'=>1,'14005'=>1,'14004'=>1,'20001'=>30,'50012'=>1)
+			    	);
+				    	
+	public static function getWildReward($step){
+//    	$rate = StaticFunction::$wildRewardRate[$step];
+//    	$key = StaticFunction::getOneByRate($rate);
+    	
+		$rewards = StaticFunction::$wildRewards[$step];
+		$r_key = array_rand($rewards,1);
+		
+		return array("id"=>$r_key,"count"=>$rewards[$r_key]);
     }
     /**
      * 获取一系列rate中的一个而且必须要出现的一个

@@ -48,12 +48,12 @@ class UserGameItemManager extends ManagerBase {
 			$this->throwException("method[$method] not exist in UserGameItemManager",
 				GameStatusCode::METHOD_ERROR);
 		}
- 		if(!empty($logType)){
-			$message=sprintf("gameuid\t%d\titem\t%d\tmethod\t%d\tvar\t%d\tfun\t%s",$this->gameuid,$item_id,$method,$count,$logType);	
- 		}else{
- 			$message=sprintf("gameuid\t%d\titem\t%d\tmethod\t%d\tvar\t%d\tfun\t%s",$this->gameuid,$item_id,$method,$count,"null");
- 		}
- 		$this->logger->writeFatal($message);
+// 		if(!empty($logType)){
+//			$message=sprintf("gameuid\t%d\titem\t%d\tmethod\t%d\tvar\t%d\tfun\t%s",$this->gameuid,$item_id,$method,$count,$logType);	
+// 		}else{
+// 			$message=sprintf("gameuid\t%d\titem\t%d\tmethod\t%d\tvar\t%d\tfun\t%s",$this->gameuid,$item_id,$method,$count,"null");
+// 		}
+// 		$this->logger->writeFatal($message);
 		$this->item_modify[$method][$item_id]+=$count;
 		return true;
 	}

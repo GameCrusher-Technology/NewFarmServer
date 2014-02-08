@@ -214,7 +214,7 @@ abstract class GameActionBase extends GameBase implements IAction {
 
 	protected function getReturnArray($return_code,$message,$array = null){
 		$ret_arr = array('__code' => $return_code, '__msg' => $message,
-		'__start_time'=>$this->action_start_time, '__end_time'=>microtime(true));
+		'__start_time'=>$this->action_start_time, '__end_time'=>time());
 		if(is_array($array)){
 			$ret_arr = array_merge($ret_arr,$array);
 		}elseif(!empty($array)){

@@ -18,7 +18,11 @@ class BuyItem extends GameActionBase{
      			throw $this->throwException("item,[".$item_id."] gameuid:".$gameuid."cant buy by coin",
 				GameStatusCode::BUY_METHOD_ERROR);
      		}
-     		$total_cost = $count * $itemspec["coinPrice"];
+     		if($itemspec["type"] == "Crop"){
+     			$total_cost = $count * $itemspec["coinPrice"]*10;
+     		}else{
+     			$total_cost = $count * $itemspec["coinPrice"];
+     		}
      		
      		if(!isset($account['coin'])||$account['coin']<$total_cost){
      			throw $this->throwException("gameuid:".$gameuid."coin not enough",

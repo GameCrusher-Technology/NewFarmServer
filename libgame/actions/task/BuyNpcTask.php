@@ -20,7 +20,8 @@ class BuyNpcTask extends GameActionBase{
 				$this->throwException("task already exist  ".$gameuid,GameStatusCode::TASK_NOT_EXIST);
 			}
 		}
-		$rewardStr = $task_mgr->getTaskRewards($requestStr,$npc);
+		$account = $this->user_account_mgr->getUserAccount($gameuid);
+		$rewardStr = $task_mgr->getTaskRewards($requestStr,$npc,$account);
 		$change = array();
 		$cost['gem'] = -pow(2,$taskinfo['buy_count']);
 		

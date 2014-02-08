@@ -23,6 +23,9 @@ class UserFriendManager extends ManagerBase {
 	public function updateFriends($change,$gameuid){
 		$this->updateDB($gameuid,$change,array('gameuid'=>$gameuid));
 	}
+	public function creatFriends($change){
+		$this->insertDB($change,TCRequest::CACHE_PRIMARY_KEY);
+	}
 	
 	//获取 好友简单数据
 	public function getfriendinfo($friend_gameuid)
@@ -37,7 +40,7 @@ class UserFriendManager extends ManagerBase {
 				return NULL;
 			}else{
 				$friendInfo = $this->mergeFriendInfo($friend_account);
-				$this->setToCache($key ,$friendInfo,null,0);
+				$this->setToCache($key ,$friendInfo,null,172800);
 				return $friendInfo;
 			}
 		}else{
@@ -46,18 +49,37 @@ class UserFriendManager extends ManagerBase {
 	
 	}
 	
+	public function getHelpFriendTag($gameuid,$f_gameuid)
+	{
+		$memKey = $this->getHelpFriendCacheKey($gameuid,$f_gameuid);
+		$helpTime = $this->getFromCache($memKey);
+		if(empty($helpTime))
+		{
+			$helpTime = 0;
+		}
+		return $helpTime;
+		
+	}
+	public function setHelpFriendTag($gameuid,$f_gameuid)
+	{
+		$memKey = $this->getHelpFriendCacheKey($gameuid,$f_gameuid);
+		$this->setToCache($memKey,time(),$gameuid,86400);
+	}
 	private function mergeFriendInfo($friendAccount)
 	{
 		$friendInfo = array("gameuid"=>$friendAccount['gameuid'],
 							"exp"=>$friendAccount['exp'],
 							"sex"=>$friendAccount['sex'],
 							"name"=>$friendAccount['name'],
-							"love"=>$friendAccount['love'],
-							"title"=>$friendAccount['title']
+							"title"=>$friendAccount['title'],
+							"achieve"=>$friendAccount['achieve']
 								);
 								return  $friendInfo;
 	}
 	
+	private function getHelpFriendCacheKey($gameuid,$f_gameuid){
+		return "farm_help_".$gameuid.'_'.$f_gameuid;
+	}
 	protected function getTableName(){
 		return "user_friends";
 	}

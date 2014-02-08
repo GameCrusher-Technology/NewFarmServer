@@ -6,20 +6,21 @@ include_once GAMELIB.'/model/TaskManager.class.php';
 include_once GAMELIB.'/model/UserActionCountManager.class.php';
 include_once GAMELIB.'/model/UserFriendManager.php';
 include_once GAMELIB.'/model/UserMessageManager.class.php';
-
+include_once GAMELIB.'/model/FarmDecorationManager.class.php';
 class UserLoginCommand extends GameActionBase{
 	protected function _exec()
 	{
 		$platform_uid = $this->getParam('uid','string');
 		$mapping_handler = new UidGameuidMapManager();
 		$gameuid = $mapping_handler->getGameuid($platform_uid);
+		$is_newer = FALSE;
 		if ($gameuid === false) {
 			if ($this->logger->isDebugEnabled()) {
 				$this->logger->writeDebug("can not map platform uid[$platform_uid], create new user.");
 			}
-			require_once FRAMEWORK.'/database/IDSequence.class.php';
-    		$sequence_handler = new IDSequence("farm_account", "gameuid");
-    		$gameuid = $sequence_handler->getNextId();
+			require_once FRAMEWORK.'/database/FarmIDSequence.class.php';
+    		$sequence_handler = new FarmIDSequence();
+    		$gameuid = $sequence_handler->creatId();
     		if ($this->logger->isDebugEnabled()) {
     			$this->logger->writeDebug("generated new garmuid[$gameuid]");
     		}
@@ -28,6 +29,7 @@ class UserLoginCommand extends GameActionBase{
 			//创建uid,gameuid的对照关系
 			$mapping_handler->createMapping($platform_uid, $gameuid);
 			//统计信息
+			$is_newer = TRUE;
 		}
 //		addSystemStat('install',1);
 		$GLOBALS['gameuid'] = $gameuid;
@@ -39,6 +41,9 @@ class UserLoginCommand extends GameActionBase{
 		//获取背包
 		$item_mgr=new UserGameItemManager($gameuid);
 		$user_account['items'] = $item_mgr->getItemList();
+		//获取装饰
+		$deco_mgr = new FarmDecorationManager();
+		$user_account['user_deco'] = $deco_mgr->getDecorations($gameuid);
 		
 		//获取任务
 		$task_mgr = new TaskManager();
@@ -60,6 +65,7 @@ class UserLoginCommand extends GameActionBase{
 		
 		
 		$result["user_account"]= $user_account;
+		$result['is_new'] = $is_newer;
 		return $result;
 	}
 	
@@ -72,6 +78,7 @@ class UserLoginCommand extends GameActionBase{
 		}
 		$item_mgr->commitToDB();
 		
+		
 		//添加新的植物
 		$field_mgr = new UserFieldDataManager();
 		$init_fields = InitUser::$new_field;
@@ -79,9 +86,18 @@ class UserLoginCommand extends GameActionBase{
 		foreach($init_fields as $field){
         	$field['gameuid'] = $gameuid;
         	$fields[] = $field;
-//        	$field_mgr->insert($gameuid,$field);
         }
 		$field_mgr->insertField($gameuid,$fields);
+		
+		//添加装饰
+		$deco_mgr = new FarmDecorationManager();
+		$init_decos = InitUser::$new_deco;
+		$decos = array();
+		foreach($init_decos as $deco){
+        	$deco['gameuid'] = $gameuid;
+        	$decos[] = $deco;
+        }
+		$deco_mgr->insertDecos($gameuid,$decos);
 		
 		//进行用户金钱和农民币的初始化
 		$new_account=InitUser::$account_arr;

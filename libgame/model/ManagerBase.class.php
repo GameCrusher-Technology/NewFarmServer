@@ -35,13 +35,6 @@ abstract class ManagerBase {
         $cache_handler = $appConfigInstance->getTableServer($this->getTableName(), $gameuid)->getCacheInstance();
         return $cache_handler->delete($key);
     }
-    protected function getSequenceId($table_name, $id_field) {
-    	return "test";
-    	require_once FRAMEWORK.'/database/IDSequence.class.php';
-    	$sequence_handler = new IDSequence($table_name, $id_field);
-    	return $sequence_handler->getNextId();
-        
-    }
     
     protected function getDBHelperInstance($gameuid = null) {
     	$appConfigInstance = get_app_config($gameuid);

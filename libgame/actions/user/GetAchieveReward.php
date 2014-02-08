@@ -13,12 +13,28 @@ class GetAchieveReward extends GameActionBase{
 		if(empty($achieve)){
 			$achieve = $this->user_account_mgr->creatAchieveInfo();
 		}
-		$achieve_index = $id - 30000;
-		if($achieve_index >= strlen($achieve)){
-			throw $this->throwException("gameuid:".$gameuid." not this achieve",
-				GameStatusCode::DATA_ERROR);
+		$achieveArrs = explode("|",$achieve);
+		$crop_achieves = $achieveArrs[0];
+		$tree_achieves = $achieveArrs[1];
+		
+		$achieve_def = get_xml_def($id,XmlDbType::XMLDB_ITEM);
+		if($achieve_def['type']=='Crop'){
+			$achieve_index = $id - 30000;
+			if($achieve_index >= strlen($crop_achieves)){
+				throw $this->throwException("gameuid:".$gameuid." not this achieve",
+					GameStatusCode::DATA_ERROR);
+			}
+			$curLevel = substr($crop_achieves,$achieve_index,1);
+			$crop_achieves = substr_replace($crop_achieves,$step,$achieve_index,1);
+		}elseif ($achieve_def['type']=='Tree'){
+			$achieve_index = $id - 34000;
+			if($achieve_index >= strlen($tree_achieves)){
+				throw $this->throwException("gameuid:".$gameuid." not this achieve",
+					GameStatusCode::DATA_ERROR);
+			}
+			$curLevel = substr($tree_achieves,$achieve_index,1);
+			$tree_achieves = substr_replace($tree_achieves,$step,$achieve_index,1);
 		}
-		$curLevel = substr($achieve,$achieve_index,1);
 		
 		if($step <= $curLevel){
 			throw $this->throwException("gameuid:".$gameuid." has accept this achieve",
@@ -30,7 +46,6 @@ class GetAchieveReward extends GameActionBase{
 		if(empty($achieve_count_info)){
 			$achieve_count_info = array("action_id"=>$id,"count"=>0);
 		}
-		$achieve_def = get_xml_def($id,XmlDbType::XMLDB_ITEM);
 		$countArr = explode("|",$achieve_def['levels']);
 		$needcount = $countArr[$step-1];
 		
@@ -41,7 +56,7 @@ class GetAchieveReward extends GameActionBase{
 		$change = array();
 		$reward_arr = explode("|",$achieve_def['rewards']);
 		$change['gem'] = $reward_arr[$step-1];
-		$change['achieve'] = substr_replace($achieve,$step,$achieve_index,1);
+		$change['achieve'] = $crop_achieves."|".$tree_achieves;
 		$this->user_account_mgr->updateUserStatus($gameuid,$change);
 		return $change;
 	}

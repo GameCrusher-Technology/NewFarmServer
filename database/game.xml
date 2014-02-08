@@ -1,30 +1,181 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <database>
 	<Group id="Crop">
-		<Crop item_id="10000" name="rice"      growtime="0.15:0.15:0.15:0.15:0.15" 	exp="2" level="0"  coinPrice="100" gemPrice="1"/>
-		<Crop item_id="10001" name="rice"      growtime="0.15:0.15:0.15:0.15:0.15"	exp="2" level="0"  coinPrice="100" gemPrice="1"/>
-		<Crop item_id="10002" name="sunflower" growtime="0.15:0.15:0.15:0.15"		exp="2" level="1"  coinPrice="100" gemPrice="1"/>
-		<Crop item_id="10003" name="clover"    growtime="0.15:0.15:0.15:0.15:0.15" 	exp="2" level="1"  coinPrice="100" gemPrice="1"/>
-		<Crop item_id="10004" name="rice"      growtime="0.15:0.15:0.15:0.15:0.15"	exp="2" level="1"  coinPrice="100" gemPrice="1"/>
-		<Crop item_id="10005" name="sunflower" growtime="0.15:0.15:0.15:0.15"		exp="2" level="1"  coinPrice="100" gemPrice="1"/>
-		<Crop item_id="10006" name="clover"    growtime="0.15:0.15:0.15:0.15:0.15"	exp="2" level="10" coinPrice="100" gemPrice="1"/>
-		<Crop item_id="10007" name="rice"      growtime="0.15:0.15:0.15:0.15:0.15"	exp="2" level="10" coinPrice="100" gemPrice="1"/>
-		<Crop item_id="10008" name="sunflower" growtime="0.15:0.15:0.15:0.15"		exp="2" level="10" coinPrice="100" gemPrice="1"/>
-		<Crop item_id="10009" name="clover"    growtime="0.15:0.15:0.15:0.15:0.15"	exp="2" level="10" coinPrice="100" gemPrice="1"/>
+		<Crop item_id="10000" name="Potato"     growtime="0.5:0.5:0.5:0.5" 		exp="1" level="0"  	coinPrice="1" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10001" name="Radish"     growtime="2.5:2.5:2.5:2.5"		exp="1" level="2"  	coinPrice="4" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10002" name="Beans" 		growtime="15:15:15:15"			exp="1" level="5"  	coinPrice="30" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10003" name="RedPepper"  growtime="3.75:3.75:3.75:3.75"	exp="1" level="8"  	coinPrice="7" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10004" name="Tomato" 	growtime="1.25:1.25:1.25:1.25"	exp="1" level="10"  coinPrice="2" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10005" name="Asparagus"  growtime="20:20:20:20"			exp="1" level="12" 	coinPrice="40" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10006" name="Eggplant"   growtime="7.5:7.5:7.5:7.5"		exp="1" level="15" 	coinPrice="15" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10007" name="Carrot" 	growtime="1.25:1.25:1.25:1.25"	exp="1" level="18" 	coinPrice="3" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10008" name="Lettuce"    growtime="5:5:5:5"				exp="1" level="20" 	coinPrice="12"	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10009" name="Sunflower"  growtime="0.5:0.5:0.5:0.5" 		exp="1" level="22"  coinPrice="1" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10010" name="Leek"      	growtime="7.5:7.5:7.5:7.5" 		exp="1" level="25"  coinPrice="18" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10011" name="Corn"    	growtime="5:5:5:5" 				exp="1" level="28"  coinPrice="13"	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10012" name="Pea"      	growtime="30:30:30:30" 			exp="1" level="30"  coinPrice="80"	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10013" name="Grape"      growtime="25:25:25:25" 			exp="1" level="32"  coinPrice="65" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10014" name="Lily"      	growtime="10:10:10:10" 			exp="1" level="35"  coinPrice="30" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10015" name="Blueberry"  growtime="2.5:2.5:2.5:2.5" 		exp="1" level="38"  coinPrice="7" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10016" name="Kiwi"      	growtime="180:180:180:180" 		exp="1" level="40"  coinPrice="500" gemPrice="1"	type="Crop"/>
+		<Crop item_id="10017" name="Rice"     	growtime="1.5:1.5:1.5:1.5" 		exp="1" level="42"  coinPrice="4" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10018" name="Lentil"     growtime="7.5:7.5:7.5:7.5" 		exp="1" level="45"  coinPrice="20" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10019" name="Spinach"    growtime="20:20:20:20" 			exp="1" level="48"  coinPrice="60" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10020" name="Mint"      	growtime="3.75:3.75:3.75:3.75" 	exp="1" level="50"  coinPrice="12" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10021" name="Mustard"    growtime="60:60:60:60" 			exp="1" level="52"  coinPrice="150" gemPrice="1"	type="Crop"/>
+		<Crop item_id="10022" name="Oat"      	growtime="5:5:5:5" 				exp="1" level="55"  coinPrice="15" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10023" name="Bamboo"     growtime="30:30:30:30" 			exp="1" level="58"  coinPrice="100" gemPrice="1"	type="Crop"/>
+		<Crop item_id="10024" name="Pineapple"  growtime="15:15:15:15" 			exp="1" level="60"  coinPrice="50" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10025" name="Strawberry" growtime="20:20:20:20" 			exp="1" level="62"  coinPrice="70" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10026" name="Cranberry"  growtime="7.5:7.5:7.5:7.5" 		exp="1" level="65"  coinPrice="30" 	gemPrice="1"	type="Crop"/>
+		<Crop item_id="10027" name="RedRose"    growtime="180:180:180:180" 		exp="1" level="68"  coinPrice="666" gemPrice="1"	type="Crop"/>
+		
+		<Crop item_id="14000" name="AppleTree" 		growtime="5:5:5:5" 				exp="1" level="0" gemPrice="10" 	type="Tree"/>
+		<Crop item_id="14001" name="OrangeTree"     growtime="30:30:30:30"			exp="1" level="0" gemPrice="12"  	type="Tree"/>
+		<Crop item_id="14002" name="PearTree" 		growtime="45:45:45:45"			exp="1" level="0" gemPrice="14"		type="Tree"/>
+		<Crop item_id="14003" name="CherryTree"    	growtime="7.5:7.5:7.5:7.5"		exp="1" level="0" gemPrice="16"		type="Tree"/>
+		<Crop item_id="14004" name="LeecheeTree"    growtime="180:180:180:180" 		exp="1" level="0" gemPrice="18"		type="Tree"/>
+		<Crop item_id="14005" name="LemonTree"      growtime="90:90:90:90"			exp="1" level="0" gemPrice="20"		type="Tree"/>
+		<Crop item_id="14006" name="MangoTree"      growtime="30:30:30:30"			exp="1" level="0" gemPrice="22"		type="Tree"/>
+		
+		<!-- 
+			<Crop item_id="14003" name="PersimmonTree"  growtime="90:90:90:90" 			exp="1" level="0" coinPrice="160" 	gemPrice="1"	type="Tree"/>
+			<Crop item_id="14004" name="AlmondTree"     growtime="120:120:120:120"		exp="1" level="0" coinPrice="200" 	gemPrice="1"	type="Tree"/>
+			<Crop item_id="14005" name="ChestnutTree" 	growtime="15:15:15:15"			exp="1" level="0" coinPrice="25" 	gemPrice="1"	type="Tree"/>
+			<Crop item_id="14007" name="OakTree"      	growtime="720:720:720:720"		exp="1" level="0" coinPrice="1000" 	gemPrice="1"	type="Tree"/>
+			<Crop item_id="14010" name="LimeTree"      	growtime="360:360:360:360"		exp="1" level="0" coinPrice="600" 	gemPrice="1"	type="Tree"/>
+			<Crop item_id="14012" name="PinkLilacTree"  growtime="360:360:360:360"		exp="1" level="0" coinPrice="650" 	gemPrice="1"	type="Tree"/>
+			
+			<Item item_id="24003" name="Persimmon"  exp="1"  coinPrice="160" 	/>
+			<Item item_id="24004" name="Almond"     exp="1"  coinPrice="200" 	/>
+			<Item item_id="24005" name="Chestnut" 	exp="1"  coinPrice="25" 	/>
+			<Item item_id="24007" name="Oak"      	exp="1"  coinPrice="1000" 	/>
+			<Item item_id="24010" name="Lime"      	exp="1"  coinPrice="600" 	/>
+			<Item item_id="24012" name="PinkLilac"  exp="1" coinPrice="650" 	/>
+		 -->
+		
 	</Group>
 	<Group id="Item">
-		<Item item_id="20001" name="fertilize"  gemPrice="1"/>
+		<Item item_id="20001" name="fertilize"  	gemPrice="1"/>
+		
+		<!-- 树的产物 -->
+		<Item item_id="24000" name="Apple" 		coinPrice="1" 	/>
+		<Item item_id="24001" name="Orange"     coinPrice="5" 	/>
+		<Item item_id="24002" name="Pear" 		coinPrice="8" 	/>
+		<Item item_id="24003" name="Cherry"    	coinPrice="1" 	/>
+		<Item item_id="24004" name="Leechee"    coinPrice="30" />
+		<Item item_id="24005" name="Lemon"      coinPrice="15" />
+		<Item item_id="24006" name="Mango"      coinPrice="5" 	/>
+		
+	</Group>
+	<Group id="Entity">
+		<Entity item_id="50001" name="House"  			bound_x="4" bound_y="4" gemPrice="1" type="house"/>
+		
+		<Entity item_id="50002" name="Haystack01" 		bound_x="2" bound_y="2" coinPrice="800"	type="wild"	rateStep="0"/>
+		<Entity item_id="50003" name="Haystack02"  		bound_x="2" bound_y="2" coinPrice="1200" type="wild"	rateStep="0"/>
+		<Entity item_id="50004" name="Haystack03"  		bound_x="2" bound_y="2" coinPrice="2500" type="wild"	rateStep="1"/>
+		<Entity item_id="50005" name="Haystack04"  		bound_x="2" bound_y="2" gemPrice="2" type="wild"	rateStep="1"/>
+		<Entity item_id="50006" name="Haystack05"  		bound_x="2" bound_y="2" coinPrice="6000" type="wild"	rateStep="2"/>
+		<Entity item_id="50007" name="Haystack06"  		bound_x="2" bound_y="2" gemPrice="10" type="wild"	rateStep="3"/>
+		<Entity item_id="50008" name="Haystack07"  		bound_x="2" bound_y="2" gemPrice="20" type="wild"	rateStep="4"/>
+		
+		<Entity item_id="50009" name="Floor01"  		bound_x="1" bound_y="1" gemPrice="1" type="floor"/>
+		<Entity item_id="50010" name="Floor02"  		bound_x="2" bound_y="2" gemPrice="1" type="floor"/>
+		<Entity item_id="50011" name="Floor03"  		bound_x="1" bound_y="1" gemPrice="1" type="floor"/>
+		<Entity item_id="50012" name="Floor04"  		bound_x="2" bound_y="2" gemPrice="1" type="floor"/>
+		
+		<Entity item_id="50013" name="Forage01"  		bound_x="2" bound_y="2" coinPrice="1000"  	type="wild" 	rateStep="0"/>
+		<Entity item_id="50014" name="Forage02"  		bound_x="2" bound_y="2" coinPrice="2000" 	type="wild" 	rateStep="1"/>
+		<Entity item_id="50015" name="Forage03"  		bound_x="2" bound_y="2" coinPrice="5000" 	type="wild" 	rateStep="2"/>
+		<Entity item_id="50016" name="Forage04"  		bound_x="2" bound_y="2" gemPrice="5" 		type="wild" 	rateStep="2"/>
+		<Entity item_id="50017" name="Forage05"  		bound_x="2" bound_y="2" gemPrice="8" 		type="wild"		rateStep="3"/>
+		<Entity item_id="50018" name="Forage06"  		bound_x="2" bound_y="2" coinPrice="10000" 	type="wild"		rateStep="3"/>
 	</Group>
 	<Group id="AchieveItem">
-		<AchieveItem item_id="30001" name="riceAch"		levels = "100|200|300|400|500" rewards="100|200|300|400|500"/>
-		<AchieveItem item_id="30002" name="sunflower"	levels = "100|200|300|400|500" rewards="100|200|300|400|500"/>
-		<AchieveItem item_id="30003" name="PP"			levels = "100|200|300|400|500" rewards="100|200|300|400|500"/>
-		<AchieveItem item_id="30004" name="PP" 			levels = "100|200|300|400|500" rewards="100|200|300|400|500"/>
-		<AchieveItem item_id="30005" name="PP" 			levels = "100|200|300|400|500" rewards="100|200|300|400|500"/>
-		<AchieveItem item_id="30006" name="PP" 			levels = "100|200|300|400|500" rewards="100|200|300|400|500"/>
-		<AchieveItem item_id="30007" name="PP" 			levels = "100|200|300|400|500" rewards="100|200|300|400|500"/>
-		<AchieveItem item_id="30008" name="PP" 			levels = "100|200|300|400|500" rewards="100|200|300|400|500"/>
-		<AchieveItem item_id="30009" name="PP" 			levels = "100|200|300|400|500" rewards="100|200|300|400|500"/>
+	<!--  
+	<AchieveItem item_id="30000" 	type="Crop" levels = "9000|54000|180000" rewards="5|10|20"/>
+	<AchieveItem item_id="30001" 	type="Crop" levels = "1800|10800|36000" rewards="5|10|20"/>
+	<AchieveItem item_id="34001" 	type="Tree" levels = "150|900|3000" rewards="5|10|20"/>
+	-->
+		<AchieveItem item_id="30000" 	type="Crop" levels = "9000|54000|180000" rewards="5|10|20"/>
+		<AchieveItem item_id="30001" 	type="Crop" levels = "1800|10800|36000" rewards="5|10|20"/>
+		<AchieveItem item_id="30002" 	type="Crop" levels = "300|1800|6000" rewards="5|10|20"/>
+		<AchieveItem item_id="30003" 	type="Crop" levels = "1200|7200|24000" rewards="5|10|20"/>
+		<AchieveItem item_id="30004"  	type="Crop" levels = "3600|21600|72000" rewards="5|10|20"/>
+		<AchieveItem item_id="30005"  	type="Crop" levels = "225|1350|4500" rewards="5|10|20"/>
+		<AchieveItem item_id="30006"  	type="Crop" levels = "600|3600|12000" rewards="5|10|20"/>
+		<AchieveItem item_id="30007"  	type="Crop" levels = "3600|21600|72000" rewards="5|10|20"/>
+		<AchieveItem item_id="30008"  	type="Crop" levels = "900|5400|18000" rewards="5|10|20"/>
+		<AchieveItem item_id="30009"  	type="Crop" levels = "9000|54000|180000" rewards="5|10|20"/>
+		<AchieveItem item_id="30010" 	type="Crop" levels = "600|3600|12000" rewards="5|10|20"/>
+		<AchieveItem item_id="30011" 	type="Crop" levels = "900|5400|18000" rewards="5|10|20"/>
+		<AchieveItem item_id="30012" 	type="Crop" levels = "150|900|3000" rewards="5|10|20"/>
+		<AchieveItem item_id="30013" 	type="Crop" levels = "180|1080|3600" rewards="5|10|20"/>
+		<AchieveItem item_id="30014"  	type="Crop" levels = "450|2700|9000" rewards="5|10|20"/>
+		<AchieveItem item_id="30015"  	type="Crop" levels = "1800|10800|36000" rewards="5|10|20"/>
+		<AchieveItem item_id="30016"  	type="Crop" levels = "25|150|500" rewards="5|10|20"/>
+		<AchieveItem item_id="30017"  	type="Crop" levels = "3000|18000|60000" rewards="5|10|20"/>
+		<AchieveItem item_id="30018"  	type="Crop" levels = "600|3600|12000" rewards="5|10|20"/>
+		<AchieveItem item_id="30019"  	type="Crop" levels = "225|1350|4500" rewards="5|10|20"/>
+		<AchieveItem item_id="30020" 	type="Crop" levels = "1200|7200|24000" rewards="5|10|20"/>
+		<AchieveItem item_id="30021" 	type="Crop" levels = "75|450|1500" rewards="5|10|20"/>
+		<AchieveItem item_id="30022" 	type="Crop" levels = "900|5400|18000" rewards="5|10|20"/>
+		<AchieveItem item_id="30023" 	type="Crop" levels = "150|900|3000" rewards="5|10|20"/>
+		<AchieveItem item_id="30024"  	type="Crop" levels = "300|1800|6000" rewards="5|10|20"/>
+		<AchieveItem item_id="30025"  	type="Crop" levels = "225|1350|4500" rewards="5|10|20"/>
+		<AchieveItem item_id="30026"  	type="Crop" levels = "600|3600|12000" rewards="5|10|20"/>
+		<AchieveItem item_id="30027"  	type="Crop" levels = "25|150|500" rewards="5|10|20"/>
 		
+		
+		<AchieveItem item_id="34000" 	type="Tree" levels = "900|5400|18000" rewards="5|10|20"/>
+		<AchieveItem item_id="34001" 	type="Tree" levels = "150|900|3000" rewards="5|10|20"/>
+		<AchieveItem item_id="34002" 	type="Tree" levels = "100|600|2000" rewards="5|10|20"/>
+		<AchieveItem item_id="34003" 	type="Tree" levels = "600|3600|12000" rewards="5|10|20"/>
+		<AchieveItem item_id="34004"  	type="Tree" levels = "25|150|500" rewards="5|10|20"/>
+		<AchieveItem item_id="34005"  	type="Tree" levels = "50|300|1000" rewards="5|10|20"/>
+		<AchieveItem item_id="34006"  	type="Tree" levels = "150|900|3000" rewards="5|10|20"/>
+
+	</Group>
+	<Group id="Extend">
+		<Extend item_id="40001" name="extendfarm1"			level="5"   coinPrice="10000" gemPrice="10"/>
+		<Extend item_id="40002" name="extendfarm2"			level="10"  coinPrice="50000" gemPrice="20"/>
+		<Extend item_id="40003" name="extendfarm3"			level="15"  coinPrice="80000" gemPrice="40"/>
+		<Extend item_id="40004" name="extendfarm4" 			level="20"  coinPrice="100000" gemPrice="50"/>
+		<Extend item_id="40005" name="extendfarm5" 			level="25"  coinPrice="200000" gemPrice="100"/>
+		<Extend item_id="40006" name="extendfarm6" 			level="30"  coinPrice="500000" gemPrice="200"/>
+		
+		<Extend item_id="41001" name="extendcrop1" 			level="1"  coinPrice="1000" gemPrice="1"/>
+		<Extend item_id="41002" name="extendcrop2" 			level="2"  coinPrice="2000" gemPrice="2"/>
+		<Extend item_id="41003" name="extendcrop3" 			level="3"  coinPrice="3000" gemPrice="3"/>
+		<Extend item_id="41004" name="extendcrop4" 			level="4"  coinPrice="4000" gemPrice="4"/>
+		
+		<Extend item_id="41005" name="extendcrop5" 			level="6"  coinPrice="6000" gemPrice="6"/>
+		<Extend item_id="41006" name="extendcrop6" 			level="7"  coinPrice="8000" gemPrice="8"/>
+		<Extend item_id="41007" name="extendcrop7" 			level="8"  coinPrice="10000" gemPrice="10"/>
+		<Extend item_id="41008" name="extendcrop8" 			level="9"  coinPrice="12000" gemPrice="12"/>
+		
+		<Extend item_id="41009" name="extendcrop9" 			level="11"  coinPrice="16000" gemPrice="16"/>
+		<Extend item_id="41010" name="extendcrop10" 		level="12"  coinPrice="20000" gemPrice="20"/>
+		<Extend item_id="41011" name="extendcrop11" 		level="13"  coinPrice="24000" gemPrice="24"/>
+		<Extend item_id="41012" name="extendcrop12" 		level="14"  coinPrice="28000" gemPrice="28"/>
+		
+		<Extend item_id="41013" name="extendcrop13" 		level="16"  coinPrice="36000" gemPrice="36"/>
+		<Extend item_id="41014" name="extendcrop14" 		level="17"  coinPrice="44000" gemPrice="44"/>
+		<Extend item_id="41015" name="extendcrop15" 		level="18"  coinPrice="52000" gemPrice="52"/>
+		<Extend item_id="41016" name="extendcrop16" 		level="19"  coinPrice="60000" gemPrice="60"/>
+		
+		<Extend item_id="41017" name="extendcrop17" 		level="21"  coinPrice="70000" gemPrice="70"/>
+		<Extend item_id="41018" name="extendcrop18" 		level="22"  coinPrice="80000" gemPrice="80"/>
+		<Extend item_id="41019" name="extendcrop19" 		level="23"  coinPrice="90000" gemPrice="90"/>
+		<Extend item_id="41020" name="extendcrop20" 		level="24"  coinPrice="100000" gemPrice="100"/>
+		
+		<Extend item_id="41021" name="extendcrop21" 		level="26"  coinPrice="120000" gemPrice="120"/>
+		<Extend item_id="41022" name="extendcrop22" 		level="27"  coinPrice="140000" gemPrice="140"/>
+		<Extend item_id="41023" name="extendcrop23" 		level="28"  coinPrice="160000" gemPrice="160"/>
+		<Extend item_id="41024" name="extendcrop24" 		level="29"  coinPrice="180000" gemPrice="180"/>
+	</Group>
+	<Group id="Animal">
+		<Animal item_id="60001" name="BeaAnimal"	/>
+		<Animal item_id="60002" name="BirdAnimal"	/>
 	</Group>
 </database>

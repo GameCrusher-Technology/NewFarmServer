@@ -640,7 +640,6 @@ abstract class TCRequest {
 			return;
 		}
 		$primary_key = $this->getPrimaryKey();
-		
 		$cache = $this->getCacheInstance();
 		// 如果要缓存的结果不是数组
 		if(!is_array($values)){
@@ -688,9 +687,9 @@ abstract class TCRequest {
 	}
 	
 	protected function getTableMemkey($val){
-//		if(count($val) > 1){
-//			ksort($val);
-//		}
+		if(count($val) > 1){
+			ksort($val);
+		}
 		return $this->table . '_' . join('_',$val);
 	}
 	

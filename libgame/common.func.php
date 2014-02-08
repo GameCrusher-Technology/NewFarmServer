@@ -6,7 +6,7 @@
  * @param XML数据库类型 $type
  * @return 物品的定义
  */
-function get_xml_def($id, $type) {
+function get_xml_def($id, $type = XmlDbType::XMLDB_ITEM) {
 	static $xml_db_mgr = array();
 	if (count($xml_db_mgr) === 0) {
 		require_once GAMELIB.'/model/XmlManager.class.php';

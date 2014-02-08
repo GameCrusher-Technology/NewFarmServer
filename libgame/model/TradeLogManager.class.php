@@ -15,19 +15,33 @@
  * product_name  varchar(255)
  * token         varchar(50)	加密串
 */
-
+require_once GAMELIB.'/model/ManagerBase.class.php';
 class TradeLogManager extends ManagerBase {
 	protected function getTableName(){
-		return "trade_log";
+		return "user_trade";
 	}
 	public function get($gameuid,$id){
-		return $this->getFromDb($gameuid,array('id'=>$id));
+		return $this->getFromDb($gameuid,array('gameuid'=>$gameuid,'data_id'=>$id));
 	}
 	public function insert($change){
 		$this->insertDB($change);
 	}
 	public function update($gameuid,$id,$modify){
-		$this->updateDB($gameuid,$modify,array('id'=>$id),false);
+		$this->updateDB($gameuid,$modify,array('gameuid'=>$gameuid,'data_id'=>$id));
+	}
+	
+	
+	public function getCache()
+	{
+		return  $this->getFromCache("testPay",0);
+	}
+	public function setCache($arr)
+	{
+		$this->setToCache("testPay",$arr,500,0);
+	}
+	public function deleteCache()
+	{
+		$this->delToCache("testPay",0);
 	}
 }
 ?>
