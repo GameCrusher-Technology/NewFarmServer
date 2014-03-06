@@ -23,7 +23,12 @@ class BuyNpcTask extends GameActionBase{
 		$account = $this->user_account_mgr->getUserAccount($gameuid);
 		$rewardStr = $task_mgr->getTaskRewards($requestStr,$npc,$account);
 		$change = array();
-		$cost['gem'] = -pow(2,$taskinfo['buy_count']);
+		
+		$costGem = pow(2,$taskinfo['buy_count']);
+		if($account['gem']<$costGem){
+			$this->throwException("gem buy extend need gem".$costGem,GameStatusCode::DATA_ERROR);
+		}
+		$cost['gem'] = -$costGem;
 		
 		$change['npc_order'] = $npc.";".$requestStr.";".$rewardStr.";".time();
 		$change['buy_count'] = 1+$taskinfo['buy_count'];

@@ -1,5 +1,6 @@
 <?php 
 include_once GAMELIB.'/model/TradeLogManager.class.php';
+include_once GAMELIB.'/model/UserGameItemManager.class.php';
 require_once FRAMEWORK . '/log/LogFactory.class.php';
 class GooglePayForGems extends GameActionBase 
 {
@@ -11,7 +12,6 @@ class GooglePayForGems extends GameActionBase
 			'archive' => ILogger::ARCHIVE_YEAR_MONTH, // 文件存档的方式
 			'log_level' => 1
 		));
-		
 	//	$str = 
 	//{"GameVersion":"1.2.1",
 //			"order_id":0,
@@ -34,40 +34,55 @@ class GooglePayForGems extends GameActionBase
 //	}
 
 		$gameuid = $this->getParam("gameuid",'int');
-		$receipt_str = $this->getParam("receipt",'string');
-		$receipt = json_decode($receipt_str,true);
+		$receipt = $this->getParam("receipt",'array');
+		$receipt_str = $this->getParam("receiptStr",'string');
 		
 		$account = $this->user_account_mgr->getUserAccount($gameuid);
-
-		$payLog->writeInfo($gameuid." || ".$account['gem']." || ".$receipt_str." || ".time());
+		$payLog->writeInfo($gameuid." || ".$account['gem']." || ".json_encode($receipt) );
+		
 		if (empty($receipt)) {
 			return array('status'=>'error');
 		}
-		$signature = base64_decode($receipt['signature']);
-		$signed_data = $receipt['signedData'];
-		$pub_key = <<<EOF
------BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnGq+mkH8cFacOY9UoWyi1tmAxa55pdmTpoexuMVKbOjbpsY8jwzBOxTO3VBsu7HSibYDTrn79t0uFj0YMsQ/wGK1sO/Ab08DlGEYqV7m5+QsqMcAtQ8UNUER+sGnQxnzTmr3Uq9izMkk69NXzkZRaO5lp8f4gbfRx3KT2JweWihjOyFhWdlWmHRBAJE81Wn2iFJzNGNr50XIC4VDOlt+ljcUD3vu9bZmqmgMryKwn4WtxV2o4UwT5RehpyGHAyQ6YX2jmDSfoR6z2UgajCedxGK5bfmnPZXj75DC4P08O+SlBCGhEq62o/I0sDNtdWdSVnb+HM7IcqqaEMEd6taZEwIDAQAB
------END PUBLIC KEY-----
-EOF;
-		$pub_k = openssl_pkey_get_public($pub_key);
-			
-//			if (openssl_verify($signed_data, $signature, $pub_k) !== 1) {
-//				return array('status'=>'error');
-//			}
-			
-//			$signed_data = json_decode($signed_data, true);
-			$request_orders = $signed_data['orders'];
+		$new_rec = array();
+		foreach ($receipt as $key=>$value){
+			$new_rec[$key] = $value;
+		}
+		$signature = $new_rec['signature'];
+		$signed_data = $new_rec["signedData"];
+		
+		$keyStr=  "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnGq+mkH8cFacOY9UoWyi1tmAxa55pdmTpoexuMVKbOjbpsY8jwzBOxTO3VBsu7HSibYDTrn79t0uFj0YMsQ/wGK1sO/Ab08DlGEYqV7m5+QsqMcAtQ8UNUER+sGnQxnzTmr3Uq9izMkk69NXzkZRaO5lp8f4gbfRx3KT2JweWihjOyFhWdlWmHRBAJE81Wn2iFJzNGNr50XIC4VDOlt+ljcUD3vu9bZmqmgMryKwn4WtxV2o4UwT5RehpyGHAyQ6YX2jmDSfoR6z2UgajCedxGK5bfmnPZXj75DC4P08O+SlBCGhEq62o/I0sDNtdWdSVnb+HM7IcqqaEMEd6taZEwIDAQAB";
+		$KEY_PREFIX = "-----BEGIN PUBLIC KEY-----\n";
+	    $KEY_SUFFIX = '-----END PUBLIC KEY-----';
+		$pub_key = $KEY_PREFIX . chunk_split($keyStr, 64, "\n") . $KEY_SUFFIX;
+		$pub_k = openssl_get_publickey($pub_key);
+		
+		$r = openssl_verify($signed_data, base64_decode($signature), $pub_k);
+		if ($r !== 1) {
+			$payLog->writeError($gameuid." || ".$r );
+			return array('status'=>'error');
+		}
+		$signed_data = json_decode($signed_data, true);
+		$new_signed_data = array();
+		foreach ($signed_data as $key=>$value){
+			$new_signed_data[$key] = $value;
+		}
+			$request_orders = $new_signed_data['orders'];
 			if (empty($request_orders)) {
 				return array('status'=>'error');
 			}
 			$tradeManager = new TradeLogManager();
-			
-			foreach ($request_orders as $request_order) {
-				$purchase_state = $request_order['purchaseState'];
-				$purchasetime = $request_order['purchaseTime'];
-				$product_id = $request_order['productId'];
-				$transactionid = $request_order['orderId'];
+			$item_mgr = new UserGameItemManager($gameuid);
+			foreach ($request_orders as $orderKey => $request_order) {
+				$new_request_order = array();
+				foreach ($request_order as $orderK=>$orderV) {
+					$new_request_order[$orderK]= $orderV;
+				}
+				
+				
+				$purchase_state = $new_request_order['purchaseState'];
+				$purchasetime = $new_request_order['purchaseTime'];
+				$product_id = $new_request_order['productId'];
+				$transactionid = $new_request_order['orderId'];
 				if (empty($transactionid)) {
 					continue;
 				}
@@ -75,9 +90,15 @@ EOF;
 				if ($purchase_state == 0)
 				{
 					if ($product_id == "sunny_farm.littlefarmgem"){
-						$change['gem'] = 100;
-					}elseif ($product_id == "sunnyfarm.largefarmgem"){
-						$change['gem'] = 600;
+						$change['gem'] = 200;
+						$item_mgr->addItem("20001",50);
+     					$item_mgr->commitToDB();
+     					$item = array('id'=>'20001','count'=>50);
+					}elseif ($product_id == "sunny_farm.largefarmgem"){
+						$change['gem'] = 1100;
+						$item_mgr->addItem("20001",100);
+     					$item_mgr->commitToDB();
+     					$item = array('id'=>'20001','count'=>100);
 					}else{
 						$this->throwException("wrong product_id :".$product_id,GameStatusCode::PARAMETER_ERROR);
 					}
@@ -94,7 +115,12 @@ EOF;
 				$tradeManager->insert($tradeinfo);
 		}
 		$new_account = $this->user_account_mgr->getUserAccount($gameuid);
-		return array("gem"=>$new_account['gem']);
+		$payLog->writeInfo($gameuid." || ".$new_account['gem'] );
+		if (empty($item)){
+			return array("gem"=>$new_account['gem']);
+		}else {
+			return array("gem"=>$new_account['gem'],"item"=>$item);
+		}
 	}
 }
 ?>

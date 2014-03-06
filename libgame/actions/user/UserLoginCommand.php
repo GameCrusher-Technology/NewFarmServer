@@ -101,7 +101,7 @@ class UserLoginCommand extends GameActionBase{
 		
 		//进行用户金钱和农民币的初始化
 		$new_account=InitUser::$account_arr;
-		$new_account['name']="farmer".$gameuid;
+		$new_account['name']= $gameuid;
 		return $this->user_account_mgr->createUserAccount($gameuid, $new_account);
 	}
 }

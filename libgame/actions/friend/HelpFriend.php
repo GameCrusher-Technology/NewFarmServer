@@ -28,16 +28,20 @@ class HelpFriend extends GameActionBase{
 		$merge['data_id'] = $data_id;
 		$mes_mgr->addMessage($f_gameuid,$merge);
 		
-		$filed_mgr = new UserFieldDataManager();
-		foreach ($speedArr as $speed_id){
-			$cache_crop = $filed_mgr->get($f_gameuid,$speed_id);
-			if (empty($cache_crop)){
-				$this->throwException("no field,[".$speed_id."] gameuid:".$f_gameuid,
-					GameStatusCode::NOT_OWN_FIELD);
+		if (empty($speedArr)|| count($speedArr)==0){
+			$this->user_account_mgr->updateUserStatus($f_gameuid,array('coin'=>100));
+		}else{
+			$filed_mgr = new UserFieldDataManager();
+			foreach ($speedArr as $speed_id){
+				$cache_crop = $filed_mgr->get($f_gameuid,$speed_id);
+				if (empty($cache_crop)){
+					$this->throwException("no field,[".$speed_id."] gameuid:".$f_gameuid,
+						GameStatusCode::NOT_OWN_FIELD);
+				}
+				$plant_time = $cache_crop['plant_time'] - GameConstCode::WATER_TIME;
+				$modify = array("plant_time"=>$plant_time);
+				$filed_mgr->update($f_gameuid, $speed_id, $modify,false);
 			}
-			$plant_time = $cache_crop['plant_time'] - GameConstCode::WATER_TIME;
-			$modify = array("plant_time"=>$plant_time);
-			$filed_mgr->update($f_gameuid, $speed_id, $modify,false);
 		}
 		
 		

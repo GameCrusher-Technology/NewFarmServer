@@ -75,7 +75,7 @@ class UserItemManager extends ManagerBase {
 				}
 				break;
 		}
-		$this->logger->writeFatal($message);
+//		$this->logger->writeFatal($message);
 	}
 	protected function getTableName(){
 		return "user_item";

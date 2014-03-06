@@ -21,9 +21,15 @@ class ExtendFarm extends GameActionBase{
 				$this->throwException("coin buy extend need level".$next_extend['level'],GameStatusCode::DATA_ERROR);
 			}
 			$change['extend'] = $cur_extend+1;
+			if($user_info['coin']<$next_extend['coinPrice']){
+				$this->throwException("coin buy extend need coin".$next_extend['coinPrice'],GameStatusCode::DATA_ERROR);
+			}
 			$change['coin'] =  - $next_extend['coinPrice'];
 		}else{
 			$change['extend'] = $cur_extend+1;
+			if($user_info['gem']<$next_extend['gemPrice']){
+				$this->throwException("gem buy extend need gem".$next_extend['gemPrice'],GameStatusCode::DATA_ERROR);
+			}
 			$change['gem'] = - $next_extend['gemPrice'];
 		}
 		

@@ -19,6 +19,15 @@ class UserActionCountManager extends ManagerBase {
 		$key = $this->getTableName().'_'.$action_id.'_'.$gameuid;
 		return $this->getFromCache($key,$gameuid);
 	}
+	//统计行为
+	public function setAnalyticCacheEntry($gameuid,$action_id,$count){
+		$key = $this->getTableName().'_'.'Analytic'.'_'.$action_id.'_'.$gameuid;
+		$this->setToCache($key,$count,$gameuid,0);
+	}
+	public function getAnalyticCacheEntry($gameuid,$action_id){
+		$key = $this->getTableName().'_'.'Analytic'.'_'.$action_id.'_'.$gameuid;
+		return $this->getFromCache($key,$gameuid);
+	}
 	public function getEntry($gameuid,$action_id){
 		return $this->getFromDb($gameuid,array('gameuid'=>$gameuid,'action_id'=>$action_id));
 	}

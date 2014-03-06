@@ -56,5 +56,17 @@ class FarmDecorationManager extends ManagerBase {
 	protected function getTableName(){
 		return "user_deco";
 	}
+	
+	public function getWeedCacheTime($gameuid)
+	{
+		$key  = "creat_weed_".$gameuid;
+		return $this->getFromCache($key,$gameuid);
+	}
+	public function setWeedCacheTime($gameuid)
+	{
+		$key  = "creat_weed_".$gameuid;
+		$time = time();
+		$this->setToCache($key,$time,$gameuid,3600);
+	}
 }
 ?>

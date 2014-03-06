@@ -41,6 +41,7 @@ class SearchingCommand extends GameActionBase{
 		$count =$reward["count"];
 		if($key == "coin" || $key == "exp"){
 			$this->user_account_mgr->updateUserStatus($gameuid,array($key=>$count));
+			$deco_mgr->removeDeco($gameuid,$data_id);
 		}else if(floor($key/10000)==5){
 			//装饰 只有一个
 			$deco_mgr->updateDeco($gameuid,$data_id,array('item_id'=>$key));
@@ -49,6 +50,7 @@ class SearchingCommand extends GameActionBase{
 			$item_mgr = new UserGameItemManager($gameuid);
 			$item_mgr->addItem($key,$count);
 			$item_mgr->commitToDB();
+			$deco_mgr->removeDeco($gameuid,$data_id);
 		}
 		
 		
