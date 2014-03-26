@@ -202,7 +202,7 @@ abstract class GameActionBase extends GameBase implements IAction {
 			    $next_day_time = mktime(0,0,0,$date['mon'],$date['mday'],$date['year']);
 				return $this->getReturnArray(0,'ok',array('next_can_happen_time'=>$next_day_time));
 			}
-			//$this->logger->writeError("game exception happens while execute action:".$e);//log输出过多，关闭之
+			$this->logger->writeError("game exception happens while execute action:".$e);//log输出过多，关闭之
 			return $this->getReturnArray($e->getCode(), $e->getMessage());
 		}catch(Exception $e){
 			// 其他的错误

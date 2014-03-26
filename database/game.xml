@@ -63,9 +63,56 @@
 		<Item item_id="24001" name="Orange"     coinPrice="5" 	/>
 		<Item item_id="24002" name="Pear" 		coinPrice="8" 	/>
 		<Item item_id="24003" name="Cherry"    	coinPrice="1" 	/>
-		<Item item_id="24004" name="Leechee"    coinPrice="30" />
-		<Item item_id="24005" name="Lemon"      coinPrice="15" />
+		<Item item_id="24004" name="Leechee"    coinPrice="30"	/>
+		<Item item_id="24005" name="Lemon"      coinPrice="15" 	/>
 		<Item item_id="24006" name="Mango"      coinPrice="5" 	/>
+		
+		<!-- 简单加工的产物 -->
+		<Item item_id="25000" name="Potato"    	coinPrice="1" />
+		<Item item_id="25001" name="Radish"    	coinPrice="4" />
+		<Item item_id="25002" name="Beans" 		coinPrice="30" />
+		<Item item_id="25003" name="RedPepper"  coinPrice="10" />
+		<Item item_id="25004" name="Tomato" 	coinPrice="2" />
+		<Item item_id="25005" name="Asparagus" 	coinPrice="8" />
+		<Item item_id="25006" name="Eggplant"   coinPrice="3" />
+		<Item item_id="25007" name="Carrot" 	coinPrice="3" />
+		<Item item_id="25008" name="Lettuce"    coinPrice="6"/>
+		<Item item_id="25009" name="Sunflower"  coinPrice="4" />
+		<Item item_id="25010" name="Leek"      	coinPrice="10" />
+		<Item item_id="25011" name="Corn"    	coinPrice="26"/>
+		<Item item_id="25012" name="Pea"      	coinPrice="100"/>
+		<Item item_id="25013" name="Grape"      coinPrice="13" />
+		<Item item_id="25014" name="Lily"      	coinPrice="10" />
+		<Item item_id="25015" name="Blueberry"  coinPrice="10" />
+		<Item item_id="25016" name="Kiwi"      	coinPrice="200" />
+		<Item item_id="25017" name="Rice"     	coinPrice="8" />
+		<Item item_id="25018" name="Lentil"     coinPrice="5" />
+		<Item item_id="25019" name="Spinach"  	coinPrice="10" />
+		<Item item_id="25020" name="Mint"      	coinPrice="8" />
+		<Item item_id="25021" name="Mustard"    coinPrice="40"/>
+		<Item item_id="25022" name="Oat"      	coinPrice="8" />
+		<Item item_id="25023" name="Bamboo"    	coinPrice="20"/>
+		<Item item_id="25024" name="Pineapple"  coinPrice="10" />
+		<Item item_id="25025" name="Strawberry" coinPrice="14" />
+		<Item item_id="25026" name="Cranberry"  coinPrice="20" />
+		<Item item_id="25027" name="RedRose"    coinPrice="1332"/>
+		<Item item_id="25028" name="Apple" 		coinPrice="20" 	/>
+		<Item item_id="25029" name="Orange"     coinPrice="50" 	/>
+		<Item item_id="25030" name="Pear" 		coinPrice="80" 	/>
+		<Item item_id="25031" name="Cherry"    	coinPrice="20" 	/>
+		<Item item_id="25032" name="Leechee"    coinPrice="60"	/>
+		<Item item_id="25033" name="Lemon"      coinPrice="30" 	/>
+		<Item item_id="25034" name="Mango"      coinPrice="10" 	/>
+		
+		<!-- 普通加工产物 -->
+		
+		<Item item_id="26000" name="PotatoChips"		coinPrice="3" />
+		<Item item_id="26001" name="Paprika"			coinPrice="20" />
+		<Item item_id="26002" name="Ketchup"			coinPrice="10" />
+		<Item item_id="26003" name="SunflowerSeeds"		coinPrice="10" />
+		<Item item_id="26004" name="Popcorn"			coinPrice="26" />
+		<Item item_id="26005" name="GrapeJuice"			coinPrice="26" />
+		<Item item_id="26006" name="Flour"				coinPrice="16" />
 		
 	</Group>
 	<Group id="Entity">
@@ -148,31 +195,82 @@
 		<Extend item_id="41002" name="extendcrop2" 			level="2"  coinPrice="2000" gemPrice="2"/>
 		<Extend item_id="41003" name="extendcrop3" 			level="3"  coinPrice="3000" gemPrice="3"/>
 		<Extend item_id="41004" name="extendcrop4" 			level="4"  coinPrice="4000" gemPrice="4"/>
-		
 		<Extend item_id="41005" name="extendcrop5" 			level="6"  coinPrice="6000" gemPrice="6"/>
 		<Extend item_id="41006" name="extendcrop6" 			level="7"  coinPrice="8000" gemPrice="8"/>
 		<Extend item_id="41007" name="extendcrop7" 			level="8"  coinPrice="10000" gemPrice="10"/>
 		<Extend item_id="41008" name="extendcrop8" 			level="9"  coinPrice="12000" gemPrice="12"/>
-		
 		<Extend item_id="41009" name="extendcrop9" 			level="11"  coinPrice="16000" gemPrice="16"/>
 		<Extend item_id="41010" name="extendcrop10" 		level="12"  coinPrice="20000" gemPrice="20"/>
 		<Extend item_id="41011" name="extendcrop11" 		level="13"  coinPrice="24000" gemPrice="24"/>
 		<Extend item_id="41012" name="extendcrop12" 		level="14"  coinPrice="28000" gemPrice="28"/>
-		
 		<Extend item_id="41013" name="extendcrop13" 		level="16"  coinPrice="36000" gemPrice="36"/>
 		<Extend item_id="41014" name="extendcrop14" 		level="17"  coinPrice="44000" gemPrice="44"/>
 		<Extend item_id="41015" name="extendcrop15" 		level="18"  coinPrice="52000" gemPrice="52"/>
 		<Extend item_id="41016" name="extendcrop16" 		level="19"  coinPrice="60000" gemPrice="60"/>
-		
 		<Extend item_id="41017" name="extendcrop17" 		level="21"  coinPrice="70000" gemPrice="70"/>
 		<Extend item_id="41018" name="extendcrop18" 		level="22"  coinPrice="80000" gemPrice="80"/>
 		<Extend item_id="41019" name="extendcrop19" 		level="23"  coinPrice="90000" gemPrice="90"/>
 		<Extend item_id="41020" name="extendcrop20" 		level="24"  coinPrice="100000" gemPrice="100"/>
-		
 		<Extend item_id="41021" name="extendcrop21" 		level="26"  coinPrice="120000" gemPrice="120"/>
 		<Extend item_id="41022" name="extendcrop22" 		level="27"  coinPrice="140000" gemPrice="140"/>
 		<Extend item_id="41023" name="extendcrop23" 		level="28"  coinPrice="160000" gemPrice="160"/>
 		<Extend item_id="41024" name="extendcrop24" 		level="29"  coinPrice="180000" gemPrice="180"/>
+		
+		<Extend item_id="42001" name="extendfac1" 			level="10"  coinPrice="20000" gemPrice="10"/>
+		<Extend item_id="42002" name="extendfac2" 			level="15"  coinPrice="40000" gemPrice="20"/>
+		<Extend item_id="42003" name="extendfac3" 			level="20"  coinPrice="60000" gemPrice="40"/>
+		<Extend item_id="42004" name="extendfac4" 			level="25"  coinPrice="80000" gemPrice="60"/>
+		<Extend item_id="42005" name="extendfac5" 			level="30"  coinPrice="120000" gemPrice="100"/>
+	</Group>
+	<Group id="Formula">
+		<Formula item_id="70000" name="Potato"		level="0" workTime="30"   	material="10000:3" 	product="25000:6" />
+		<Formula item_id="70001" name="Radish"		level="0" workTime="30"  	material="10001:2" 	product="25001:4" />
+		<Formula item_id="70002" name="Beans"		level="0" workTime="30"   	material="10002:10" product="25002:20"/>
+		<Formula item_id="70003" name="RedPepper"	level="0" workTime="30"  	material="10003:5" 	product="25003:7" />
+		<Formula item_id="70004" name="Tomato"		level="0" workTime="30"   	material="10004:5" 	product="25004:10" />
+		<Formula item_id="70005" name="Asparagus"	level="0" workTime="30"  	material="10005:1" 	product="25005:10"/>
+		<Formula item_id="70006" name="Eggplant"	level="0" workTime="30"   	material="10006:1" 	product="25006:10"/>
+		<Formula item_id="70007" name="Carrot"		level="0" workTime="30"  	material="10007:3" 	product="25007:6"/>
+		<Formula item_id="70008" name="Lettuce"		level="0" workTime="30"  	material="10008:1" 	product="25008:4"/>
+		<Formula item_id="70008" name="Sunflower"	level="0" workTime="30"   	material="10009:20" product="25009:10"/>
+		<Formula item_id="70010" name="Leek"		level="0" workTime="30"  	material="10010:5" 	product="25010:18"/>
+		<Formula item_id="70011" name="Corn"		level="0" workTime="30"   	material="10011:4"	product="25011:4"/>
+		<Formula item_id="70012" name="Pea"			level="0" workTime="30"  	material="10012:5" 	product="25012:8"/>
+		<Formula item_id="70013" name="Grape"		level="0" workTime="30"   	material="10013:5" 	product="25013:50"/>
+		<Formula item_id="70014" name="Lily"		level="0" workTime="30"  	material="10014:6"	product="25014:36"/>
+		<Formula item_id="70015" name="Blueberry"	level="0" workTime="30"  	material="10015:10" product="25015:14"/>
+		<Formula item_id="70016" name="Kiwi"		level="0" workTime="30"   	material="10016:3" 	product="25016:15"/>
+		<Formula item_id="70017" name="Rice"		level="0" workTime="30"  	material="10017:20" product="25017:20"/>
+		<Formula item_id="70018" name="Lentil"		level="0" workTime="30"   	material="10018:5" 	product="25018:40"/>
+		<Formula item_id="70019" name="Spinach"		level="0" workTime="30"  	material="10019:1" 	product="25019:12"/>
+		<Formula item_id="70020" name="Mint"		level="0" workTime="30"   	material="10020:4" 	product="25020:12"/>
+		<Formula item_id="70021" name="Mustard"		level="0" workTime="30"  	material="10021:2" 	product="25021:15"/>
+		<Formula item_id="70022" name="Oat"			level="0" workTime="30"  	material="10022:8" 	product="25022:30"/>
+		<Formula item_id="70023" name="Bamboo"		level="0" workTime="30"   	material="10023:2" 	product="25023:20"/>
+		<Formula item_id="70024" name="Pineapple"	level="0" workTime="30"  	material="10024:1" 	product="25024:10"/>
+		<Formula item_id="70025" name="Strawberry"	level="0" workTime="30"   	material="10025:5" 	product="25025:50"/>
+		<Formula item_id="70026" name="Cranberry"	level="0" workTime="30"  	material="10026:8"	product="25026:24"/>
+		<Formula item_id="70027" name="RedRose"		level="0" workTime="30"   	material="10027:5" 	product="25027:5"/>
+		
+		<Formula item_id="70028" name="Apple"		level="0" workTime="30"  	material="24000:20" product="25028:20"/>
+		<Formula item_id="70029" name="Orange"		level="0" workTime="30"  	material="24001:10" product="25029:20"/>
+		<Formula item_id="70030" name="Pear"		level="0" workTime="30"   	material="24002:10" product="25030:20"/>
+		<Formula item_id="70031" name="Cherry"		level="0" workTime="30"  	material="24003:20" product="25031:20"/>
+		<Formula item_id="70032" name="Leechee"		level="0" workTime="30"   	material="24004:2" 	product="25032:20"/>
+		<Formula item_id="70033" name="Lemon"		level="0" workTime="30"  	material="24005:2"	product="25033:20"/>
+		<Formula item_id="70034" name="Mango"		level="0" workTime="30"   	material="24006:2" 	product="25034:20"/>
+		
+		<Formula item_id="72001" name="PotatoChips"		level="0" 	workTime="60"   material="25000:6" 		product="26000:4" 	type="special" coinPrice="50000" gemPrice="20"/>
+		<Formula item_id="72002" name="Paprika"			level="8" 	workTime="60"   material="25003:5" 		product="26001:5" 	type="special" coinPrice="50000" gemPrice="20"/>
+		<Formula item_id="72003" name="Ketchup"			level="10" 	workTime="60"   material="25004:10" 	product="26002:4" 	type="special" coinPrice="50000" gemPrice="20"/>
+		<Formula item_id="72004" name="SunflowerSeeds"	level="22" 	workTime="60"   material="25009:5" 		product="26003:4" 	type="special" coinPrice="50000" gemPrice="20"/>
+		<Formula item_id="72005" name="Popcorn"			level="28" 	workTime="60"   material="25011:6" 		product="26004:12"	type="special" coinPrice="50000" gemPrice="20"/>
+		<Formula item_id="72006" name="GrapeJuice"		level="32" 	workTime="60"   material="25013:25" 	product="26005:25" 	type="special" coinPrice="50000" gemPrice="20"/>
+		<!--  
+		<Formula item_id="72007" name="Flour"			level="42" 	workTime="60"   material="25017:10" 	product="26006:10" 	type="special" coinPrice="50000" gemPrice="20"/>
+		-->
+		
+		
 	</Group>
 	<Group id="Animal">
 		<Animal item_id="60001" name="BeaAnimal"	/>

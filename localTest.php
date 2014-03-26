@@ -15,66 +15,18 @@ require_once GAMELIB.'/model/UserAccountManager.class.php';
 require_once GAMELIB.'/model/UidGameuidMapManager.class.php';
 require_once GAMELIB.'/model/XmlManager.class.php';
 
-//	$appConfigInstance = get_app_config();
-//	$cache = $appConfigInstance->getTableServer("user_message")->getCacheInstance();
-//	$a = $cache->get("ck_item_30001");
-//	print_r ($a);
-//$receipt= array('signedData'=>array(
-//												'nonce'=>2431466409516996718,
-//												'orders'=>array(
-//																'notificationId'=>'-415567515321859968',
-//																'orderId'=>'3785995196307657958',
-//																'packageName'=>'air.Farmland.andriod',
-//																'productId'=>'sunny_farm.largefarmgem',
-//																'purchaseTime'=>1392065952149,
-//																'purchaseState'=>0,
-//																'purchaseToken'=>'msanfqkgcdekahycknsqeywn.dlS5SsXIyRZRkANz5_4xLqeOu8DrdDo9VtSjjTKJ9VHwBWNW5gxYUX9XqDBbF5KskKdAdRIYGScis7894dzzkI_1E7S86bIVAbHe_9DftYYy6YzMccj2qz8'
-//														)
-//											),
-//									'startId'=>10,
-//									'signature'=>"7tsGL+msTbVxVSoOKe6M4k8KCRM7toa2kWde3gRkQK+sGm0EgNpI2gVwm65eue0reqLhEZG1vKpqlvKGFl9XT5ltTAV8uKdF91iaZ8FKpSiYvjKTG/jqsd0WmE0MwshZ263751lYmBy5Vwll9J1bgBmKDsHEa64nmKdVCtEo6s0/RSNlD6a1TJiFPIbJ2nZf5CTn85fskzGmZVFamj+NT3F20sYVGnUxw/lPT6MevoruCveiOFyZZ61ae8rKq+ksw3bzlZCGyy7vPTGdzyU/PwXjNrAYC644S6hEqK1/AGShcU10A/sc09X143ibIeyzqYiYdk4RyJhOceNFTNUWrQ"
-//								);
-
-	$receipt= array('signedData'=>array(
-												'nonce'=>-5465853498583976126,
-												'orders'=>array(
-																'notificationId'=>'-6441531684346654540',
-																'orderId'=>'12999763169054705758.1324177654896095',
-																'packageName'=>'air.Farmland.andriod',
-																'productId'=>'sunny_farm.littlefarmgem',
-																'purchaseTime'=>1392002287294,
-																'purchaseState'=>0,
-																'purchaseToken'=>'anvtjlveifgtpmxvncnxjeua'
-														)
-											),
-									'startId'=>3,
-									'signature'=>"MlaguT03ZwiL0xRNfPwTb9ifhgp3VyMOBjk+9OK55algYgLIaf4PvTnt4HLsTqK8BiZIYhinZb4DWluI5M+9g2joOEg4j2gx9CkaVEzJ4QKMteJG7WN2nJaVLAbaFjP9cELAE34bjPihfRdRGUhcH3O5GiSUN/gwsZzQG9mZsq6ntKsBAuARAjeOTJcr9KLcQRKXhJQQRf0uvLoW2km724aNG+6ZAk9CqbQG2e9+ko3El2r6nUdslFF7eqDE1a8f6HxQKzWTauCwoMTIhgb52RP882l7e85a6HuFAbBHQcKOezTMEFE/7jvCvviONuuDPz0yXhjD5rGqtmM5rmeSIw=="
-								);
-								
-	$publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnGq+mkH8cFacOY9UoWyi1tmAxa55pdmTpoexuMVKbOjbpsY8jwzBOxTO3VBsu7HSibYDTrn79t0uFj0YMsQ/wGK1sO/Ab08DlGEYqV7m5+QsqMcAtQ8UNUER+sGnQxnzTmr3Uq9izMkk69NXzkZRaO5lp8f4gbfRx3KT2JweWihjOyFhWdlWmHRBAJE81Wn2iFJzNGNr50XIC4VDOlt+ljcUD3vu9bZmqmgMryKwn4WtxV2o4UwT5RehpyGHAyQ6YX2jmDSfoR6z2UgajCedxGK5bfmnPZXj75DC4P08O+SlBCGhEq62o/I0sDNtdWdSVnb+HM7IcqqaEMEd6taZEwIDAQAB";
-	$KEY_PREFIX = "-----BEGIN PUBLIC KEY-----\n";
-    $KEY_SUFFIX = '-----END PUBLIC KEY-----';
-	$key = $KEY_PREFIX . chunk_split($publicKey, 64, "\n") . $KEY_SUFFIX;
-	
-
-    $key = openssl_pkey_get_public($key);							
-			
-		$signature = $receipt['signature'];	
-		$signed_data = json_encode($receipt['signedData']);
-		
-		print_r($signed_data);
-		echo '<br />';
-		print_r($signature);
-		echo '<br />';
-		
-		$r = openssl_verify(base64_decode($signed_data), base64_decode($signature), $key);
-//		$pub_key = <<<EOF
-//-----BEGIN PUBLIC KEY-----
-//MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnGq+mkH8cFacOY9UoWyi1tmAxa55pdmTpoexuMVKbOjbpsY8jwzBOxTO3VBsu7HSibYDTrn79t0uFj0YMsQ/wGK1sO/Ab08DlGEYqV7m5+QsqMcAtQ8UNUER+sGnQxnzTmr3Uq9izMkk69NXzkZRaO5lp8f4gbfRx3KT2JweWihjOyFhWdlWmHRBAJE81Wn2iFJzNGNr50XIC4VDOlt+ljcUD3vu9bZmqmgMryKwn4WtxV2o4UwT5RehpyGHAyQ6YX2jmDSfoR6z2UgajCedxGK5bfmnPZXj75DC4P08O+SlBCGhEq62o/I0sDNtdWdSVnb+HM7IcqqaEMEd6taZEwIDAQAB
-//-----END PUBLIC KEY-----
-//EOF;
-//		
-		print_r($r);
+$id = "1";
+$owned_formulas = "0";
+$new_formulasArr = explode(":",$owned_formulas);
+print_r($new_formulasArr);
+if (in_array($id,$new_formulasArr)){
+	echo "in";
+	echo '<br />';
+}
+array_push($new_formulasArr,$id);
+$new_formulaStr = implode(":",$new_formulasArr);
+	echo $new_formulaStr;
+	echo '<br />';
 //		
 //		$payLog = LogFactory::getLogger(array(
 //			'prefix' => LogFactory::LOG_MODULE_PLATFORM,

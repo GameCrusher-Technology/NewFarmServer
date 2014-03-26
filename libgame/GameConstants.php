@@ -985,6 +985,16 @@ class InitUser{
 		array('data_id'=>"1008",'positiony'=>1,'positionx'=>1,"item_id"=>50015)
 	);
 	
+	public static $treasure_activity = array(
+		"littleFarmGem"	=>array(array("id"=>"coin","count"=>500),array("id"=>"20001","count"=>20),array("id"=>"14001","count"=>1)),
+		"largeFarmGem"	=>array(array("id"=>"coin","count"=>3000),array("id"=>"20001","count"=>100),array("id"=>"14005","count"=>1))
+	);
+	
+	public static $new_fac = array(
+		'expand'=>0,
+		'workTime'=>0
+	);
+	
 }
 class GameModelConfig{
 	const CHANGENAME_COST = 2;
@@ -1000,6 +1010,8 @@ class GameModelConfig{
 	const TASK_CD_TIME = 28800;
 	
 	const SKILL_CD  = 28800;
+	
+	const FACTORY_TILES = 5;
 }
 class MethodType {
 	//表示物品的变化方式

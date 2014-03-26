@@ -7,6 +7,7 @@ include_once GAMELIB.'/model/UserActionCountManager.class.php';
 include_once GAMELIB.'/model/UserFriendManager.php';
 include_once GAMELIB.'/model/UserMessageManager.class.php';
 include_once GAMELIB.'/model/FarmDecorationManager.class.php';
+include_once GAMELIB.'/model/UserFactoryManager.class.php';
 class UserLoginCommand extends GameActionBase{
 	protected function _exec()
 	{
@@ -59,11 +60,20 @@ class UserLoginCommand extends GameActionBase{
 		$friend_obj = $friend_mgr->getFriends($gameuid);
 		$user_account['user_friend'] = $friend_obj['friends'];
 		
+		//获取 加工厂
+		
+		$fac_manager = new UserFactoryManager();
+		$fac_obj = $fac_manager->getUserFac($gameuid);
+		$fac_obj['workTimeIndex'] = $fac_manager->getFormulaIndex($gameuid);
+		$user_account['user_factory'] = $fac_obj;
+		
 		//获取 message
 		$mes_mgr = new UserMessageManager();
 		$user_account['user_message'] = $mes_mgr->getMessages($gameuid);
 		
-		
+		//设置 活动
+		$activity = InitUser::$treasure_activity;
+		$result["treasuresActivity"] = $activity;
 		$result["user_account"]= $user_account;
 		$result['is_new'] = $is_newer;
 		return $result;

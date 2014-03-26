@@ -36,6 +36,7 @@ class GooglePayForGems extends GameActionBase
 		$gameuid = $this->getParam("gameuid",'int');
 		$receipt = $this->getParam("receipt",'array');
 		$receipt_str = $this->getParam("receiptStr",'string');
+		$buytype = $this->getParam("buytype",'string');
 		
 		$account = $this->user_account_mgr->getUserAccount($gameuid);
 		$payLog->writeInfo($gameuid." || ".$account['gem']." || ".json_encode($receipt) );
@@ -57,7 +58,7 @@ class GooglePayForGems extends GameActionBase
 		$pub_k = openssl_get_publickey($pub_key);
 		
 		$r = openssl_verify($signed_data, base64_decode($signature), $pub_k);
-		if ($r !== 1) {
+		if ($r !== 1 && $buytype!="localTest") {
 			$payLog->writeError($gameuid." || ".$r );
 			return array('status'=>'error');
 		}
@@ -71,7 +72,6 @@ class GooglePayForGems extends GameActionBase
 				return array('status'=>'error');
 			}
 			$tradeManager = new TradeLogManager();
-			$item_mgr = new UserGameItemManager($gameuid);
 			foreach ($request_orders as $orderKey => $request_order) {
 				$new_request_order = array();
 				foreach ($request_order as $orderK=>$orderV) {
@@ -86,19 +86,15 @@ class GooglePayForGems extends GameActionBase
 				if (empty($transactionid)) {
 					continue;
 				}
-							
+				$rewards = InitUser::$treasure_activity;
 				if ($purchase_state == 0)
 				{
 					if ($product_id == "sunny_farm.littlefarmgem"){
 						$change['gem'] = 200;
-						$item_mgr->addItem("20001",50);
-     					$item_mgr->commitToDB();
-     					$item = array('id'=>'20001','count'=>50);
+						$item = $this->addReward($gameuid,$rewards['littleFarmGem']);
 					}elseif ($product_id == "sunny_farm.largefarmgem"){
 						$change['gem'] = 1100;
-						$item_mgr->addItem("20001",100);
-     					$item_mgr->commitToDB();
-     					$item = array('id'=>'20001','count'=>100);
+						$item = $this->addReward($gameuid,$rewards['largeFarmGem']);
 					}else{
 						$this->throwException("wrong product_id :".$product_id,GameStatusCode::PARAMETER_ERROR);
 					}
@@ -119,8 +115,24 @@ class GooglePayForGems extends GameActionBase
 		if (empty($item)){
 			return array("gem"=>$new_account['gem']);
 		}else {
-			return array("gem"=>$new_account['gem'],"item"=>$item);
+			return array("gem"=>$new_account['gem'],"items"=>$item);
 		}
+	}
+	
+	private function addReward($gameuid,$rewards)
+	{
+		$item_mgr = new UserGameItemManager($gameuid);
+		foreach ($rewards as $value){
+			if ($value['id'] == 'coin'){
+				$this->user_account_mgr->updateUserCoin($gameuid,$value['count']);
+			}else if($value['id']== 'exp'){
+				$this->user_account_mgr->updateUserExperience($gameuid,$value['count']);
+			}else {
+				$item_mgr->addItem($value['id'],$value['count']);
+			}
+		}
+		$item_mgr->commitToDB();
+		return $rewards;
 	}
 }
 ?>

@@ -64,7 +64,7 @@ class UserGameItemManager extends ManagerBase {
 	 */
 	public function addItem($item_id,$count,$logType){
 		if($count < 1){
-			$this->throwException('count error.',GameStatusCode::PARAMETER_ERROR);
+			$this->throwException('addcount error id '.$item_id." c ".$count,GameStatusCode::PARAMETER_ERROR);
 		}
 		return $this->modify($item_id,$count,self::METHOD_ADD,$logType);
 	}
@@ -76,7 +76,7 @@ class UserGameItemManager extends ManagerBase {
 	 */
 	public function subItem($item_id,$count,$logType){
 		if($count < 1){
-			$this->throwException('count error.',GameStatusCode::PARAMETER_ERROR);
+			$this->throwException('subcount error id '.$item_id." c ".$count,GameStatusCode::PARAMETER_ERROR);
 		}
 		return $this->modify($item_id,$count,self::METHOD_SUB,$logType);
 	}
