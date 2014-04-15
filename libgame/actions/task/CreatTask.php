@@ -16,7 +16,7 @@ class CreatTask extends GameActionBase{
 		//task  npc;request;reward;time;isfinished
 		if ($npc == MethodType::TASK_NONPC){
 			if(!empty($taskinfo) && !empty($taskinfo['my_order'])){
-				$this->throwException('already has my order'.$gameuid,GameStatusCode::TASK_HAS_ACCEPTED);
+				$this->throwException('already has my order'.$gameuid,GameStatusCode::TASK_HAS_COMPLETED);
 			}
 			$checkbool = $task_mgr->checkTaskRewards($requestStr,$rewardStr);
 			if(!$checkbool){
@@ -33,8 +33,9 @@ class CreatTask extends GameActionBase{
 			if(!empty($taskinfo) && !empty($taskinfo['npc_order'])){
 				$orderArr = explode(";",$taskinfo['npc_order']);
 				$task_time = $orderArr[3];
-				if(($task_time + GameModelConfig::TASK_EXPIRE_TIME)>time()){
-					$this->throwException('already has npc_order'.$gameuid,GameStatusCode::TASK_HAS_ACCEPTED);
+				$leftTaskTime = ($task_time + GameModelConfig::TASK_EXPIRE_TIME)-time();
+				if($leftTaskTime > 0){
+//					$this->throwException('already has npc_order ,left time '.$leftTaskTime,GameStatusCode::TASK_HAS_COMPLETED);
 				}
 			}
 			$account = $this->user_account_mgr->getUserAccount($gameuid);

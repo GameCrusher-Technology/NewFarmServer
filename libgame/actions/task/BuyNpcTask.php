@@ -26,7 +26,7 @@ class BuyNpcTask extends GameActionBase{
 		
 		$costGem = pow(2,$taskinfo['buy_count']);
 		if($account['gem']<$costGem){
-			$this->throwException("gem buy extend need gem".$costGem,GameStatusCode::DATA_ERROR);
+			$this->throwException("gem buy task need gem ".$costGem,GameStatusCode::DATA_ERROR);
 		}
 		$cost['gem'] = -$costGem;
 		

@@ -23,7 +23,7 @@ class UserGrowableItemManager extends UserAssocListDataManager {
 		$cache_crop = $this->get($gameuid,$data_id);
 		if (empty($cache_crop)){
 			$this->throwException("no field,[".$data_id."] gameuid:".$gameuid,
-				GameStatusCode::NOT_OWN_FIELD);
+				"fertilize");
 		}
 		
 		$plant_time = $cache_crop['plant_time'] - GameConstCode::WATER_TIME;
@@ -41,7 +41,7 @@ class UserGrowableItemManager extends UserAssocListDataManager {
 		$cache_crop = $this->get($gameuid,$data_id);
 		if (empty($cache_crop)){
 			$this->throwException("no field,[".$data_id."] gameuid:".$gameuid,
-				GameStatusCode::NOT_OWN_FIELD);
+				"move");
 		}
 		
 		$modify = array('positionx' => $crop_data['positionx'], 'positiony' => $crop_data['positiony']);
@@ -56,7 +56,7 @@ class UserGrowableItemManager extends UserAssocListDataManager {
 		$cache_crop = $this->get($gameuid,$data_id);
 		if (empty($cache_crop)){
 			$this->throwException("no field,[".$data_id."] gameuid:".$gameuid,
-				GameStatusCode::NOT_OWN_FIELD);
+				"harvest");
 		}
 		$item_id = $cache_crop['item_id'];
 		$plant_time = $cache_crop['plant_time'];
@@ -74,7 +74,8 @@ class UserGrowableItemManager extends UserAssocListDataManager {
 		
 		$leftTime = (time() - $plant_time) - $growtime*60;
 		if ($leftTime < 0) {
-			$this->throwException("crop[$data_id] not immatual. time : ".$leftTime, GameStatusCode::IMMATUAL_CROP);
+			$this->logger->writeError("gameuid [$gameuid] crop[$data_id] item_id [$item_id] not immatual. time : ".$leftTime);
+//			$this->throwException("crop[$data_id] item_id [$item_id] not immatual. time : ".$leftTime, GameStatusCode::IMMATUAL_CROP);
 		}
 		
 		//增加 收获成就统计次数

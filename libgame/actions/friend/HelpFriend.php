@@ -36,7 +36,7 @@ class HelpFriend extends GameActionBase{
 				$cache_crop = $filed_mgr->get($f_gameuid,$speed_id);
 				if (empty($cache_crop)){
 					$this->throwException("no field,[".$speed_id."] gameuid:".$f_gameuid,
-						GameStatusCode::NOT_OWN_FIELD);
+						"help friend");
 				}
 				$plant_time = $cache_crop['plant_time'] - GameConstCode::WATER_TIME;
 				$modify = array("plant_time"=>$plant_time);

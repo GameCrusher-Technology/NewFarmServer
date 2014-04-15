@@ -24,7 +24,7 @@ class UserSkillCommand extends GameActionBase{
 			$cache_crop = $filed_mgr->get($gameuid,$speed_id);
 			if (empty($cache_crop)){
 				$this->throwException("no field,[".$speed_id."] gameuid:".$gameuid,
-					GameStatusCode::NOT_OWN_FIELD);
+					"use skill");
 			}
 			$plant_time = $cache_crop['plant_time'] - $skill_water_time;
 			$modify = array("plant_time"=>$plant_time);

@@ -215,6 +215,17 @@
 		<Extend item_id="41022" name="extendcrop22" 		level="27"  coinPrice="140000" gemPrice="140"/>
 		<Extend item_id="41023" name="extendcrop23" 		level="28"  coinPrice="160000" gemPrice="160"/>
 		<Extend item_id="41024" name="extendcrop24" 		level="29"  coinPrice="180000" gemPrice="180"/>
+		<Extend item_id="41025" name="extendcrop25" 		level="31"  coinPrice="200000" gemPrice="200"/>
+		<Extend item_id="41026" name="extendcrop26" 		level="32"  coinPrice="220000" gemPrice="220"/>
+		<Extend item_id="41027" name="extendcrop27" 		level="33"  coinPrice="240000" gemPrice="240"/>
+		<Extend item_id="41028" name="extendcrop28" 		level="34"  coinPrice="260000" gemPrice="260"/>
+		<Extend item_id="41029" name="extendcrop29" 		level="35"  coinPrice="280000" gemPrice="280"/>
+		<Extend item_id="41030" name="extendcrop30" 		level="36"  coinPrice="300000" gemPrice="300"/>
+		<Extend item_id="41031" name="extendcrop31" 		level="37"  coinPrice="320000" gemPrice="320"/>
+		<Extend item_id="41032" name="extendcrop32" 		level="38"  coinPrice="340000" gemPrice="340"/>
+		<Extend item_id="41033" name="extendcrop33" 		level="39"  coinPrice="360000" gemPrice="360"/>
+		<Extend item_id="41034" name="extendcrop34" 		level="40"  coinPrice="380000" gemPrice="380"/>
+		<Extend item_id="41035" name="extendcrop35" 		level="41"  coinPrice="400000" gemPrice="400"/>
 		
 		<Extend item_id="42001" name="extendfac1" 			level="10"  coinPrice="20000" gemPrice="10"/>
 		<Extend item_id="42002" name="extendfac2" 			level="15"  coinPrice="40000" gemPrice="20"/>
