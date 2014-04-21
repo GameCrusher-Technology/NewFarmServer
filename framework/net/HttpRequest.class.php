@@ -2,7 +2,7 @@
 
 class HttpRequest {
 	const USER_AGENT = 'Elex php curl agent 1.0';
-	static protected $default_options = array(
+	protected static $default_options = array(
 	CURLOPT_RETURNTRANSFER => true,
 	CURLOPT_USERAGENT => self::USER_AGENT,
 	CURLOPT_FOLLOWLOCATION => 1,
@@ -34,9 +34,7 @@ class HttpRequest {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt_array($ch,self::$default_options);
-	    if ($headers && is_array($headers)) {
-	      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	    }
+	    self::setHeader($ch,$headers);
 	    if($post_data){
 	    	$post_string = self::createPostString($post_data);
 			if(isset($post_string[0])){
@@ -58,29 +56,44 @@ class HttpRequest {
 	    }
 	}
 	
+	protected static function setHeader($ch,$headers){
+		if ($headers && is_array($headers)) {
+	    	// Disable Expect: 100-Continue
+	    	// http://be2.php.net/manual/en/function.curl-setopt.php#82418
+	    	$headers[] = "Expect:";
+	    	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	    }else{
+	    	curl_setopt($ch, CURLOPT_HTTPHEADER, array("Expect:"));
+	    }
+	}
+	
 	protected static function createPostString($post_data){
 		if(empty($post_data) || !is_array($post_data)){
-			return '';
+			return $post_data;
 		}
 		$post_string = '';
 		foreach($post_data as $key => $val) {
 			if (is_array($val) || is_object($val)) {
 				foreach ( $val as $cur_key =>  $cur_val) {
-					$post_string .= urlencode($key)."[]=".urlencode($cur_val)."&";
+					$post_string .= urlencode($cur_key)."[]=".urlencode($cur_val)."&";
 				}
 			} else
 				$post_string .= urlencode($key)."=".urlencode($val)."&";
 		}
-		return $post_string;
+		
+		return trim($post_string,'&');
 	}
 	
 	protected static function parseResponse($data,$http_code){
+		if(empty($data)){
+			return array('data' => '','http_code' => $http_code);
+		}
 		list($raw_response_headers, $response_body) = explode("\r\n\r\n", $data, 2);
 		$response_header_lines = explode("\r\n", $raw_response_headers);
-//			if($response_header_lines[0] == 'HTTP/1.1 100 Continue'){
-//				list($raw_response_headers, $response_body) = explode("\r\n\r\n", $response_body, 2);
-//				$response_header_lines = explode("\r\n", $raw_response_headers);
-//			}
+		if($response_header_lines[0] == 'HTTP/1.1 100 Continue'){
+			list($raw_response_headers, $response_body) = explode("\r\n\r\n", $response_body, 2);
+			$response_header_lines = explode("\r\n", $raw_response_headers);
+		}
 		array_shift($response_header_lines);
 		$headers = array();
 		foreach($response_header_lines as $header_line){

@@ -73,9 +73,9 @@ class UserGrowableItemManager extends UserAssocListDataManager {
 		// 判断植物有没有成熟
 		
 		$leftTime = (time() - $plant_time) - $growtime*60;
-		if ($leftTime < 0) {
-			$this->logger->writeError("gameuid [$gameuid] crop[$data_id] item_id [$item_id] not immatual. time : ".$leftTime);
-//			$this->throwException("crop[$data_id] item_id [$item_id] not immatual. time : ".$leftTime, GameStatusCode::IMMATUAL_CROP);
+		if ($leftTime < -100) {
+//			$this->logger->writeError("gameuid [$gameuid] crop[$data_id] item_id [$item_id] not immatual. time : ".$leftTime);
+			$this->throwException("crop[$data_id] item_id [$item_id] not immatual. time : ".$leftTime, GameStatusCode::IMMATUAL_CROP);
 		}
 		
 		//增加 收获成就统计次数
