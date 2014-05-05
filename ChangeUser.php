@@ -16,13 +16,16 @@ require_once GAMELIB.'/model/UidGameuidMapManager.class.php';
 require_once GAMELIB.'/model/XmlManager.class.php';
 require_once GAMELIB.'/model/UserGameItemManager.class.php';
 
-$gameuid = $_GET['gameuid'];
-$change = array("gem"=>200);
+//$gameuid = $_GET['gameuid'];
+
+$gameuid = "90188";
+$change = array("gem"=>300,"coin"=>2000);
 $user_account_mgr  = new UserAccountManager();
 $user_account_mgr ->updateUserStatus($gameuid,$change);
 
 $item_mgr = new UserGameItemManager($gameuid);
-$item_mgr->addItem("20001",80);
+$item_mgr->addItem("20001","30");
+$item_mgr->addItem("14001","1");
 $item_mgr->commitToDB();
 
 echo "ok";

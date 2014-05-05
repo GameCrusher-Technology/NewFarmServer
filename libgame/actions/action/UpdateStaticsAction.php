@@ -13,8 +13,10 @@ class UpdateStaticsAction extends GameActionBase{
 		
 		$gameuid = $this->getParam("gameuid",'string');
 		$action_id = $this->getParam("actionId",'string');
+		$version = $this->getParam("version",'string');
+		$detail = $this->getParam("detail",'string');
 		
-		$payLog->writeInfo($gameuid."   actionID:  ".$action_id);
+		$payLog->writeInfo($version."	".$gameuid."   actionID:  ".$action_id."	".$detail);
 		return  true;
 	}
 }

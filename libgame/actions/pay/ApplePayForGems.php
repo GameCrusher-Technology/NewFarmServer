@@ -16,8 +16,10 @@ class ApplePayForGems extends GameActionBase
 		
 		$gameuid = $this->getParam("gameuid",'string');
 		$key = $this->getParam("key",'string');
-//		$verify_url = "https://sandbox.itunes.apple.com/verifyReceipt";
-		$verify_url = 'https://buy.itunes.apple.com/verifyReceipt';
+		
+		//提交审核的时候 使用 沙箱地址
+		$verify_url = "https://sandbox.itunes.apple.com/verifyReceipt";
+//		$verify_url = 'https://buy.itunes.apple.com/verifyReceipt';
     	$verify_postfields = json_encode(array("receipt-data"=> $key));
     	$res = HttpRequest::post($verify_url, $verify_postfields);
     	$resData = json_decode($res['data'],true);
@@ -35,10 +37,10 @@ class ApplePayForGems extends GameActionBase
     	
 			$rewards = InitUser::$treasure_activity;
 			$product_id = $receipt['product_id'];
-			if ($product_id == "FAMEGEM_Test01"){
+			if ($product_id == "FarmGems01"){
 				$change['gem'] = 200;
 				$item = $this->addReward($gameuid,$rewards['littleFarmGem']);
-			}elseif ($product_id == "FAMEGEM_Test02"){
+			}elseif ($product_id == "FarmGems02"){
 				$change['gem'] = 1100;
 				$item = $this->addReward($gameuid,$rewards['largeFarmGem']);
 			}else{

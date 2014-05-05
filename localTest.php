@@ -14,19 +14,27 @@ require_once GAMELIB.'/model/ManagerBase.class.php';
 require_once GAMELIB.'/model/UserAccountManager.class.php';
 require_once GAMELIB.'/model/UidGameuidMapManager.class.php';
 require_once GAMELIB.'/model/XmlManager.class.php';
+include_once GAMELIB.'/model/TradeLogManager.class.php';
 
-$id = "1";
-$owned_formulas = "0";
-$new_formulasArr = explode(":",$owned_formulas);
-print_r($new_formulasArr);
-if (in_array($id,$new_formulasArr)){
-	echo "in";
-	echo '<br />';
+
+$tradeManager = new TradeLogManager();
+		
+$cached_orders = $tradeManager->getOrderCache("1");
+
+print_r($cached_orders);
+
+$transactionid = "t-6441531684346654541";
+if (in_array($transactionid,$cached_orders)){
+	echo "IN";
+}else {
+	echo "OUT";
 }
-array_push($new_formulasArr,$id);
-$new_formulaStr = implode(":",$new_formulasArr);
-	echo $new_formulaStr;
-	echo '<br />';
+$cached_orders = array("t-6441531684346654540");
+if (in_array($transactionid,$cached_orders)){
+	echo "C_IN";
+}else {
+	echo "C_OUT";
+}
 //		
 //		$payLog = LogFactory::getLogger(array(
 //			'prefix' => LogFactory::LOG_MODULE_PLATFORM,

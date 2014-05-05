@@ -67,12 +67,17 @@ class GooglePayForGems extends GameActionBase
 		foreach ($signed_data as $key=>$value){
 			$new_signed_data[$key] = $value;
 		}
-			$request_orders = $new_signed_data['orders'];
-			if (empty($request_orders)) {
-				return array('status'=>'error');
-			}
-			$tradeManager = new TradeLogManager();
-			foreach ($request_orders as $orderKey => $request_order) {
+		$request_orders = $new_signed_data['orders'];
+		if (empty($request_orders)) {
+			return array('status'=>'error');
+		}
+		$tradeManager = new TradeLogManager();
+		
+		$cached_orders = $tradeManager->getOrderCache($gameuid);
+		if (empty($cached_orders)){
+			$cached_orders = array();
+		}
+		foreach ($request_orders as $orderKey => $request_order) {
 				$new_request_order = array();
 				foreach ($request_order as $orderK=>$orderV) {
 					$new_request_order[$orderK]= $orderV;
@@ -83,7 +88,12 @@ class GooglePayForGems extends GameActionBase
 				$purchasetime = $new_request_order['purchaseTime'];
 				$product_id = $new_request_order['productId'];
 				$transactionid = $new_request_order['orderId'];
+				
+				$notification_id = "t".$new_request_order['notificationId'];
 				if (empty($transactionid)) {
+					continue;
+				}
+				if (in_array($notification_id,$cached_orders)){
 					continue;
 				}
 				$rewards = InitUser::$treasure_activity;
@@ -109,7 +119,9 @@ class GooglePayForGems extends GameActionBase
 				$tradeinfo['purchasetime'] = $purchasetime;
 				$tradeinfo['status'] = 1;
 				$tradeManager->insert($tradeinfo);
+				array_push($cached_orders,$notification_id);
 		}
+		$tradeManager->setOrderCache($gameuid,$cached_orders);
 		$new_account = $this->user_account_mgr->getUserAccount($gameuid);
 		$payLog->writeInfo($gameuid." || ".$new_account['gem'] );
 		if (empty($item)){

@@ -31,17 +31,18 @@ class TradeLogManager extends ManagerBase {
 	}
 	
 	
-	public function getCache()
+	public function getOrderCache($gameuid)
 	{
-		return  $this->getFromCache("testPay",0);
+		return  $this->getFromCache("farm_pay_".$gameuid,0);
 	}
-	public function setCache($arr)
+	public function setOrderCache($gameuid,$arr)
 	{
-		$this->setToCache("testPay",$arr,500,0);
+		$this->setToCache("farm_pay_".$gameuid,$arr,86400,0);
 	}
-	public function deleteCache()
+	public function deleteOrderCache($gameuid)
 	{
-		$this->delToCache("testPay",0);
+		$this->delToCache("farm_pay_".$gameuid,0);
 	}
+	
 }
 ?>
