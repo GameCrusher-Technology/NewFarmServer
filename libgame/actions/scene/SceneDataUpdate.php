@@ -2,6 +2,8 @@
 include_once GAMELIB.'/model/UserGameItemManager.class.php';
 include_once GAMELIB.'/model/UserFieldDataManager.class.php';
 include_once GAMELIB.'/model/FarmDecorationManager.class.php';
+include_once GAMELIB.'/model/UserRanchManager.class.php';
+include_once GAMELIB.'/model/UserAnimalManager.class.php';
 class SceneDataUpdate extends GameActionBase{
 	
 	protected function _exec()
@@ -29,6 +31,15 @@ class SceneDataUpdate extends GameActionBase{
 				break;
 			case MethodType::SELL:
 				$return_data = $this->sellEntities($dataList,$gameuid);
+				break;
+			case MethodType::BUILD:
+				$return_data = $this->creatEntities($dataList,$gameuid);
+				break;
+			case MethodType::HARVESTANIMAL:
+				$return_data = $this->harvestAnimal($gameuid,$dataList);
+				break;
+			case MethodType::FEEDANIMAL:
+				$return_data = $this->feedAnimal($gameuid,$dataList);
 				break;
 		}
 		$modify = array_intersect_key($return_data,array('coin'=>0,'exp'=>0));
@@ -73,6 +84,24 @@ class SceneDataUpdate extends GameActionBase{
 		
 	}
 	
+	private function creatEntities($list,$gameuid){
+		$deco_mgr = new FarmDecorationManager();
+		$ranch_mgr = new UserRanchManager();
+		foreach ($list as $entity){
+			$id = $entity['item_id'];
+			$itemSpec = get_xml_def($id);
+			if ($itemSpec){
+				if($itemSpec['type'] == 'ranch'){
+					$ranch_mgr->addRanch($gameuid,$entity);
+				}else{
+					$deco_mgr->addDeco($gameuid,$entity);
+				}
+			}
+		}
+		return TRUE;
+		
+	}
+	
 	private function plantCrop($gameuid,$cropList){
 		$filed_mgr = new UserFieldDataManager();
 		$result=array();
@@ -105,15 +134,20 @@ class SceneDataUpdate extends GameActionBase{
 	private function moveEntity($gameuid,$dataList){
 		$filed_mgr = new UserFieldDataManager();
 		$deco_mgr = new FarmDecorationManager();
+		$ranch_mgr = new UserRanchManager();
 		foreach ($dataList as $entity){
 			if($entity['type'] == "Crop"){
 				$filed_mgr->move($gameuid,$entity);
 			}elseif ($entity['type'] == "Entity"){
 				$deco_mgr->move($gameuid,$entity);
+			}elseif ($entity['type'] == "Ranch"){
+				$ranch_mgr->move($gameuid,$entity);
 			}
 		}
 		return TRUE;
 	}
+	
+	
 	private function mergeResultArr($oldArr,$change)
 	{
 		$oldArr['exp'] += $change['exp'];
@@ -144,6 +178,24 @@ class SceneDataUpdate extends GameActionBase{
 		}
 		return $oldArr;
 	}
+	private function harvestAnimal($gameuid,$animalList){
+		$animal_mgr = new UserAnimalManager();
+		$result=array();
+		foreach ($animalList as $animal){
+			$return = $animal_mgr->harvest($gameuid,$animal);
+			$result = $this->mergeResultArr($result,$return);
+		}
+		return $result;
+	}
 	
+	private function feedAnimal($gameuid,$animalList){
+		$animal_mgr = new UserAnimalManager();
+		$result=array();
+		foreach ($animalList as $animal){
+			$return = $animal_mgr->feed($gameuid,$animal);
+			$result = $this->mergeResultArr($result,$return);
+		}
+		return $result;
+	}
 }
 ?>

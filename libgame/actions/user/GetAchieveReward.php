@@ -16,6 +16,10 @@ class GetAchieveReward extends GameActionBase{
 		$achieveArrs = explode("|",$achieve);
 		$crop_achieves = $achieveArrs[0];
 		$tree_achieves = $achieveArrs[1];
+		$animal_achieves = $achieveArrs[2];
+		if(empty($animal_achieves)){
+			$animal_achieves = "00000000000000000000";
+		}
 		
 		$achieve_def = get_xml_def($id,XmlDbType::XMLDB_ITEM);
 		if($achieve_def['type']=='Crop'){
@@ -34,6 +38,14 @@ class GetAchieveReward extends GameActionBase{
 			}
 			$curLevel = substr($tree_achieves,$achieve_index,1);
 			$tree_achieves = substr_replace($tree_achieves,$step,$achieve_index,1);
+		}elseif ($achieve_def['type']=='Animal'){
+			$achieve_index = $id - 35000;
+			if($achieve_index >= strlen($animal_achieves)){
+				throw $this->throwException("gameuid:".$gameuid." not this achieve",
+					GameStatusCode::DATA_ERROR);
+			}
+			$curLevel = substr($animal_achieves,$achieve_index,1);
+			$animal_achieves = substr_replace($animal_achieves,$step,$achieve_index,1);
 		}
 		
 		if($step <= $curLevel){
@@ -56,7 +68,7 @@ class GetAchieveReward extends GameActionBase{
 		$change = array();
 		$reward_arr = explode("|",$achieve_def['rewards']);
 		$change['gem'] = $reward_arr[$step-1];
-		$change['achieve'] = $crop_achieves."|".$tree_achieves;
+		$change['achieve'] = $crop_achieves."|".$tree_achieves."|".$animal_achieves;
 		$this->user_account_mgr->updateUserStatus($gameuid,$change);
 		return $change;
 	}

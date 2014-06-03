@@ -987,7 +987,8 @@ class InitUser{
 	
 	public static $treasure_activity = array(
 		"littleFarmGem"	=>array(array("id"=>"coin","count"=>500),array("id"=>"20001","count"=>20),array("id"=>"14001","count"=>1)),
-		"largeFarmGem"	=>array(array("id"=>"coin","count"=>3000),array("id"=>"20001","count"=>100),array("id"=>"14005","count"=>1))
+		"largeFarmGem"	=>array(array("id"=>"coin","count"=>3000),array("id"=>"20001","count"=>100),array("id"=>"14005","count"=>1)),
+//		"time"	=> "1399610756"
 	);
 	
 	public static $new_fac = array(
@@ -1012,6 +1013,7 @@ class GameModelConfig{
 	const SKILL_CD  = 28800;
 	
 	const FACTORY_TILES = 5;
+	
 }
 class MethodType {
 	//表示物品的变化方式
@@ -1030,6 +1032,9 @@ class MethodType {
 	const HARVEST = 4;
 	const MOVE = 5;
 	const SELL = 6;
+	const BUILD = 7;
+	const HARVESTANIMAL = 8;
+	const FEEDANIMAL = 9;
 	
 	//task类型
 	const TASK_NONPC = 0;

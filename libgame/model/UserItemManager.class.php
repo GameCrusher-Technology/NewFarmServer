@@ -24,12 +24,7 @@ class UserItemManager extends ManagerBase {
 	public function getEntryList(){
 		$result=array();
 		$list=$this->getListAll();
-		foreach ($list as $item){
-			if ($item['gameuid']==$this->gameuid&&$item['count']>0){
-				$result[]=array('item_id'=>$item['item_id'],'count'=>$item['count']);
-			}
-		}
-		return $result;
+		return $list;
 	}
 	public function getListAll(){
 		$key=array('gameuid'=>$this->gameuid);
@@ -75,7 +70,7 @@ class UserItemManager extends ManagerBase {
 				}
 				break;
 		}
-		$this->logger->writeFatal($message);
+//		$this->logger->writeFatal($message);
 	}
 	protected function getTableName(){
 		return "user_item";

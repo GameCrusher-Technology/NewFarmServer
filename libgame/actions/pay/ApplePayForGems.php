@@ -18,8 +18,8 @@ class ApplePayForGems extends GameActionBase
 		$key = $this->getParam("key",'string');
 		
 		//提交审核的时候 使用 沙箱地址
-		$verify_url = "https://sandbox.itunes.apple.com/verifyReceipt";
-//		$verify_url = 'https://buy.itunes.apple.com/verifyReceipt';
+//		$verify_url = "https://sandbox.itunes.apple.com/verifyReceipt";
+		$verify_url = 'https://buy.itunes.apple.com/verifyReceipt';
     	$verify_postfields = json_encode(array("receipt-data"=> $key));
     	$res = HttpRequest::post($verify_url, $verify_postfields);
     	$resData = json_decode($res['data'],true);
