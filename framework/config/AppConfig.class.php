@@ -302,7 +302,7 @@ class AppConfig extends ElexConfig {
 		}
 		// 如果两者都没有配置，则应用配置错误
 		if(empty($cache_server)){
-			throw new ConfigException('cache server config error', ELEX_ERR_CONFIG_ERROR);
+			throw new ConfigException('cache server config error key :'.$key, ELEX_ERR_CONFIG_ERROR);
 		}
 		if(strpos($cache_server,',') !== false){
 			$cache_server = explode(',',$cache_server);

@@ -4,6 +4,9 @@ include_once GAMELIB.'/model/TaskManager.class.php';
 include_once GAMELIB.'/model/UserMessageManager.class.php';
 include_once GAMELIB.'/model/UserFriendManager.php';
 include_once GAMELIB.'/model/FarmDecorationManager.class.php';
+include_once GAMELIB.'/model/UserAnimalManager.class.php';
+include_once GAMELIB.'/model/UserRanchManager.class.php';
+
 class UserVisitCommand extends GameActionBase{
 	protected function _exec()
 	{
@@ -28,6 +31,14 @@ class UserVisitCommand extends GameActionBase{
 		//获取 message
 		$mes_mgr = new UserMessageManager();
 		$friend_account['user_message'] = $mes_mgr->getMessages($friend_gameuid);
+		
+		//获取 chulan
+		$ranch_mgr = new UserRanchManager();
+		$friend_account['user_ranch'] = $ranch_mgr->getRanchs($friend_gameuid);
+		
+		//获取 动物
+		$animal_mgr = new UserAnimalManager();
+		$friend_account['user_animal'] = $animal_mgr->getAnimals($friend_gameuid);
 		
 		$fri_mgr = new UserFriendManager();
 		$last_help_time = $fri_mgr->getHelpFriendTag($gameuid,$friend_gameuid);
