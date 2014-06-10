@@ -35,7 +35,6 @@ class BuyAnimalCommand extends GameActionBase{
      		$this->throwException("ranch,[".$ranchId."] gameuid:".$gameuid."not this type",
 				GameStatusCode::DATA_ERROR);
      	}
-     	$this->logger->writeFatal("cur animal Count ".$curAnimalCount);
      	if ($curAnimalCount > $ranchspec['maxNumber']){
      		$this->throwException("ranch,[".$ranchId."] gameuid:".$gameuid." is out limit",
 				GameStatusCode::DATA_ERROR);

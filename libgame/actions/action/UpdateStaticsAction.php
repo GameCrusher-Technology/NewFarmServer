@@ -15,8 +15,13 @@ class UpdateStaticsAction extends GameActionBase{
 		$action_id = $this->getParam("actionId",'string');
 		$version = $this->getParam("version",'string');
 		$detail = $this->getParam("detail",'string');
-		
-		$payLog->writeInfo($version."	".$gameuid."   actionID:  ".$action_id."	".$detail);
+		if($action_id == "login"){
+//			if (intval($detail) > 10000){
+//				$payLog->writeInfo($version."	".$gameuid."   actionID:  ".$action_id."	".$detail);
+//			}
+		}else{
+			$payLog->writeInfo($version."	".$gameuid."   actionID:  ".$action_id."	".$detail);
+		}
 		return  true;
 	}
 }

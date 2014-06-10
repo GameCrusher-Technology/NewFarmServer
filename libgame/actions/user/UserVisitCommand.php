@@ -17,7 +17,7 @@ class UserVisitCommand extends GameActionBase{
 		//获取 作物
 		$field_mgr = new UserFieldDataManager();
 		$user_crops = $field_mgr->loadFarm($friend_gameuid);
-		$friend_account["user_fields"] =  $this->implodeRows($user_crops);
+		$friend_account["user_fields"] =  $user_crops;
 		
 		//获取任务
 		$task_mgr = new TaskManager();
