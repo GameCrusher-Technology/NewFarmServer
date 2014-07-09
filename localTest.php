@@ -17,24 +17,10 @@ require_once GAMELIB.'/model/XmlManager.class.php';
 include_once GAMELIB.'/model/TradeLogManager.class.php';
 
 
-$tradeManager = new TradeLogManager();
 		
-$cached_orders = $tradeManager->getOrderCache("1");
 
-print_r($cached_orders);
+print_r(time());
 
-$transactionid = "t-6441531684346654541";
-if (in_array($transactionid,$cached_orders)){
-	echo "IN";
-}else {
-	echo "OUT";
-}
-$cached_orders = array("t-6441531684346654540");
-if (in_array($transactionid,$cached_orders)){
-	echo "C_IN";
-}else {
-	echo "C_OUT";
-}
 //		
 //		$payLog = LogFactory::getLogger(array(
 //			'prefix' => LogFactory::LOG_MODULE_PLATFORM,

@@ -988,7 +988,7 @@ class InitUser{
 	public static $treasure_activity = array(
 		"littleFarmGem"	=>array(array("id"=>"coin","count"=>500),array("id"=>"20001","count"=>20),array("id"=>"14001","count"=>1)),
 		"largeFarmGem"	=>array(array("id"=>"coin","count"=>3000),array("id"=>"20001","count"=>100),array("id"=>"14005","count"=>1)),
-//		"time"	=> "1399610756"
+//		"time"	=> "1402980329"
 	);
 	
 	public static $new_fac = array(
@@ -1051,6 +1051,7 @@ class MethodType {
 	const MESSTYPE_INVITE = 1;
 	const MESSTYPE_HELP = 2;
 	const MESSTYPE_ORDER = 3;
+	const MESSTYPE_ROBBER = 4;
 }
 
 class StaticFunction{

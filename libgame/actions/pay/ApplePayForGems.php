@@ -31,16 +31,25 @@ class ApplePayForGems extends GameActionBase
 	    	$account = $this->user_account_mgr->getUserAccount($gameuid);
 			$payLog->writeInfo($gameuid." || ".$account['gem']." || ".json_encode($receipt) );
 			
+			$cached_orders = $tradeManager->getOrderCache($gameuid);
+	    	if (empty($cached_orders)){
+				$cached_orders = array();
+			}
+			
 			if (empty($receipt)) {
 				return array('status'=>'error');
+			}
+			
+    		if (in_array($id,$cached_orders)){
+				return TRUE;
 			}
     	
 			$rewards = InitUser::$treasure_activity;
 			$product_id = $receipt['product_id'];
-			if ($product_id == "FarmGems01"){
+			if ($product_id == "FAMEGEM01"){
 				$change['gem'] = 200;
 				$item = $this->addReward($gameuid,$rewards['littleFarmGem']);
-			}elseif ($product_id == "FarmGems02"){
+			}elseif ($product_id == "FAMEGEM02"){
 				$change['gem'] = 1100;
 				$item = $this->addReward($gameuid,$rewards['largeFarmGem']);
 			}else{
@@ -58,6 +67,9 @@ class ApplePayForGems extends GameActionBase
 			$tradeManager->insert($tradeinfo);
 			
 	    	$new_account = $this->user_account_mgr->getUserAccount($gameuid);
+	    	
+	    	array_push($cached_orders,$id);
+	    	$tradeManager->setOrderCache($gameuid,$cached_orders);
 			$payLog->writeInfo($gameuid." || ".$new_account['gem'] );
 			if (empty($item)){
 				return array("gem"=>$new_account['gem']);

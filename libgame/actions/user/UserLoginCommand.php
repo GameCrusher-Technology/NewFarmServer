@@ -10,6 +10,7 @@ include_once GAMELIB.'/model/FarmDecorationManager.class.php';
 include_once GAMELIB.'/model/UserFactoryManager.class.php';
 include_once GAMELIB.'/model/UserAnimalManager.class.php';
 include_once GAMELIB.'/model/UserRanchManager.class.php';
+include_once GAMELIB.'/model/UserPetManager.class.php';
 class UserLoginCommand extends GameActionBase{
 	protected function _exec()
 	{
@@ -85,6 +86,9 @@ class UserLoginCommand extends GameActionBase{
 		$animal_mgr = new UserAnimalManager();
 		$user_account['user_animal'] = $animal_mgr->getAnimals($gameuid);
 		$time12 = $this->getmicrotime();
+		
+		$pet_mgr = new UserPetManager();
+		$user_account['user_pet'] = $pet_mgr->getPets($gameuid);
 		//设置 活动
 		$activity = InitUser::$treasure_activity;
 		$result["treasuresActivity"] = $activity;
@@ -93,7 +97,8 @@ class UserLoginCommand extends GameActionBase{
 		//广告 id
 		
 		$result['ad_ids'] = array("andriod"=>array("ca-app-pub-5842267306366018/9726636086","ca-app-pub-5842267306366018/1226163682"),
-									"ads"=>20);
+									"ios"=>array("ca-app-pub-5842267306366018/9650107283","ca-app-pub-5842267306366018/7534245685"),
+									"ads"=>100);
 		$result['is_new'] = $is_newer;
 		$time13 = $this->getmicrotime();
 		

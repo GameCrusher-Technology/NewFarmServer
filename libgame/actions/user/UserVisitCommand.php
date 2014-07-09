@@ -6,7 +6,7 @@ include_once GAMELIB.'/model/UserFriendManager.php';
 include_once GAMELIB.'/model/FarmDecorationManager.class.php';
 include_once GAMELIB.'/model/UserAnimalManager.class.php';
 include_once GAMELIB.'/model/UserRanchManager.class.php';
-
+include_once GAMELIB.'/model/UserPetManager.class.php';
 class UserVisitCommand extends GameActionBase{
 	protected function _exec()
 	{
@@ -39,6 +39,9 @@ class UserVisitCommand extends GameActionBase{
 		//获取 动物
 		$animal_mgr = new UserAnimalManager();
 		$friend_account['user_animal'] = $animal_mgr->getAnimals($friend_gameuid);
+		
+		$pet_mgr = new UserPetManager();
+		$friend_account['user_pet'] = $pet_mgr->getPets($friend_gameuid);
 		
 		$fri_mgr = new UserFriendManager();
 		$last_help_time = $fri_mgr->getHelpFriendTag($gameuid,$friend_gameuid);
