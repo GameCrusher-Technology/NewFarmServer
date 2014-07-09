@@ -2,6 +2,7 @@
 include_once GAMELIB.'/model/UserMessageManager.class.php';
 include_once GAMELIB.'/model/UserFieldDataManager.class.php';
 include_once GAMELIB.'/model/UserFriendManager.php';
+include_once GAMELIB.'/model/UserPetManager.class.php';
 class HelpFriend extends GameActionBase{
 	protected function _exec()
 	{
@@ -44,10 +45,63 @@ class HelpFriend extends GameActionBase{
 			}
 		}
 		
+		$pet_Mgr = new UserPetManager();
+		$myPet = $pet_Mgr->getPet($gameuid,"100000");
+		$dogChange = array();
+		if (!empty($myPet)){
+			$levelArr = explode("|",$myPet['skillLevel']);
+			$searchLevel = 1;
+			foreach ($levelArr as $skillStr){
+				$skillM = explode(":",$skillStr);
+				if($skillM[0] == "110000"){
+					$searchLevel = $skillM[1];
+					break;
+				}
+			}
+			
+			$coinCount = rand(10,200)* $searchLevel;
+			
+			$friendPet = $pet_Mgr ->getPet($f_gameuid,"100001");
+			if(!empty($friendPet)){
+				$levelArr = explode("|",$friendPet['skillLevel']);
+				$DefenceLevel = 1;
+				foreach ($levelArr as $skillStr){
+					$skillM = explode(":",$skillStr);
+					if($skillM[0] == "110001"){
+						$DefenceLevel = $skillM[1];
+						break;
+					}
+				}
+				
+				$robInt = 50 + ($DefenceLevel - $searchLevel)*5;
+				$hasRob = FALSE;
+				if (rand(0,100) <= $robInt){
+					$this->user_account_mgr->updateUserStatus($f_gameuid,array('coin'=>$coinCount));
+					
+					$rob_merge = array();
+					$rob_merge['gameuid'] = $f_gameuid;
+					$rob_merge['f_gameuid']=$gameuid;
+					$rob_merge['type'] = MethodType::MESSTYPE_ROBBER;
+					$rob_merge['updatetime'] = time();
+					$rob_merge['data_id'] = $data_id+1;
+					$rob_merge['message'] = $coinCount;
+					$mes_mgr->addMessage($f_gameuid,$rob_merge);
+		
+					$hasRob = TRUE;
+				}else{
+					$this->user_account_mgr->updateUserStatus($gameuid,array('coin'=>$coinCount));
+					$hasRob = FALSE;
+				}
+				$dogChange = array("coin"=>$coinCount,"rob"=>$hasRob,"step"=>1,"Id"=>$gameuid);
+			}else{
+				$this->user_account_mgr->updateUserStatus($gameuid,array('coin'=>$coinCount));
+				$dogChange = array("coin"=>$coinCount,"rob"=>FALSE,"step"=>2);
+			}
+		}
 		
 		$this->user_account_mgr->updateUserStatus($gameuid,array('love'=>1));
 		
-		return TRUE;
+		return array("dog"=>$dogChange);
 		
 	}
 	

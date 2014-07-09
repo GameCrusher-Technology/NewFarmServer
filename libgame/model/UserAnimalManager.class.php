@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 该类主要是处理动物逻辑
  */
@@ -35,11 +36,12 @@ class UserAnimalManager extends ManagerBase {
 		include_once GAMELIB.'/model/UserActionCountManager.class.php';
 		$action_mgr = new UserActionCountManager();
 		$action_mgr->updateActionCount($gameuid,$item_id - 45000,1);
-		//判断树 不会死掉
+		//判断不会死掉
 		$modify = array('feedTime' => 0);
 		$addItem = array($animal_itemspec['produce']=>$animal_itemspec['pCount']);
 		
 		$this->updateAnimal($gameuid, $data_id, $modify,false);
+		
 		
 		$result = array();
 		$result['exp']=$animal_itemspec['exp'];
