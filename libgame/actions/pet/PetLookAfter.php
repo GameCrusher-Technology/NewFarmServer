@@ -12,6 +12,7 @@ class PetLookAfter extends GameActionBase{
 		$pet_Mgr = new UserPetManager();
 		$pet_info = $pet_Mgr->getPet($gameuid,$item_id);
 		if(empty($pet_info)){
+			return FALSE;
 			$this->throwException("no this pet $item_id",GameStatusCode::DATA_ERROR);
 		}
 		

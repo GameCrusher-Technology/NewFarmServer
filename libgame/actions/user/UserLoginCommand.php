@@ -40,6 +40,10 @@ class UserLoginCommand extends GameActionBase{
 //		addSystemStat('install',1);
 		$GLOBALS['gameuid'] = $gameuid;
 		$user_account = $this->user_account_mgr->getUserAccount($gameuid);
+		if ($user_account['gameuid'] == "" || empty($user_account['gameuid'])){
+			$this->logger->writeDebug("ERROR GAMEUID ".$user_account['gameuid']." UID IS $platform_uid");
+		}
+		
 		$time2 = $this->getmicrotime();
 		//获取 作物
 		$field_mgr = new UserFieldDataManager();
@@ -102,7 +106,7 @@ class UserLoginCommand extends GameActionBase{
 		$result['is_new'] = $is_newer;
 		$time13 = $this->getmicrotime();
 		
-		if($time13 - $loginTime >1){
+//		if($time13 - $loginTime >1){
 			
 			$loginLoger =  LogFactory::getLogger(array(
 				'prefix' => "login", // 文件名的前缀
@@ -110,22 +114,23 @@ class UserLoginCommand extends GameActionBase{
 				'archive' => ILogger::ARCHIVE_YEAR_MONTH, // 文件存档的方式
 				'log_level' => get_app_config()->getLogLevel(LogFactory::LOG_MODULE_ACTIONS)
 			));
-			$loginLoger->writeError("gameuid : ".$gameuid." loginTime : ".$loginTime." last time:".$time13." totalTime : ".($time13-$loginTime)
-			." st1st : ".($time1-$loginTime)
-			." st2st : ".($time2-$time1)
-			." st3st : ".($time3-$time2)
-			." st4st : ".($time4-$time3)
-			." st5st : ".($time5-$time4)
-			." st6st : ".($time6-$time5)
-			." st7st : ".($time7-$time6)
-			." st8st : ".($time8-$time7)
-			." st9st : ".($time9-$time8)
-			." st10st : ".($time10-$time9)
-			." st11st : ".($time11-$time10)
-			." st12st : ".($time12-$time11)
-			." st13st : ".($time13-$time12)
-			);
-		}
+//			$loginLoger->writeError("uid  .   $platform_uid . gameuid  .$gameuid");
+//			$loginLoger->writeError("gameuid : ".$gameuid." loginTime : ".$loginTime." last time:".$time13." totalTime : ".($time13-$loginTime)
+//			." st1st : ".($time1-$loginTime)
+//			." st2st : ".($time2-$time1)
+//			." st3st : ".($time3-$time2)
+//			." st4st : ".($time4-$time3)
+//			." st5st : ".($time5-$time4)
+//			." st6st : ".($time6-$time5)
+//			." st7st : ".($time7-$time6)
+//			." st8st : ".($time8-$time7)
+//			." st9st : ".($time9-$time8)
+//			." st10st : ".($time10-$time9)
+//			." st11st : ".($time11-$time10)
+//			." st12st : ".($time12-$time11)
+//			." st13st : ".($time13-$time12)
+//			);
+//		}
 		return $result;
 	}
 	

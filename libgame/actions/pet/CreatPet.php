@@ -18,8 +18,10 @@ class CreatPet extends GameActionBase{
 		}
 		
 		$pet_mgr = new UserPetManager();
-		$petData = $pet_mgr->addPet($gameuid,$petXml);
-		
+		$petData = $pet_mgr->getPet($gameuid,$item_id);
+		if(empty($petData)){
+			$petData = $pet_mgr->addPet($gameuid,$petXml);
+		}
 		return array('pet'=>$petData);
 		
 	}

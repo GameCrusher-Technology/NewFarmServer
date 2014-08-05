@@ -18,7 +18,7 @@ require_once GAMELIB.'/model/UserGameItemManager.class.php';
 
 //$gameuid = $_GET['gameuid'];
 
-$gameuid = "22666";
+$gameuid = "151156";
 
 //$change = array("gem"=>1500,"coin"=>5000);
 $change = array("gem"=>250,"coin"=>1000);
